@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
 
                     break;
                 case DragEvent.ACTION_DRAG_ENTERED:
-                    
+
                     break;
                 case DragEvent.ACTION_DRAG_EXITED:
 
