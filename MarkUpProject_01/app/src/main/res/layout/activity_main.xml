@@ -45,7 +45,12 @@
             android:id="@+id/text"
             android:layout_alignParentBottom="true"
             android:layout_alignParentTop="true"
-            android:text="   I just try the first header." />
+            android:text="   I just try the first header. I just try the first header." />
     </LinearLayout>
+    <us.feras.mdv.MarkdownView
+        android:id="@+id/markdownView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="200dp" />
 
 </RelativeLayout>

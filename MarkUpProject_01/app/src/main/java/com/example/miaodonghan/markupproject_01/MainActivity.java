@@ -17,6 +17,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import us.feras.mdv.MarkdownView;
+
 public class MainActivity extends AppCompatActivity {
     TextView text;
     TextView head;
@@ -33,6 +35,9 @@ public class MainActivity extends AppCompatActivity {
 
         head.setOnTouchListener(new MyTouchListener());
         text.setOnDragListener(new MyDragListener());
+
+//        MarkdownView markdownView = (MarkdownView) findViewById(R.id.markdownView);
+//        markdownView.loadMarkdown("## Hello Markdown");
 
     }
 
@@ -68,9 +73,11 @@ public class MainActivity extends AppCompatActivity {
 
                     break;
                 case DragEvent.ACTION_DROP:
+                    MarkdownView markdownView = (MarkdownView) findViewById(R.id.markdownView);
                     // Dropped, reassign View to ViewGroup
                     String t = text.getText().toString();
                     text.setText("# " + t);
+                    markdownView.loadMarkdown(text.getText().toString());
                     Toast.makeText(MainActivity.this,"drag drop", Toast.LENGTH_SHORT).show();
                     break;
                 case DragEvent.ACTION_DRAG_ENDED:
