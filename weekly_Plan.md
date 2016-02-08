@@ -9,11 +9,11 @@
    * step1: drag first heading format to txt word, like: I write a book  -> #I write a book
     * step2: convert text with markdown basic syntax( #I write a book) into real format(md format).
 * week 5 plan 
-  * create a data structure to store TEXT(String) so that user formats text for every line
+ * create a data structure to store TEXT(String) so that user formats text for every line
    * how to check if it is a line
-  * Select a framework to develope backend
-  * create a simple database to save user text file.
+ * Select a framework to develope backend
+ * create a simple database to save user text file.
    * using SQLite to save documentation
 
-  
+ 
 
