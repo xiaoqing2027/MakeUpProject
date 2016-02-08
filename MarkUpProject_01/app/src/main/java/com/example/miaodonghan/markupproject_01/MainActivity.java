@@ -2,6 +2,7 @@ package com.example.miaodonghan.markupproject_01;
 
 import android.content.ClipData;
 import android.content.ClipDescription;
+import android.provider.DocumentsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,6 +13,8 @@ import android.view.View.OnDragListener;
 import android.view.View.OnTouchListener;
 import android.view.View.DragShadowBuilder;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -21,8 +24,12 @@ import us.feras.mdv.MarkdownView;
 
 public class MainActivity extends AppCompatActivity {
     TextView text;
-    TextView head;
+    EditText eText;
+    Document doc;
+    Button headerbtn;
     String msg;
+    String test;
+
     private android.widget.RelativeLayout.LayoutParams layoutParams;
 
     @Override
@@ -30,11 +37,19 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        text = (TextView)findViewById(R.id.text);
-        head = (TextView)findViewById(R.id.textView3);
+        eText = (EditText)findViewById(R.id.editText);
+        test= "This is a test, how to edit text.";
+        eText.setText(test);
+        MarkdownView markdownView = (MarkdownView) findViewById(R.id.markdownView);
+        markdownView.loadMarkdown(eText.getText().toString());
+        headerbtn = (Button)findViewById(R.id.Headerbtn);
+        headerbtn.setOnTouchListener(new MyTouchListener());
+        eText.setOnDragListener(new MyDragListener());
 
-        head.setOnTouchListener(new MyTouchListener());
-        text.setOnDragListener(new MyDragListener());
+//        doc = new Document(text);
+//
+//        doc.setHeader(6);
+//        doc.setBold(7);
 
 //        MarkdownView markdownView = (MarkdownView) findViewById(R.id.markdownView);
 //        markdownView.loadMarkdown("## Hello Markdown");
@@ -44,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
     private final class MyTouchListener implements OnTouchListener {
         public boolean onTouch(View view, MotionEvent motionEvent) {
             if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
-                ClipData data = ClipData.newPlainText("test", "aaa");
+                ClipData data = ClipData.newPlainText("", "#");
                 View.DragShadowBuilder shadowBuilder = new View.DragShadowBuilder(view);
                 view.startDrag(data, shadowBuilder, view, 0);
                 view.setVisibility(View.VISIBLE);
@@ -73,14 +88,17 @@ public class MainActivity extends AppCompatActivity {
 
                     break;
                 case DragEvent.ACTION_DROP:
-                    MarkdownView markdownView = (MarkdownView) findViewById(R.id.markdownView);
+
                     // Dropped, reassign View to ViewGroup
-                    String t = text.getText().toString();
-                    text.setText("# " + t);
-                    markdownView.loadMarkdown(text.getText().toString());
+
                     Toast.makeText(MainActivity.this,"drag drop", Toast.LENGTH_SHORT).show();
                     break;
                 case DragEvent.ACTION_DRAG_ENDED:
+                    MarkdownView markdownView = (MarkdownView) findViewById(R.id.markdownView);
+                    String t = eText.getText().toString();
+                  
+                    eText.setText("# " + t);
+                    markdownView.loadMarkdown(eText.getText().toString());
                     Toast.makeText(MainActivity.this,"drag end", Toast.LENGTH_SHORT).show();
                     break;
                 default:
