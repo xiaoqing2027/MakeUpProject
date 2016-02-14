@@ -1,8 +1,6 @@
 package com.example.miaodonghan.markupproject_01;
 
 import android.content.ClipData;
-import android.content.ClipDescription;
-import android.provider.DocumentsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -13,12 +11,8 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnDragListener;
 import android.view.View.OnTouchListener;
-import android.view.View.DragShadowBuilder;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,7 +20,7 @@ import us.feras.mdv.MarkdownView;
 
 public class MainActivity extends AppCompatActivity {
     TextView text;
-    EditText eText;
+    EditText editor;
     Document doc;
     Button headerbtn;
     String msg;
@@ -39,17 +33,17 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        eText = (EditText)findViewById(R.id.editText);
-        test= "This is a test, how to edit text.";
-        eText.setText(test);
+        editor = (EditText)findViewById(R.id.editText);
+        test= "This is a test, how to edit text.\n\n i am maggie.";
+        editor.setText(test);
         MarkdownView markdownView = (MarkdownView) findViewById(R.id.markdownView);
-        markdownView.loadMarkdown(eText.getText().toString());
+        markdownView.loadMarkdown(editor.getText().toString());
         headerbtn = (Button)findViewById(R.id.Headerbtn);
         headerbtn.setOnTouchListener(new MyTouchListener());
-        eText.setOnDragListener(new MyDragListener());
+        editor.setOnDragListener(new MyDragListener());
 
 
-        eText.addTextChangedListener(new TextWatcher() {
+        editor.addTextChangedListener(new TextWatcher() {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
@@ -65,17 +59,26 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable s) {
                 if (s.length() > 0) {
-
                     //Your query to fetch Data
-
                     MarkdownView markdownView = (MarkdownView) findViewById(R.id.markdownView);
-                    markdownView.loadMarkdown(eText.getText().toString());
+                    markdownView.loadMarkdown(editor.getText().toString());
+                    int l = editor.getText().toString().length();
+                    Log.i("########length:", " " + l);
+                    String sub = editor.getText().toString().substring(editor.getLayout().getLineStart(3), l);
+                   String str = editor.getText().toString().replace('\n', ' ');
+
+                    Log.i("afterTextChanged", str);
+//                    Log.i("########1", " " + editor.getLayout().getLineStart(0));
+
+//                    Log.i("########sub", sub);
                 }
             }
         });
 
-//        doc = new Document(text);
-//
+        doc = new Document(text);
+        // get a current cursor position
+        // getSelectionState() and getSelectionEnd()
+        //
 //        doc.setHeader(6);
 //        doc.setBold(7);
 
@@ -131,21 +134,21 @@ public class MainActivity extends AppCompatActivity {
 
     public void displayAndCheckMarkDownFormat(){
         MarkdownView markdownView = (MarkdownView) findViewById(R.id.markdownView);
-        String t = eText.getText().toString();
+        String t = editor.getText().toString();
         if(t.charAt(0) != '#'){
-            eText.setText("# " + t);
+            editor.setText("# " + t);
         }else if(t.charAt(1) != '#' || t.charAt(2) != '#' ){
-            eText.setText("#" + t);
+            editor.setText("#" + t);
         }else if(t.charAt(2) == '#'){
-            eText.setText(t.substring(4,t.length()));
+            editor.setText(t.substring(4, t.length()));
         }
-        markdownView.loadMarkdown(eText.getText().toString());
+        markdownView.loadMarkdown(editor.getText().toString());
     }
 
     public void onTouch(View v, MotionEvent e){
         Toast.makeText(MainActivity.this, "display text", Toast.LENGTH_LONG).show();
 
-        eText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        editor.setOnFocusChangeListener(new View.OnFocusChangeListener() {
 
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
@@ -153,7 +156,7 @@ public class MainActivity extends AppCompatActivity {
                 if (!hasFocus) {
                     //validateInput(v);
                     MarkdownView markdownView = (MarkdownView) findViewById(R.id.markdownView);
-                    markdownView.loadMarkdown(eText.getText().toString());
+                    markdownView.loadMarkdown(editor.getText().toString());
                 }
             }
         });

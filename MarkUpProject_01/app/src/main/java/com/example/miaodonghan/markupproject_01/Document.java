@@ -1,11 +1,14 @@
 package com.example.miaodonghan.markupproject_01;
 
+import android.widget.EditText;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import us.feras.mdv.MarkdownView;
+
 /**
- * Created by miaodonghan on 2/7/16.
+ * Created by maggie on 2/7/16.
  */
 
 class Line {
@@ -24,9 +27,19 @@ public class Document {
     public Document(TextView textView) {
         this.textView = textView;
     }
-    public void setHeader(int line) {
+    public void setHeader(int line, MarkdownView markdownView, EditText eText) {
         // ...
         updateTextView();
+
+        String t = eText.getText().toString();
+        if(t.charAt(0) != '#'){
+            eText.setText("# " + t);
+        }else if(t.charAt(1) != '#' || t.charAt(2) != '#' ){
+            eText.setText("#" + t);
+        }else if(t.charAt(2) == '#'){
+            eText.setText(t.substring(4,t.length()));
+        }
+        markdownView.loadMarkdown(eText.getText().toString());
     }
 
     public void setBold(int line) {
