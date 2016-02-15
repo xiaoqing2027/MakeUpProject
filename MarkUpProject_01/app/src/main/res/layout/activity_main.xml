@@ -36,11 +36,6 @@
             android:text="List"
             android:id="@+id/button4" />
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Center"
-            android:id="@+id/button5" />
     </LinearLayout>
 
     <TextView
@@ -66,7 +61,8 @@
         android:background="@color/ripple_material_light"
         android:layout_below="@+id/textView"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:scrollIndicators="bottom|top" />
 
     <TextView
         android:layout_width="fill_parent"
@@ -83,7 +79,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/textView1" />
+        android:layout_below="@+id/textView1"
+        android:scrollIndicators="bottom|top" />
 
 
 

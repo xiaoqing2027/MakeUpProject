@@ -4,6 +4,8 @@ import android.content.ClipData;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.Layout;
+import android.text.Selection;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.DragEvent;
@@ -62,26 +64,10 @@ public class MainActivity extends AppCompatActivity {
                     //Your query to fetch Data
                     MarkdownView markdownView = (MarkdownView) findViewById(R.id.markdownView);
                     markdownView.loadMarkdown(editor.getText().toString());
-                    int l = editor.getText().toString().length();
-                    Log.i("########length:", " " + l);
-                    String sub = editor.getText().toString().substring(editor.getLayout().getLineStart(3), l);
-                   String str = editor.getText().toString().replace('\n', ' ');
-
-                    Log.i("afterTextChanged", str);
-//                    Log.i("########1", " " + editor.getLayout().getLineStart(0));
-
-//                    Log.i("########sub", sub);
+//                   String str = editor.getText().toString().replace('\n', ' ');
                 }
             }
         });
-
-        doc = new Document(text);
-        // get a current cursor position
-        // getSelectionState() and getSelectionEnd()
-        //
-//        doc.setHeader(6);
-//        doc.setBold(7);
-
 
     }
 
@@ -118,12 +104,12 @@ public class MainActivity extends AppCompatActivity {
 
                     break;
                 case DragEvent.ACTION_DROP:
-
+                    displayAndCheckMarkDownFormat();
                     // Dropped, reassign View to ViewGroup
                     Toast.makeText(MainActivity.this,"drag drop", Toast.LENGTH_SHORT).show();
                     break;
                 case DragEvent.ACTION_DRAG_ENDED:
-                    displayAndCheckMarkDownFormat();
+
                     break;
                 default:
                     break;
@@ -134,16 +120,25 @@ public class MainActivity extends AppCompatActivity {
 
     public void displayAndCheckMarkDownFormat(){
         MarkdownView markdownView = (MarkdownView) findViewById(R.id.markdownView);
-        String t = editor.getText().toString();
-        if(t.charAt(0) != '#'){
-            editor.setText("# " + t);
-        }else if(t.charAt(1) != '#' || t.charAt(2) != '#' ){
-            editor.setText("#" + t);
-        }else if(t.charAt(2) == '#'){
-            editor.setText(t.substring(4, t.length()));
-        }
-        markdownView.loadMarkdown(editor.getText().toString());
+        int lineNum = getCurrentCursorLine(editor);
+        doc = new Document(text);
+        doc.setHeader(lineNum,markdownView, editor);
+
     }
+
+
+    public int getCurrentCursorLine(EditText editText) {
+
+        int selectionStart = Selection.getSelectionStart(editText.getText());
+        Layout layout = editText.getLayout();
+
+        if (!(selectionStart == -1)) {
+            return layout.getLineForOffset(selectionStart);
+        }
+
+        return -1;
+    }
+
 
     public void onTouch(View v, MotionEvent e){
         Toast.makeText(MainActivity.this, "display text", Toast.LENGTH_LONG).show();
@@ -160,7 +155,11 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+
+
+        //get current line number
+        int cursorPosition = editor.getSelectionStart();
+        Log.i("cureent position: ", " " + cursorPosition);
+        //get current line text
     }
-
-
 }

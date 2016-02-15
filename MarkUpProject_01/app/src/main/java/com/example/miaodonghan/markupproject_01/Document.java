@@ -1,5 +1,8 @@
 package com.example.miaodonghan.markupproject_01;
 
+import android.text.Layout;
+import android.text.Selection;
+import android.util.Log;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -28,17 +31,31 @@ public class Document {
         this.textView = textView;
     }
     public void setHeader(int line, MarkdownView markdownView, EditText eText) {
-        // ...
-        updateTextView();
-
-        String t = eText.getText().toString();
-        if(t.charAt(0) != '#'){
-            eText.setText("# " + t);
-        }else if(t.charAt(1) != '#' || t.charAt(2) != '#' ){
-            eText.setText("#" + t);
-        }else if(t.charAt(2) == '#'){
-            eText.setText(t.substring(4,t.length()));
+        String frontText;
+        String behindText;
+        //get current line text
+        String text = eText.getText().toString();
+        int start = eText.getLayout().getLineStart(line);
+        int end = eText.getLayout().getLineEnd(line);
+        String lineText = text.substring(start, end);
+        if (start != 0) {
+            frontText = text.substring(0, start);
+        } else {
+            frontText = "";
         }
+        if (end < eText.length()){
+            behindText = text.substring(end, eText.length());
+        }else{
+            behindText ="";
+        }
+        if(lineText.charAt(0) != '#'){
+            eText.setText(frontText + "# " + lineText + behindText);
+        }else if(lineText.charAt(1) != '#' || lineText.charAt(2) != '#' ){
+            eText.setText(frontText +"#" + lineText + behindText);
+        }else if(lineText.charAt(2) == '#'){
+            eText.setText(frontText + lineText.substring(4, lineText.length()) + behindText);
+        }
+
         markdownView.loadMarkdown(eText.getText().toString());
     }
 
@@ -58,4 +75,6 @@ public class Document {
         }
         return resultMD;
     }
+
+
 }
