@@ -7,4 +7,6 @@
 * week6
  * override format problem,(*) because bold/italic and list use *. It is not easy to solve it.
  * encapsulate written code
+ * communication between android device and webservice
+ * find a way that convert JSON to MySQL in sailJS framework
 
