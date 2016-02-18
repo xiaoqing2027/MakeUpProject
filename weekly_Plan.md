@@ -22,6 +22,7 @@
  * upload andriod edit text to webservice
    * create a save button
    * post formatted text into webservice in JOSN format
+ * write instructions to rebuild this project easily in README.md
 
  
 
