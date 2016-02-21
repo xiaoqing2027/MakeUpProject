@@ -14,6 +14,15 @@
  * Select a framework to develope backend
  * create a simple database to save user text file.
    * using SQLite to save documentation
+* week 6 plan 
+ * Add Empasis(Bold/Italic) functionality
+   * talking with professor how to define Empasis part
+ * implement communication between andriod tablet and webservice
+ * change tablet layout
+ * upload andriod edit text to webservice
+   * create a save button
+   * post formatted text into webservice in JOSN format
+ * write instructions to rebuild this project easily in README.md
 
  
 
