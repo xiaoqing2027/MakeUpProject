@@ -21,12 +21,13 @@ import android.widget.Toast;
 import us.feras.mdv.MarkdownView;
 
 public class MainActivity extends AppCompatActivity {
-    TextView text;
+
     EditText editor;
-    Document doc;
     Button headerbtn;
-    String msg;
+    Button boldbtn;
     String test;
+    String msg;
+    Document doc = new Document();
 
     private android.widget.RelativeLayout.LayoutParams layoutParams;
 
@@ -35,16 +36,20 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         editor = (EditText)findViewById(R.id.editText);
-        test= "This is a test, how to edit text.\n\n i am maggie.";
+        test= "This is a test, how to edit text.\n i am maggie.";
         editor.setText(test);
         MarkdownView markdownView = (MarkdownView) findViewById(R.id.markdownView);
         markdownView.loadMarkdown(editor.getText().toString());
-        headerbtn = (Button)findViewById(R.id.Headerbtn);
-        headerbtn.setOnTouchListener(new MyTouchListener());
+        headerbtn = (Button)findViewById(R.id.HeaderBtn);
+        headerbtn.setOnTouchListener(new headerbtnTouchListener());
+
+        boldbtn = (Button)findViewById(R.id.BoldBtn);
+        boldbtn.setOnTouchListener(new boldbtnTouchListener());
+
+
         editor.setOnDragListener(new MyDragListener());
-
-
         editor.addTextChangedListener(new TextWatcher() {
 
             @Override
@@ -61,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable s) {
                 if (s.length() > 0) {
-                    //Your query to fetch Data
+
                     MarkdownView markdownView = (MarkdownView) findViewById(R.id.markdownView);
                     markdownView.loadMarkdown(editor.getText().toString());
 //                   String str = editor.getText().toString().replace('\n', ' ');
@@ -73,13 +78,29 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-    private final class MyTouchListener implements OnTouchListener {
+    private final class headerbtnTouchListener implements OnTouchListener {
         public boolean onTouch(View view, MotionEvent motionEvent) {
             if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
-                ClipData data = ClipData.newPlainText("", "#");
+                ClipData data = ClipData.newPlainText("", "");
                 View.DragShadowBuilder shadowBuilder = new View.DragShadowBuilder(view);
                 view.startDrag(data, shadowBuilder, view, 0);
                 view.setVisibility(View.VISIBLE);
+                msg = "headerbtn";
+                return true;
+            } else {
+                return false;
+            }
+        }
+    }
+
+    private final class boldbtnTouchListener implements OnTouchListener {
+        public boolean onTouch(View view, MotionEvent motionEvent) {
+            if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
+                ClipData data = ClipData.newPlainText("", "");
+                View.DragShadowBuilder shadowBuilder = new View.DragShadowBuilder(view);
+                view.startDrag(data, shadowBuilder, view, 0);
+                view.setVisibility(View.VISIBLE);
+                msg = "boldbtn";
                 return true;
             } else {
                 return false;
@@ -104,7 +125,15 @@ public class MainActivity extends AppCompatActivity {
 
                     break;
                 case DragEvent.ACTION_DROP:
-                    displayAndCheckMarkDownFormat();
+                    switch(msg){
+                        case "headerbtn":
+                            handleHeaderbtn();
+                            break;
+                        case "boldbtn":
+                            handleBoldbtn();
+                            break;
+                    }
+                    
                     // Dropped, reassign View to ViewGroup
                     Toast.makeText(MainActivity.this,"drag drop", Toast.LENGTH_SHORT).show();
                     break;
@@ -118,11 +147,16 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void displayAndCheckMarkDownFormat(){
+    public void handleHeaderbtn(){
         MarkdownView markdownView = (MarkdownView) findViewById(R.id.markdownView);
         int lineNum = getCurrentCursorLine(editor);
-        doc = new Document(text);
         doc.setHeader(lineNum,markdownView, editor);
+    }
+
+    public void handleBoldbtn(){
+        MarkdownView markdownView = (MarkdownView) findViewById(R.id.markdownView);
+        int lineNum = getCurrentCursorLine(editor);
+        doc.setBold(lineNum,editor,markdownView);
 
     }
 

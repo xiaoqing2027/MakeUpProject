@@ -16,13 +16,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Header"
-            android:id="@+id/Headerbtn" />
+            android:id="@+id/HeaderBtn" />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Bold"
-            android:id="@+id/button2" />
+            android:id="@+id/BoldBtn" />
 
         <Button
             android:layout_width="wrap_content"
