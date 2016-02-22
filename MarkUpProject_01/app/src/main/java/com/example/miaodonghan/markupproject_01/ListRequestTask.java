@@ -1,9 +1,15 @@
 package com.example.miaodonghan.markupproject_01;
 
 import android.app.ListActivity;
+import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -17,11 +23,16 @@ import java.util.Map;
 import java.util.Scanner;
 
 
-class RequestTask extends AsyncTask<String, Integer, List<RequestTask.DocumentItem>> {
-    ListActivity listActivity;
+class ListRequestTask extends AsyncTask<String, Integer, List<ListRequestTask.DocumentItem>> {
 
-    public RequestTask(ListActivity listActivity) {
-        this.listActivity = listActivity;
+    ListView listview;
+    Context context;
+    int  selected_position;
+
+    public ListRequestTask(Context context, ListView listview,int  selected_position) {
+        this.listview = listview;
+        this.context = context;
+        this.selected_position = selected_position;
     }
 
     static class DocumentItem {
@@ -41,7 +52,7 @@ class RequestTask extends AsyncTask<String, Integer, List<RequestTask.DocumentIt
     }
 
     @Override
-    protected List<RequestTask.DocumentItem> doInBackground(String... uri) {
+    protected List<ListRequestTask.DocumentItem> doInBackground(String... uri) {
         List<DocumentItem> docList = new ArrayList<>();
         try {
             InputStream response = new URL(uri[0]).openStream();
@@ -69,7 +80,7 @@ class RequestTask extends AsyncTask<String, Integer, List<RequestTask.DocumentIt
     }
 
     @Override
-    protected void onPostExecute(List<RequestTask.DocumentItem> docList) {
+    protected void onPostExecute(List<ListRequestTask.DocumentItem> docList) {
 
         // close a spinning sign
 
@@ -83,10 +94,25 @@ class RequestTask extends AsyncTask<String, Integer, List<RequestTask.DocumentIt
             data.add(map);
         }
 
-        SimpleAdapter adapter = new SimpleAdapter(listActivity, data,
+        SimpleAdapter adapter = new SimpleAdapter(context, data,
                 R.layout.item, new String[]{"name", "updatedAt"},
                 new int[]{R.id.name, R.id.updatedAt}
         );
-        listActivity.setListAdapter(adapter);
+
+        listview.setAdapter(adapter);
+
+        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> arg0, View view, int position, long id) {
+                Intent intent = new Intent(context, MainActivity.class);
+                selected_position = position;
+                intent.putExtra("position", selected_position);
+                context.startActivity(intent);
+            }
+
+        });
+
+
     }
 }

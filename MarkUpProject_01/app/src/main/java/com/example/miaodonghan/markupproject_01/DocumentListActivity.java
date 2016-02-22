@@ -4,23 +4,21 @@ import android.app.ListActivity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ListView;
-import android.widget.Toast;
-
-import us.feras.mdv.util.HttpHelper;
 
 /**
  * Created by miaodonghan on 2/21/16.
  */
-public class DocumentListActivity extends ListActivity {
-
+public class DocumentListActivity extends AppCompatActivity {
+    public final static int selected_position = 0;
+    ListView listview;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.document_list);
 
-        //ListView listActivity = (ListView) findViewById(R.id.listView);
+        listview = (ListView) findViewById(R.id.listView);
 
-        (new RequestTask(this)).execute("http://104.194.106.254:1337/api/doc");
+        (new ListRequestTask(this,listview, selected_position)).execute("http://192.168.155.2:1337/api/doc");
 
 
     }

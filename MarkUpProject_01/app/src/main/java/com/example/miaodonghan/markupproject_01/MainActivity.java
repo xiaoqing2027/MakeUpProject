@@ -15,7 +15,6 @@ import android.view.View.OnDragListener;
 import android.view.View.OnTouchListener;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import us.feras.mdv.MarkdownView;
@@ -28,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
     String test;
     String msg;
     Document doc = new Document();
+    public  static String testDoc = "";
 
     private android.widget.RelativeLayout.LayoutParams layoutParams;
 
@@ -35,10 +35,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-
+        int position = getIntent().getIntExtra("position",DocumentListActivity.selected_position);
+        GetRequestTask getRequestTask = new GetRequestTask(this,position,testDoc);
+        //get selectedPosition from listview
+        getRequestTask.execute("http://104.194.106.254:1337/api/doc/" + position+1);
+        test = testDoc;
         editor = (EditText)findViewById(R.id.editText);
-        test= "This is a test, how to edit text.\n i am maggie.";
+        //test= "This is a test, how to edit text.\n i am maggie.";
         editor.setText(test);
         MarkdownView markdownView = (MarkdownView) findViewById(R.id.markdownView);
         markdownView.loadMarkdown(editor.getText().toString());
