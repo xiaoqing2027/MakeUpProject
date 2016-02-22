@@ -24,10 +24,9 @@ public class MainActivity extends AppCompatActivity {
     EditText editor;
     Button headerbtn;
     Button boldbtn;
-    String test;
     String msg;
     Document doc = new Document();
-    public  static String testDoc = "";
+
 
     private android.widget.RelativeLayout.LayoutParams layoutParams;
 
@@ -35,14 +34,15 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        int position = getIntent().getIntExtra("position",DocumentListActivity.selected_position);
-        GetRequestTask getRequestTask = new GetRequestTask(this,position,testDoc);
-        //get selectedPosition from listview
-        getRequestTask.execute("http://104.194.106.254:1337/api/doc/" + position+1);
-        test = testDoc;
         editor = (EditText)findViewById(R.id.editText);
-        //test= "This is a test, how to edit text.\n i am maggie.";
-        editor.setText(test);
+        int id = getIntent().getIntExtra("position",DocumentListActivity.selected_id);
+
+
+        GetRequestTask getRequestTask = new GetRequestTask(this,id,editor);
+        //get selectedPosition from listview
+        getRequestTask.execute("http://192.168.155.2:1337/api/doc/" + id);
+        Log.i("_________________id :", "http://192.168.155.2:1337/api/doc/" + id);
+
         MarkdownView markdownView = (MarkdownView) findViewById(R.id.markdownView);
         markdownView.loadMarkdown(editor.getText().toString());
         headerbtn = (Button)findViewById(R.id.HeaderBtn);

@@ -6,6 +6,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
@@ -27,30 +28,13 @@ class GetRequestTask extends AsyncTask<String, Integer, String> {
     Context context;
 
     int selected_position;
-    String testDoc;
+    EditText editor;
 
-    public GetRequestTask(Context context, int selected_position,String testDoc) {
+    public GetRequestTask(Context context, int selected_position,EditText editor) {
 
         this.context = context;
         this.selected_position = selected_position;
-        this.testDoc =testDoc;
-    }
-
-    static class DocumentItem {
-        String id;
-        String name;
-        String content;
-        String updatedAt;
-
-
-        public DocumentItem(String id, String name, String content, String updatedAt) {
-            this.id = id;
-            this.name = name;
-            this.updatedAt = updatedAt;
-            this.content = content;
-
-        }
-
+        this.editor =editor;
     }
 
     @Override
@@ -61,20 +45,20 @@ class GetRequestTask extends AsyncTask<String, Integer, String> {
     @Override
     protected String doInBackground(String... uri) {
         String result ="";
-       // Map<String, String> map = new HashMap<>();
         try {
+
             InputStream response = new URL(uri[0]).openStream();
+
             Scanner s = new Scanner(response).useDelimiter("\\A");
             String res = s.hasNext() ? s.next() : "";
-            Log.e(" testtestResult"," ");
+            Log.e("++++++++++++++++", res.toString());
             JSONObject obj = new  JSONObject(res);
-//            map.put("id", obj.getString("id"));
-//            map.put("name", obj.getString("name"));
-//            map.put("content", obj.getString("content"));
-//            map.put("updatedAt", obj.getString("updatedAt"));
 
-             result = "###"+obj.getString("name") + "\n\n" + obj.getString("updatedAt")+"\n"+
+
+             result = "#"+obj.getString("name") + "\n\nupdate Time :  " + obj.getString("updatedAt")+"\n\n"+
                     obj.getString("content");
+
+
         } catch (Exception ex) {
            // Log.e("backgroud task", ex.getMessage());
         }
@@ -84,8 +68,8 @@ class GetRequestTask extends AsyncTask<String, Integer, String> {
 
     //@Override
     protected void onPostExecute(String result) {
-        Log.e("####################"," ");
-            testDoc = result;
+
+         editor.setText(result);
 
     }
 }

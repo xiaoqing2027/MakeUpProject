@@ -9,7 +9,7 @@ import android.widget.ListView;
  * Created by miaodonghan on 2/21/16.
  */
 public class DocumentListActivity extends AppCompatActivity {
-    public final static int selected_position = 0;
+    public final static int selected_id = 0;
     ListView listview;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,7 +18,7 @@ public class DocumentListActivity extends AppCompatActivity {
 
         listview = (ListView) findViewById(R.id.listView);
 
-        (new ListRequestTask(this,listview, selected_position)).execute("http://192.168.155.2:1337/api/doc");
+        (new ListRequestTask(this,listview, selected_id)).execute("http://192.168.155.2:1337/api/doc");
 
 
     }

@@ -27,12 +27,13 @@ class ListRequestTask extends AsyncTask<String, Integer, List<ListRequestTask.Do
 
     ListView listview;
     Context context;
-    int  selected_position;
+    int  selected_id;
+    List<Map<String, String>> data = new ArrayList<Map<String, String>>();
 
-    public ListRequestTask(Context context, ListView listview,int  selected_position) {
+    public ListRequestTask(Context context, ListView listview,int  selected_id) {
         this.listview = listview;
         this.context = context;
-        this.selected_position = selected_position;
+        this.selected_id = selected_id;
     }
 
     static class DocumentItem {
@@ -84,7 +85,7 @@ class ListRequestTask extends AsyncTask<String, Integer, List<ListRequestTask.Do
 
         // close a spinning sign
 
-        List<Map<String, String>> data = new ArrayList<Map<String, String>>();
+
 
         for(int i = 0; i < docList.size(); i++) {
             Map<String, String> map = new HashMap<>();
@@ -106,8 +107,8 @@ class ListRequestTask extends AsyncTask<String, Integer, List<ListRequestTask.Do
             @Override
             public void onItemClick(AdapterView<?> arg0, View view, int position, long id) {
                 Intent intent = new Intent(context, MainActivity.class);
-                selected_position = position;
-                intent.putExtra("position", selected_position);
+                selected_id = Integer.parseInt(data.get(position).get("id"));
+                intent.putExtra("position", selected_id);
                 context.startActivity(intent);
             }
 

@@ -93,14 +93,14 @@ public class Document {
                 return;
                 //Toast.makeText(context.this, "drag drop", Toast.LENGTH_SHORT).show();
             }
-            if(selectedText.charAt(0) != '*'){
-                selectedText.replace('*', ' ');
-                editor.setText(frontText + "*" + selectedText + "*" + behindText);
-            }else if(selectedText.charAt(1) != '*' ){
-                selectedText.substring(1, selectedText.length() - 1).replace('*', ' ');
-                editor.setText(frontText + "*" + selectedText + "*" + behindText);
+            if(selectedText.charAt(0) != '_'){
+                selectedText.replace('_', ' ');
+                editor.setText(frontText + "_" + selectedText + "_" + behindText);
+            }else if(selectedText.charAt(1) != '_' ){
+                selectedText.substring(1, selectedText.length() - 1).replace('_', ' ');
+                editor.setText(frontText + "__" + selectedText + "__" + behindText);
             }else{
-                String s =selectedText.substring(2, selectedText.length() - 2).replace('*', ' ');
+                String s =selectedText.substring(2, selectedText.length() - 2).replace('_', ' ');
                 editor.setText(frontText + s + behindText);
             }
 
