@@ -15,14 +15,20 @@
  * create a simple database to save user text file.
    * using SQLite to save documentation
 * week 6 plan 
- * Add Empasis(Bold/Italic) functionality
+ * Add Empasis(Bold/Italic) functionality（done）
    * talking with professor how to define Empasis part
- * implement communication between andriod tablet and webservice
- * change tablet layout
- * upload andriod edit text to webservice
+ * implement communication between andriod tablet and webservice(done)
+ * change tablet layout(check for rotation)
+ * add an doclist activity(page)
+ * implemented getallDocumentList() and getSingleDocument();
+ * display content of single document in editText
+* week 7 plan 
+ * upload andriod edited(changed) text to webservice（for next week）
    * create a save button
    * post formatted text into webservice in JOSN format
  * write instructions to rebuild this project easily in README.md
+ * keep clean format of text in JSON file.
+ * try to keep different version of updated text
 
  
 
