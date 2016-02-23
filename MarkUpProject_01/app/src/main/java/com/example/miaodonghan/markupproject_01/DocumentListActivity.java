@@ -1,6 +1,5 @@
 package com.example.miaodonghan.markupproject_01;
 
-import android.app.ListActivity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ListView;
@@ -18,8 +17,8 @@ public class DocumentListActivity extends AppCompatActivity {
 
         listview = (ListView) findViewById(R.id.listView);
 
-        (new ListRequestTask(this,listview, selected_id)).execute("http://192.168.155.2:1337/api/doc");
-
+        (new ListRequestTask(this,listview, selected_id)).execute("http://192.168.155.6:1337/api/doc");
+        //(new ListRequestTask(this,listview, selected_id)).execute("http://104.194.108.91:1337/api/doc");
 
     }
 

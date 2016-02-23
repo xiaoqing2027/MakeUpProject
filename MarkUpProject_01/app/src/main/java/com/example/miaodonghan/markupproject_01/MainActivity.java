@@ -1,6 +1,7 @@
 package com.example.miaodonghan.markupproject_01;
 
 import android.content.ClipData;
+import android.content.DialogInterface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -26,7 +27,8 @@ public class MainActivity extends AppCompatActivity {
     Button boldbtn;
     String msg;
     Document doc = new Document();
-
+    Button savebtn;
+    int id;
 
     private android.widget.RelativeLayout.LayoutParams layoutParams;
 
@@ -35,16 +37,20 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         editor = (EditText)findViewById(R.id.editText);
-        int id = getIntent().getIntExtra("position",DocumentListActivity.selected_id);
+        id = getIntent().getIntExtra("position",DocumentListActivity.selected_id);
 
 
         GetRequestTask getRequestTask = new GetRequestTask(this,id,editor);
         //get selectedPosition from listview
-        getRequestTask.execute("http://192.168.155.2:1337/api/doc/" + id);
-        Log.i("_________________id :", "http://192.168.155.2:1337/api/doc/" + id);
+        getRequestTask.execute("http://192.168.155.6:1337/api/doc/" + id);
+        //getRequestTask.execute( "http://104.194.108.91:1337/api/doc/" + id);
+        Log.i("_________________id :", "http://104.194.108.91:1337/api/doc/" + id);
 
         MarkdownView markdownView = (MarkdownView) findViewById(R.id.markdownView);
         markdownView.loadMarkdown(editor.getText().toString());
+
+        savebtn =(Button)findViewById(R.id.save);
+        savebtn.setOnClickListener(mySaveTtn);
         headerbtn = (Button)findViewById(R.id.HeaderBtn);
         headerbtn.setOnTouchListener(new headerbtnTouchListener());
 
@@ -176,6 +182,21 @@ public class MainActivity extends AppCompatActivity {
         return -1;
     }
 
+    View.OnClickListener mySaveTtn = new View.OnClickListener() {
+
+        @Override
+        public void onClick(View v) {
+            PutRequestTask putRequestTask = new PutRequestTask(MainActivity.this,id,editor);
+            String text = editor.getText().toString();
+            int start = editor.getLayout().getLineStart(0);
+            int end = editor.getLayout().getLineStart(1);
+            int cstart =editor.getLayout().getLineStart(2);
+            String name = text.substring(start, end);
+            String content = text.substring(cstart,text.length());
+            putRequestTask.execute(""+id,name,content);
+            Toast.makeText(MainActivity.this, "save successfully", Toast.LENGTH_LONG).show();
+        }
+    };
 
     public void onTouch(View v, MotionEvent e){
         Toast.makeText(MainActivity.this, "display text", Toast.LENGTH_LONG).show();
@@ -199,4 +220,5 @@ public class MainActivity extends AppCompatActivity {
         Log.i("cureent position: ", " " + cursorPosition);
         //get current line text
     }
+
 }

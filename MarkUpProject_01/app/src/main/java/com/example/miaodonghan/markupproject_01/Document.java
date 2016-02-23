@@ -1,13 +1,6 @@
 package com.example.miaodonghan.markupproject_01;
 
-import android.text.Layout;
-import android.text.Selection;
-import android.util.Log;
 import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import java.util.ArrayList;
 
 import us.feras.mdv.MarkdownView;
 

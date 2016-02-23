@@ -1,24 +1,14 @@
 package com.example.miaodonghan.markupproject_01;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Log;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.EditText;
-import android.widget.ListView;
-import android.widget.SimpleAdapter;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.InputStream;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import java.util.Scanner;
 
 
@@ -27,13 +17,13 @@ class GetRequestTask extends AsyncTask<String, Integer, String> {
 
     Context context;
 
-    int selected_position;
+    int selected_id;
     EditText editor;
 
-    public GetRequestTask(Context context, int selected_position,EditText editor) {
+    public GetRequestTask(Context context, int selected_id,EditText editor) {
 
         this.context = context;
-        this.selected_position = selected_position;
+        this.selected_id = selected_id;
         this.editor =editor;
     }
 
