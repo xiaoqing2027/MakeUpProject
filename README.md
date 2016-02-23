@@ -7,7 +7,7 @@
 
 > Migrate this project
 
-  ### Android project fornt end:
+ ### Android project fornt end:
   
   * Download Android Studio from  http://developer.android.com/sdk/index.html, (MY VERSION is 1.5)
   * Gradle config: 
