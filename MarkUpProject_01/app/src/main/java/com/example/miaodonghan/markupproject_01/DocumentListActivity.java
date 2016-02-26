@@ -17,7 +17,7 @@ public class DocumentListActivity extends AppCompatActivity {
 
         listview = (ListView) findViewById(R.id.listView);
 
-        (new ListRequestTask(this,listview, selected_id)).execute("http://192.168.155.6:1337/api/doc");
+        (new ListRequestTask(this,listview, selected_id)).execute("http://104.194.121.69:1337/api/doc");
         //(new ListRequestTask(this,listview, selected_id)).execute("http://104.194.108.91:1337/api/doc");
 
     }

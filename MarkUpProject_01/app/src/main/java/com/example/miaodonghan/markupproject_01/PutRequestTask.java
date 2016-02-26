@@ -5,12 +5,14 @@ import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.EditText;
 
-import com.lidroid.xutils.HttpUtils;
-import com.lidroid.xutils.exception.HttpException;
-import com.lidroid.xutils.http.RequestParams;
-import com.lidroid.xutils.http.ResponseInfo;
-import com.lidroid.xutils.http.callback.RequestCallBack;
-import com.lidroid.xutils.http.client.HttpRequest;
+import org.json.JSONObject;
+
+import java.io.BufferedInputStream;
+import java.io.DataOutputStream;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.Scanner;
 
 
 /**
@@ -38,73 +40,40 @@ public class PutRequestTask  extends AsyncTask<String, Integer, String> {
 
     @Override
     protected String doInBackground(String... data) {
-            String status ="";
-            String url = " http://192.168.155.6:1337/api/doc/" + data[0];
+        String status = "";
+        HttpURLConnection urlConnection = null;
+        //String url = " http://192.168.155.6:1337/api/doc/" + data[0];
         try {
 
-            RequestParams params = new RequestParams();
-            params.addHeader("name", data[1]);
-            params.addQueryStringParameter("content", data[2]);
+            URL url = new URL("http://104.194.121.69:1337/api/doc/" + data[0]);
+            urlConnection = (HttpURLConnection) url.openConnection();
+            urlConnection.setRequestMethod("PUT");
+            urlConnection.setRequestProperty("Accept", "application/json");
+            urlConnection.setRequestProperty("Content-type", "application/json");
+            urlConnection.setRequestProperty("charset", "utf-8");
+            JSONObject jsonParam = new JSONObject();
+            jsonParam.put("name", data[1]);
+            jsonParam.put("content", data[2]);
+            String requestData = jsonParam.toString();
+            urlConnection.setRequestProperty("Content-Length", "" + requestData.getBytes().length);
 
-            // 只包含字符串参数时默认使用BodyParamsEntity，
-            // 类似于UrlEncodedFormEntity（"application/x-www-form-urlencoded"）。
-            //params.addBodyParameter("name3", "value3");
-            Log.i("((((((((((((( ", ")");
+            DataOutputStream out = new DataOutputStream(urlConnection.getOutputStream());
 
-            HttpUtils http = new HttpUtils();
-            http.send(HttpRequest.HttpMethod.POST,
-                    url,
-                    params,
-                    new RequestCallBack<String>() {
+            out.writeBytes(requestData);
+            out.flush();
+            out.close();
 
-                        @Override
-                        public void onStart() {
-                            //testTextView.setText("conn...");
-                        }
-
-                        @Override
-                        public void onLoading(long total, long current, boolean isUploading) {
-                            if (isUploading) {
-                                //testTextView.setText("upload: " + current + "/" + total);
-                            } else {
-                                //testTextView.setText("reply: " + current + "/" + total);
-                            }
-                        }
-
-                        @Override
-                        public void onSuccess(ResponseInfo<String> responseInfo) {
-                           // testTextView.setText("reply: " + responseInfo.result);
-                        }
-
-                        @Override
-                        public void onFailure(HttpException error, String msg) {
-                            Log.i( "failure:", error.getExceptionCode() + ":" + msg);
-                        }
-                    });
-//192.168.155.6
-//            URL url = new URL("http://104.194.108.91:1337/api/doc/" + data[0]);
-//            HttpURLConnection httpCon = (HttpURLConnection) url.openConnection();
-//            httpCon.setDoOutput(true);
-//            httpCon.setRequestMethod("PUT");
-//            OutputStreamWriter out = new OutputStreamWriter(
-//                    httpCon.getOutputStream());
-//
-//            out.write("{"
-//                    + " 'name' :  "+ data[1]
-//                    + "'content' : " + data[2]
-//                    + "}");
-//
-//            status = "successful";
-//            out.close();
-//            httpCon.getInputStream();
-
-
+            InputStream in = new BufferedInputStream(urlConnection.getInputStream());
+            Scanner s = new Scanner(in).useDelimiter("\\A");
+            String res = s.hasNext() ? s.next() : "";
+            return res;
         } catch (Exception ex) {
-            // Log.e("backgroud task", ex.getMessage());
-            status = "failure";
+            Log.e("er55r", ex.getMessage());
+        } finally {
+            urlConnection.disconnect();
         }
 
-        return status;
+        return "";
     }
 
     //@Override

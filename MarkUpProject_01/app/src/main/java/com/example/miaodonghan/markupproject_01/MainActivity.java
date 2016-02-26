@@ -1,9 +1,8 @@
 package com.example.miaodonghan.markupproject_01;
 
 import android.content.ClipData;
-import android.content.DialogInterface;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.Layout;
 import android.text.Selection;
@@ -42,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
 
         GetRequestTask getRequestTask = new GetRequestTask(this,id,editor);
         //get selectedPosition from listview
-        getRequestTask.execute("http://192.168.155.6:1337/api/doc/" + id);
+        getRequestTask.execute("http://104.194.121.69:1337/api/doc/" + id);
         //getRequestTask.execute( "http://104.194.108.91:1337/api/doc/" + id);
         Log.i("_________________id :", "http://104.194.108.91:1337/api/doc/" + id);
 
