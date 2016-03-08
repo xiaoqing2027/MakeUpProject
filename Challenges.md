@@ -12,7 +12,7 @@
  
 * week8
  * what kinds of methods to save different version
-  * update time: there will have lots of versions for one document model
-  * comparison methods: if there have 5 versions, the 6th version needs to compare with every version( I have no idea how to handle this)
+   * update time: there will have lots of versions for one document model
+   * comparison methods: if there have 5 versions, the 6th version needs to compare with every version( I have no idea how to handle this)
 
 
