@@ -26,6 +26,7 @@ public class PutRequestTask  extends AsyncTask<String, Integer, String> {
     int selected_id;
     EditText editor;
 
+
     public PutRequestTask(Context context, int selected_id, EditText editor) {
 
         this.context = context;
@@ -41,11 +42,12 @@ public class PutRequestTask  extends AsyncTask<String, Integer, String> {
     @Override
     protected String doInBackground(String... data) {
         String status = "";
+
         HttpURLConnection urlConnection = null;
         //String url = " http://192.168.155.6:1337/api/doc/" + data[0];
         try {
-            String ip = R.string.ip_address +"";
-            URL url = new URL("http://"+ip+"/api/doc/" + data[0]);
+            //String ip = getString(R.string.ip_address);
+            URL url = new URL("http://104.194.116.83:1337/api/doc/" + data[0]);
             urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setRequestMethod("PUT");
             urlConnection.setRequestProperty("Accept", "application/json");
@@ -75,6 +77,7 @@ public class PutRequestTask  extends AsyncTask<String, Integer, String> {
 
         return "";
     }
+
 
     //@Override
     protected void onPostExecute(String result) {

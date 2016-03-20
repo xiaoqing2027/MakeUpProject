@@ -2,6 +2,7 @@ package com.example.miaodonghan.markupproject_01;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.ListView;
 
 /**
@@ -15,9 +16,11 @@ public class DocumentListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.document_list);
 
-        listview = (ListView) findViewById(R.id.listView);
-        String ip = R.string.ip_address +"";
-        (new ListRequestTask(this,listview, selected_id)).execute("http://"+ip+"/api/doc");
+        listview = (ListView) findViewById(R.id.doc_list);
+        String ip = getString(R.string.ip_address);
+
+        Log.e("IPPPPPPPPL::", ip);
+        (new ListRequestTask(this,listview, selected_id)).execute( ip + "/api/doc");
         //(new ListRequestTask(this,listview, selected_id)).execute("http://104.194.108.91:1337/api/doc");
 
     }

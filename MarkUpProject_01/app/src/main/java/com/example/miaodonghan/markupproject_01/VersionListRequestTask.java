@@ -20,39 +20,50 @@ import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
-
-class ListRequestTask extends AsyncTask<String, Integer, List<ListRequestTask.DocumentItem>> {
+/**
+ * Created by miaodonghan on 3/20/16.
+ */
+public class VersionListRequestTask extends AsyncTask<String, Integer, List<VersionListRequestTask.VersionItem>> {
 
     ListView listview;
     Context context;
-    int  selected_id;
-    List<Map<String, String>> data = new ArrayList<Map<String, String>>();
 
-    public ListRequestTask(Context context, ListView listview,int  selected_id) {
+    int version_selected_id;
+    List<Map<String, String>> data_version = new ArrayList<Map<String, String>>();
+
+    public VersionListRequestTask(Context context, ListView listview, int version_selected_id) {
         this.listview = listview;
         this.context = context;
-        this.selected_id = selected_id;
+        this.version_selected_id = version_selected_id;
+
     }
 
-    static class DocumentItem {
-        public DocumentItem(String id, String name, String updatedAt) {
+
+
+    static class VersionItem {
+        public VersionItem(String id, String name,String content, String updatedAt) {
             this.id = id;
             this.name = name;
+            this.content = content;
             this.updatedAt = updatedAt;
         }
+
         String id;
         String name;
+        String content;
         String updatedAt;
     }
 
     @Override
     protected void onPreExecute() {
         // start a spinning sign
+
     }
 
     @Override
-    protected List<ListRequestTask.DocumentItem> doInBackground(String... uri) {
-        List<DocumentItem> docList = new ArrayList<>();
+    protected List<VersionListRequestTask.VersionItem> doInBackground(String... uri) {
+        List<VersionItem> docList = new ArrayList<>();
+
         try {
             InputStream response = new URL(uri[0]).openStream();
             Scanner s = new Scanner(response).useDelimiter("\\A");
@@ -62,10 +73,11 @@ class ListRequestTask extends AsyncTask<String, Integer, List<ListRequestTask.Do
 
             for (int i = 0; i < array.length(); i++) {
                 JSONObject obj = (JSONObject) array.get(i);
-                DocumentItem item = new DocumentItem(
-                    obj.getString("id"),
-                    obj.getString("name"),
-                    obj.getString("updatedAt")
+                VersionItem item = new VersionItem(
+                        obj.getString("id"),
+                        obj.getString("name"),
+                        obj.getString("content"),
+                        obj.getString("updatedAt")
                 );
                 docList.add(item);
 
@@ -79,23 +91,22 @@ class ListRequestTask extends AsyncTask<String, Integer, List<ListRequestTask.Do
     }
 
     @Override
-    protected void onPostExecute(List<ListRequestTask.DocumentItem> docList) {
+    protected void onPostExecute(List<VersionListRequestTask.VersionItem> docList) {
 
         // close a spinning sign
 
-
-
-        for(int i = 0; i < docList.size(); i++) {
+        for (int i = 0; i < docList.size(); i++) {
             Map<String, String> map = new HashMap<>();
             map.put("id", docList.get(i).id);
             map.put("name", docList.get(i).name);
+            map.put("content",docList.get(i).content);
             map.put("updatedAt", docList.get(i).updatedAt);
-            data.add(map);
+            data_version.add(map);
         }
 
-        SimpleAdapter adapter = new SimpleAdapter(context, data,
-                R.layout.doc_item, new String[]{"name", "updatedAt"},
-                new int[]{R.id.doc_name, R.id.doc_updatedAt}
+        SimpleAdapter adapter = new SimpleAdapter(context, data_version,
+                R.layout.version_item, new String[]{"id","name","content", "updatedAt"},
+                new int[]{R.id.version_id, R.id.version_name,R.id.version_content, R.id.version_updatedAt}
         );
 
         listview.setAdapter(adapter);
@@ -108,9 +119,9 @@ class ListRequestTask extends AsyncTask<String, Integer, List<ListRequestTask.Do
 //                selected_id = Integer.parseInt(data.get(position).get("id"));
 //                intent.putExtra("position", selected_id);
 //                context.startActivity(intent);
-                Intent intent= new Intent(context, VersionListActivity.class);
-                selected_id = Integer.parseInt(data.get(position).get("id"));
-                intent.putExtra("position", selected_id);
+                Intent intent = new Intent(context, MainActivity.class);
+                version_selected_id = Integer.parseInt(data_version.get(position).get("id"));
+                intent.putExtra("position", version_selected_id);
                 context.startActivity(intent);
             }
 
@@ -119,3 +130,4 @@ class ListRequestTask extends AsyncTask<String, Integer, List<ListRequestTask.Do
 
     }
 }
+

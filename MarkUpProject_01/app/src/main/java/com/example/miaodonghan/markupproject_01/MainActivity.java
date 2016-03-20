@@ -27,7 +27,8 @@ public class MainActivity extends AppCompatActivity {
     String msg;
     Document doc = new Document();
     Button savebtn;
-    int id;
+    int doc_id;
+    int version_id;
 
     private android.widget.RelativeLayout.LayoutParams layoutParams;
 
@@ -36,15 +37,16 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         editor = (EditText)findViewById(R.id.editText);
-        id = getIntent().getIntExtra("position",DocumentListActivity.selected_id);
+        doc_id =getIntent().getIntExtra("position",DocumentListActivity.selected_id);
+        version_id = getIntent().getIntExtra("position",VersionListActivity.version_selected_id);
 
 
-        GetRequestTask getRequestTask = new GetRequestTask(this,id,editor);
+        GetRequestTask getRequestTask = new GetRequestTask(this,version_id,editor);
         //get selectedPosition from listview
-        String ip = R.string.ip_address +"";
-        getRequestTask.execute("http://"+ip+"/api/doc/"+ id);
+        String ip = getString(R.string.ip_address);
+        getRequestTask.execute(ip+"/api/doc/"+ doc_id+"/version/"+ version_id);
         //getRequestTask.execute( "http://104.194.108.91:1337/api/doc/" + id);
-        Log.i("_________________id :", "http://104.194.108.91:1337/api/doc/" + id);
+        Log.i("_________________id :", "http://104.194.108.91:1337/api/doc/" + doc_id+"/version/"+version_id);
 
         MarkdownView markdownView = (MarkdownView) findViewById(R.id.markdownView);
         markdownView.loadMarkdown(editor.getText().toString());
@@ -186,14 +188,14 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void onClick(View v) {
-            PutRequestTask putRequestTask = new PutRequestTask(MainActivity.this,id,editor);
+            PutRequestTask putRequestTask = new PutRequestTask(MainActivity.this,version_id,editor);
             String text = editor.getText().toString();
             int start = editor.getLayout().getLineStart(0);
             int end = editor.getLayout().getLineStart(1);
             int cstart =editor.getLayout().getLineStart(2);
             String name = text.substring(start, end);
             String content = text.substring(cstart,text.length());
-            putRequestTask.execute(""+id,name,content);
+            putRequestTask.execute(""+version_id,name,content);
             Toast.makeText(MainActivity.this, "save successfully", Toast.LENGTH_LONG).show();
         }
     };
