@@ -44,8 +44,8 @@ public class PutRequestTask  extends AsyncTask<String, Integer, String> {
         HttpURLConnection urlConnection = null;
         //String url = " http://192.168.155.6:1337/api/doc/" + data[0];
         try {
-
-            URL url = new URL("http://104.194.121.69:1337/api/doc/" + data[0]);
+            String ip = R.string.ip_address +"";
+            URL url = new URL("http://"+ip+"/api/doc/" + data[0]);
             urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setRequestMethod("PUT");
             urlConnection.setRequestProperty("Accept", "application/json");

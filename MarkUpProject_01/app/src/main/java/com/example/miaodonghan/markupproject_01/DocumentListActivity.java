@@ -16,8 +16,8 @@ public class DocumentListActivity extends AppCompatActivity {
         setContentView(R.layout.document_list);
 
         listview = (ListView) findViewById(R.id.listView);
-
-        (new ListRequestTask(this,listview, selected_id)).execute("http://104.194.121.69:1337/api/doc");
+        String ip = R.string.ip_address +"";
+        (new ListRequestTask(this,listview, selected_id)).execute("http://"+ip+"/api/doc");
         //(new ListRequestTask(this,listview, selected_id)).execute("http://104.194.108.91:1337/api/doc");
 
     }

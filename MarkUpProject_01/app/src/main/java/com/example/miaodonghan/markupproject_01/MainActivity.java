@@ -41,7 +41,8 @@ public class MainActivity extends AppCompatActivity {
 
         GetRequestTask getRequestTask = new GetRequestTask(this,id,editor);
         //get selectedPosition from listview
-        getRequestTask.execute("http://104.194.121.69:1337/api/doc/" + id);
+        String ip = R.string.ip_address +"";
+        getRequestTask.execute("http://"+ip+"/api/doc/"+ id);
         //getRequestTask.execute( "http://104.194.108.91:1337/api/doc/" + id);
         Log.i("_________________id :", "http://104.194.108.91:1337/api/doc/" + id);
 

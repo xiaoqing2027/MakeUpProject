@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">MarkUpProject_01</string>
+    <string name="ip_address">50.141.210.42</string>
 </resources>
