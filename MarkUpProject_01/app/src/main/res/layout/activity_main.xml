@@ -43,7 +43,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/textView"
-        android:text="Edit Text:"
+        android:text="MarkDown Text:"
 
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
@@ -69,7 +69,7 @@
         android:layout_height="50dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/textView1"
-        android:text="MarkDown :"
+        android:text="Preview :"
         android:layout_below="@+id/editText"
         android:paddingTop="10dp" />
 

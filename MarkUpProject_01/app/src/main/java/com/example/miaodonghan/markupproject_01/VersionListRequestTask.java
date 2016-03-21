@@ -29,13 +29,14 @@ public class VersionListRequestTask extends AsyncTask<String, Integer, List<Vers
     Context context;
 
     int version_selected_id;
+    int doc_id;
     List<Map<String, String>> data_version = new ArrayList<Map<String, String>>();
 
-    public VersionListRequestTask(Context context, ListView listview, int version_selected_id) {
+    public VersionListRequestTask(Context context, ListView listview, int version_selected_id, int doc_id) {
         this.listview = listview;
         this.context = context;
         this.version_selected_id = version_selected_id;
-
+        this.doc_id=doc_id;
     }
 
 
@@ -121,7 +122,8 @@ public class VersionListRequestTask extends AsyncTask<String, Integer, List<Vers
 //                context.startActivity(intent);
                 Intent intent = new Intent(context, MainActivity.class);
                 version_selected_id = Integer.parseInt(data_version.get(position).get("id"));
-                intent.putExtra("position", version_selected_id);
+                intent.putExtra("version_position", version_selected_id);
+                intent.putExtra("doc_position", doc_id);
                 context.startActivity(intent);
             }
 

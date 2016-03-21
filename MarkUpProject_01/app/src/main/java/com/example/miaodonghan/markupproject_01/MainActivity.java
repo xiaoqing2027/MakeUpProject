@@ -37,8 +37,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         editor = (EditText)findViewById(R.id.editText);
-        doc_id =getIntent().getIntExtra("position",DocumentListActivity.selected_id);
-        version_id = getIntent().getIntExtra("position",VersionListActivity.version_selected_id);
+        doc_id =getIntent().getIntExtra("doc_position",VersionListActivity.doc_id);
+        Log.i("doc_iddddd:", doc_id+"");
+        version_id = getIntent().getIntExtra("version_position",VersionListActivity.version_selected_id);
 
 
         GetRequestTask getRequestTask = new GetRequestTask(this,version_id,editor);
