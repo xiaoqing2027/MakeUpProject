@@ -1,4 +1,4 @@
-package com.example.miaodonghan.markupproject_01;
+package http_requests;
 
 import android.content.Context;
 import android.os.AsyncTask;
@@ -18,20 +18,23 @@ import java.util.Scanner;
 /**
  * Created by miaodonghan on 2/22/16.
  */
-public class PutRequestTask  extends AsyncTask<String, Integer, String> {
+public class PutRequestTask extends AsyncTask<String, Integer, String> {
 
 
     Context context;
-
-    int selected_id;
+    int doc_id;
+    int version_id;
     EditText editor;
+    String ip;
 
 
-    public PutRequestTask(Context context, int selected_id, EditText editor) {
+    public PutRequestTask(Context context, int version_id, EditText editor, String ip, int doc_id) {
 
         this.context = context;
-        this.selected_id = selected_id;
+        this.version_id = version_id;
         this.editor = editor;
+        this.ip = ip;
+        this.doc_id = doc_id;
     }
 
     @Override
@@ -46,28 +49,32 @@ public class PutRequestTask  extends AsyncTask<String, Integer, String> {
         HttpURLConnection urlConnection = null;
         //String url = " http://192.168.155.6:1337/api/doc/" + data[0];
         try {
-            //String ip = getString(R.string.ip_address);
-            URL url = new URL("http://104.194.116.83:1337/api/doc/" + data[0]);
+
+            URL url = new URL(ip + "/api/doc/" + doc_id + "/version/" + version_id);
+
             urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setRequestMethod("PUT");
             urlConnection.setRequestProperty("Accept", "application/json");
             urlConnection.setRequestProperty("Content-type", "application/json");
             urlConnection.setRequestProperty("charset", "utf-8");
+
             JSONObject jsonParam = new JSONObject();
-            jsonParam.put("name", data[1]);
-            jsonParam.put("content", data[2]);
+
+            //jsonParam.put("name", data[1]);
+            jsonParam.put("content", data[1]);
+            Log.e("ccccccccccc:", data[1]);
             String requestData = jsonParam.toString();
             urlConnection.setRequestProperty("Content-Length", "" + requestData.getBytes().length);
-
             DataOutputStream out = new DataOutputStream(urlConnection.getOutputStream());
-
             out.writeBytes(requestData);
             out.flush();
             out.close();
-
+            Log.e("-----:", "---");
             InputStream in = new BufferedInputStream(urlConnection.getInputStream());
+            Log.e("-----:", "---");
             Scanner s = new Scanner(in).useDelimiter("\\A");
             String res = s.hasNext() ? s.next() : "";
+            Log.e("rrrrrr:",res);
             return res;
         } catch (Exception ex) {
             Log.e("er55r", ex.getMessage());

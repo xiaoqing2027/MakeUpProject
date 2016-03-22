@@ -1,4 +1,4 @@
-package com.example.miaodonghan.markupproject_01;
+package http_requests;
 
 import android.content.Context;
 import android.content.Intent;
@@ -8,6 +8,9 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+
+import com.example.miaodonghan.markupproject_01.MainActivity;
+import com.example.miaodonghan.markupproject_01.R;
 
 import org.json.JSONArray;
 import org.json.JSONObject;

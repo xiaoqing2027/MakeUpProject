@@ -17,13 +17,13 @@ class GetRequestTask extends AsyncTask<String, Integer, String> {
 
     Context context;
 
-    int selected_id;
+    int version_selected_id;
     EditText editor;
 
-    public GetRequestTask(Context context, int selected_id,EditText editor) {
+    public GetRequestTask(Context context, int version_selected_id, EditText editor) {
 
         this.context = context;
-        this.selected_id = selected_id;
+        this.version_selected_id = version_selected_id;
         this.editor =editor;
     }
 
@@ -41,13 +41,13 @@ class GetRequestTask extends AsyncTask<String, Integer, String> {
 
             Scanner s = new Scanner(response).useDelimiter("\\A");
             String res = s.hasNext() ? s.next() : "";
-            Log.e("++++++++++++++++", res.toString());
-            JSONObject obj = new  JSONObject(res);
+            Log.e("++++++++++++++++", res);
 
 
-             result = "#"+obj.getString("name") + "\n\nupdate Time :  " + obj.getString("updatedAt")+"\n\n"+
-                    obj.getString("content");
+            JSONObject obj = new JSONObject(res);
 
+
+            result = obj.getString("content");
 
         } catch (Exception ex) {
            // Log.e("backgroud task", ex.getMessage());

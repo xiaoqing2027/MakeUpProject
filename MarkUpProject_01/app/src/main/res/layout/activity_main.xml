@@ -76,8 +76,17 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="Save(new version)"
+        android:id="@+id/save_new"
+        android:textSize="@dimen/abc_action_bar_overflow_padding_end_material"
+        android:layout_alignTop="@+id/textView1"
+        android:layout_toLeftOf="@+id/save_old"
+        android:layout_toStartOf="@+id/save_old" />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:text="Save"
-        android:id="@+id/save"
+        android:id="@+id/save_old"
         android:layout_below="@+id/editText"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
