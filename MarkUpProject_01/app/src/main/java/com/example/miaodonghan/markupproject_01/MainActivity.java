@@ -196,14 +196,14 @@ public class MainActivity extends AppCompatActivity {
         public void onClick(View v) {
             PutRequestTask putRequestTask = new PutRequestTask(MainActivity.this,version_id,editor,ip,doc_id);
             String text = editor.getText().toString();
-//            int start = editor.getLayout().getLineStart(0);
-//            int end = editor.getLayout().getLineStart(1);
-//            int cstart =editor.getLayout().getLineStart(2);
-//            String name = text.substring(start, end);
-//            String content = text.substring(cstart,text.length());
-            //putRequestTask.execute(""+version_id,name,content);
-            String content = text;
-            putRequestTask.execute(""+version_id,content);
+            int start = editor.getLayout().getLineStart(0);
+            int end = editor.getLayout().getLineStart(1);
+            int cstart =editor.getLayout().getLineStart(2);
+            String name = text.substring(start, end);
+            String content = text.substring(cstart,text.length());
+            putRequestTask.execute(""+version_id,name,content);
+            //String content = text;
+            //putRequestTask.execute(""+version_id,content);
             Toast.makeText(MainActivity.this, "save successfully", Toast.LENGTH_LONG).show();
         }
     };

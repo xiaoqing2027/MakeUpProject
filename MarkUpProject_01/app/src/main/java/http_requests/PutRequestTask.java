@@ -15,9 +15,6 @@ import java.net.URL;
 import java.util.Scanner;
 
 
-/**
- * Created by miaodonghan on 2/22/16.
- */
 public class PutRequestTask extends AsyncTask<String, Integer, String> {
 
 
@@ -60,24 +57,27 @@ public class PutRequestTask extends AsyncTask<String, Integer, String> {
 
             JSONObject jsonParam = new JSONObject();
 
-            //jsonParam.put("name", data[1]);
-            jsonParam.put("content", data[1]);
-            Log.e("ccccccccccc:", data[1]);
+            jsonParam.put("name", data[1]);
+            jsonParam.put("content", data[2]);
+
             String requestData = jsonParam.toString();
-            urlConnection.setRequestProperty("Content-Length", "" + requestData.getBytes().length);
+            urlConnection.setRequestProperty("Content-Length", "" +  requestData.getBytes().length);
+            Log.e("------:", requestData.getBytes().length+"");
             DataOutputStream out = new DataOutputStream(urlConnection.getOutputStream());
+
             out.writeBytes(requestData);
             out.flush();
             out.close();
-            Log.e("-----:", "---");
+            Log.e("====:", requestData);
             InputStream in = new BufferedInputStream(urlConnection.getInputStream());
+
             Log.e("-----:", "---");
             Scanner s = new Scanner(in).useDelimiter("\\A");
             String res = s.hasNext() ? s.next() : "";
             Log.e("rrrrrr:",res);
             return res;
         } catch (Exception ex) {
-            Log.e("er55r", ex.getMessage());
+            Log.e("er55r", ex.toString());
         } finally {
             urlConnection.disconnect();
         }

@@ -35,6 +35,7 @@ class GetRequestTask extends AsyncTask<String, Integer, String> {
     @Override
     protected String doInBackground(String... uri) {
         String result ="";
+        //String name = "";
         try {
 
             InputStream response = new URL(uri[0]).openStream();
@@ -47,7 +48,8 @@ class GetRequestTask extends AsyncTask<String, Integer, String> {
             JSONObject obj = new JSONObject(res);
 
 
-            result = obj.getString("content");
+            result = obj.getString("name")+"\n\n"+obj.getString("content");
+
 
         } catch (Exception ex) {
            // Log.e("backgroud task", ex.getMessage());
@@ -60,6 +62,7 @@ class GetRequestTask extends AsyncTask<String, Integer, String> {
     protected void onPostExecute(String result) {
 
          editor.setText(result);
+
 
     }
 }
