@@ -29,10 +29,15 @@
  * write instructions to rebuild this project easily in README.md
  * keep clean format of text in JSON file.
  * try to keep different version of updated text
-* week 8 plan 
+* week 8 plan
+ * gathing information of how to do versions for every document
+* week 9 plan 
  * modify webservice model, controller
   * solve different version via ROM relationship(1:many)
   * add version model to save every updated version
+* week 10 plan
+ * spring break
+ 
 
 
  
