@@ -32,11 +32,25 @@
 * week 8 plan
  * gathing information of how to do versions for every document
 * week 9 plan 
- * modify webservice model, controller
+ * modify webservice model
   * solve different version via ROM relationship(1:many)
   * add version model to save every updated version
+ * modify webservice(backend) controller
+  * add get()/list()/post()/update() methods 
+  * implement getoneversion()/get_all_versions() method
+  * implement post_a_new_version() method to create a new version of a document
+  * implement update_old_version() method
 * week 10 plan
  * spring break
+* week 11 plan 
+ * Test webservice(backend)
+  * Test all methods in POSTMAN 
+ * Implement getoneversion()/get_all_versions() in Andriod(front end)
+* week 12 plan
+ * Implement post_a_new_version() method in android studio 
+ * Implement update_old_version() method in android studio
+ * Divided preview part and MarkDown Text into two screens/pages
+ 
  
 
 
