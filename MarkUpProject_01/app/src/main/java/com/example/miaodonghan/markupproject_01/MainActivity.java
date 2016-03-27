@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import http_requests.PostRequestTask;
 import http_requests.PutRequestTask;
 import us.feras.mdv.MarkdownView;
 
@@ -50,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
         ip = getString(R.string.ip_address);
         getRequestTask.execute(ip+"/api/doc/"+ doc_id+"/version/"+ version_id);
         //getRequestTask.execute( "http://104.194.108.91:1337/api/doc/" + id);
-        Log.i("_________________id :", "http://104.194.111.39:1337/api/doc/" + doc_id + "/version/" + version_id);
+        Log.i("_________________id :", "/api/doc/" + doc_id + "/version/" + version_id);
 
         MarkdownView markdownView = (MarkdownView) findViewById(R.id.markdownView);
         markdownView.loadMarkdown(editor.getText().toString());
@@ -211,17 +212,20 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void onClick(View v) {
-            PutRequestTask putRequestTask = new PutRequestTask(MainActivity.this,version_id,editor,ip,doc_id);
+            Log.i("00000", "00000");
+            PostRequestTask postRequestTask = new PostRequestTask(MainActivity.this,editor,ip,doc_id);
+            Log.i("11", "11");
             String text = editor.getText().toString();
-//            int start = editor.getLayout().getLineStart(0);
-//            int end = editor.getLayout().getLineStart(1);
-//            int cstart =editor.getLayout().getLineStart(2);
-//            String name = text.substring(start, end);
-//            String content = text.substring(cstart,text.length());
+            int start = editor.getLayout().getLineStart(0);
+            int end = editor.getLayout().getLineStart(1);
+            int cstart =editor.getLayout().getLineStart(2);
+            String name = text.substring(start, end);
+            String content = text.substring(cstart,text.length());
             //putRequestTask.execute(""+version_id,name,content);
-            String content = text;
-            putRequestTask.execute(""+version_id,content);
-            Toast.makeText(MainActivity.this, "save successfully", Toast.LENGTH_LONG).show();
+            //String content = text;
+            postRequestTask.execute(name,content);
+            Log.i("22", "22");
+            Toast.makeText(MainActivity.this, "you created a new version successfully", Toast.LENGTH_LONG).show();
         }
     };
 
