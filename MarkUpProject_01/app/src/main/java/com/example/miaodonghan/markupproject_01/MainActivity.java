@@ -1,6 +1,7 @@
 package com.example.miaodonghan.markupproject_01;
 
 import android.content.ClipData;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
@@ -30,16 +31,19 @@ public class MainActivity extends AppCompatActivity {
     Document doc = new Document();
     Button savebtn;
     Button savebtn_newversion;
+    Button previewbtn;
     int doc_id;
     int version_id;
     String ip;
+    public static String editor_content = "";
 
     private android.widget.RelativeLayout.LayoutParams layoutParams;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.markdowntext_edit);
+
         editor = (EditText)findViewById(R.id.editText);
         doc_id =getIntent().getIntExtra("doc_position",VersionListActivity.doc_id);
         Log.i("doc_iddddd:", doc_id+"");
@@ -52,14 +56,18 @@ public class MainActivity extends AppCompatActivity {
         getRequestTask.execute(ip+"/api/doc/"+ doc_id+"/version/"+ version_id);
         //getRequestTask.execute( "http://104.194.108.91:1337/api/doc/" + id);
         Log.i("_________________id :", "/api/doc/" + doc_id + "/version/" + version_id);
+        Log.i("00000", editor_content);
 
-        MarkdownView markdownView = (MarkdownView) findViewById(R.id.markdownView);
-        markdownView.loadMarkdown(editor.getText().toString());
+
+//        MarkdownView markdownView = (MarkdownView) findViewById(R.id.markdownView);
+//        markdownView.loadMarkdown(editor.getText().toString());
 
         savebtn =(Button)findViewById(R.id.save_old);
         savebtn.setOnClickListener(mySaveTtn);
         savebtn_newversion=(Button)findViewById(R.id.save_new);
         savebtn_newversion.setOnClickListener(mySaveTtn_newversion);
+        previewbtn = (Button)findViewById(R.id.preview);
+        previewbtn.setOnClickListener(previewbtn_handler);
         headerbtn = (Button)findViewById(R.id.HeaderBtn);
         headerbtn.setOnTouchListener(new headerbtnTouchListener());
 
@@ -83,12 +91,13 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                if (s.length() > 0) {
-
-                    MarkdownView markdownView = (MarkdownView) findViewById(R.id.markdownView);
-                    markdownView.loadMarkdown(editor.getText().toString());
-//                   String str = editor.getText().toString().replace('\n', ' ');
-                }
+//                if (s.length() > 0) {
+//
+//                    MarkdownView markdownView = (MarkdownView) findViewById(R.id.markdownView);
+//                    markdownView.loadMarkdown(editor.getText().toString());
+////                   String str = editor.getText().toString().replace('\n', ' ');
+//                }
+                Log.i("11111", editor.getText().toString());
             }
         });
 
@@ -212,9 +221,9 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void onClick(View v) {
-            Log.i("00000", "00000");
+
             PostRequestTask postRequestTask = new PostRequestTask(MainActivity.this,editor,ip,doc_id);
-            Log.i("11", "11");
+
             String text = editor.getText().toString();
             int start = editor.getLayout().getLineStart(0);
             int end = editor.getLayout().getLineStart(1);
@@ -223,33 +232,20 @@ public class MainActivity extends AppCompatActivity {
             String content = text.substring(cstart,text.length());
             //putRequestTask.execute(""+version_id,name,content);
             //String content = text;
-            postRequestTask.execute(name,content);
-            Log.i("22", "22");
+            postRequestTask.execute(name, content);
             Toast.makeText(MainActivity.this, "you created a new version successfully", Toast.LENGTH_LONG).show();
         }
     };
 
-    public void onTouch(View v, MotionEvent e){
-        Toast.makeText(MainActivity.this, "display text", Toast.LENGTH_LONG).show();
+    View.OnClickListener previewbtn_handler = new View.OnClickListener() {
 
-        editor.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        @Override
+        public void onClick(View v) {
+            editor_content = editor.getText().toString();
+            startActivity(new Intent(MainActivity.this, ShowPreview.class));
 
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-    /* When focus is lost check that the text field has valid values.*/
-                if (!hasFocus) {
-                    //validateInput(v);
-                    MarkdownView markdownView = (MarkdownView) findViewById(R.id.markdownView);
-                    markdownView.loadMarkdown(editor.getText().toString());
-                }
-            }
-        });
+        }
+    };
 
-
-        //get current line number
-        int cursorPosition = editor.getSelectionStart();
-        Log.i("cureent position: ", " " + cursorPosition);
-        //get current line text
-    }
 
 }

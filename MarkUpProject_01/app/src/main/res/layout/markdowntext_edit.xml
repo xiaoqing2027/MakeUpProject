@@ -50,25 +50,11 @@
         android:layout_below="@+id/linearLayout"
         android:paddingTop="10dp"
         android:paddingBottom="10dp" />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:id="@+id/name"
-        android:text="name"
-
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
-        android:layout_above="@+id/editText"
-        android:layout_alignRight="@+id/editText"
-        android:layout_alignEnd="@+id/editText"
-        android:layout_toRightOf="@+id/save_new"
-        android:layout_toEndOf="@+id/save_new" />
 
 
     <EditText
         android:layout_width="500dp"
-        android:layout_height="150dp"
+        android:layout_height="330dp"
         android:inputType="textMultiLine"
         android:ems="10"
         android:id="@+id/editText"
@@ -78,12 +64,12 @@
         android:layout_alignParentStart="true"
         android:scrollIndicators="bottom|top" />
 
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="50dp"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:id="@+id/textView1"
-        android:text="Preview :"
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="preview"
+        android:id="@+id/preview"
         android:layout_below="@+id/editText"
         android:paddingTop="10dp" />
 
@@ -93,7 +79,7 @@
         android:text="Save(new version)"
         android:id="@+id/save_new"
         android:textSize="@dimen/abc_action_bar_overflow_padding_end_material"
-        android:layout_alignTop="@+id/textView1"
+        android:layout_alignTop="@+id/preview"
         android:layout_toLeftOf="@+id/save_old"
         android:layout_toStartOf="@+id/save_old" />
     <Button
@@ -105,14 +91,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 
-    <us.feras.mdv.MarkdownView
-        android:id="@+id/markdownView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/textView1"
-        android:scrollIndicators="bottom|top" />
+
 
 
 

@@ -61,7 +61,7 @@ public class Document {
         }else if(lineText.charAt(2) == '#'){
             editor.setText(frontText + lineText.substring(4, lineText.length()) + behindText);
         }
-        markdownView.loadMarkdown(editor.getText().toString());
+        //markdownView.loadMarkdown(editor.getText().toString());
 
     }
 
@@ -98,7 +98,7 @@ public class Document {
             }
 
         }
-        markdownView.loadMarkdown(editor.getText().toString());
+        //markdownView.loadMarkdown(editor.getText().toString());
     }
 
 

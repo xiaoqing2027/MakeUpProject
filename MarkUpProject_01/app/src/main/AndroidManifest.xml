@@ -25,6 +25,9 @@
         <activity android:name=".VersionListActivity" >
 
         </activity>
+        <activity android:name=".ShowPreview" >
+
+        </activity>
     </application>
 
 </manifest>
