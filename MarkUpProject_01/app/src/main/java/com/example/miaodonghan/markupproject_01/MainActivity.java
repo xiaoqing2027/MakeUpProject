@@ -27,6 +27,8 @@ public class MainActivity extends AppCompatActivity {
     EditText editor;
     Button headerbtn;
     Button boldbtn;
+    Button quotebtn;
+    Button listbtn;
     String msg;
     Document doc = new Document();
     Button savebtn;
@@ -68,11 +70,15 @@ public class MainActivity extends AppCompatActivity {
         savebtn_newversion.setOnClickListener(mySaveTtn_newversion);
         previewbtn = (Button)findViewById(R.id.preview);
         previewbtn.setOnClickListener(previewbtn_handler);
+
         headerbtn = (Button)findViewById(R.id.HeaderBtn);
         headerbtn.setOnTouchListener(new headerbtnTouchListener());
-
         boldbtn = (Button)findViewById(R.id.BoldBtn);
         boldbtn.setOnTouchListener(new boldbtnTouchListener());
+        quotebtn = (Button)findViewById(R.id.quotebtn);
+        quotebtn.setOnTouchListener(new quotebtnTouchListener());
+        listbtn = (Button)findViewById(R.id.listbtn);
+        listbtn.setOnTouchListener(new listbtnTouchListener());
 
 
         editor.setOnDragListener(new MyDragListener());
@@ -135,6 +141,36 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    private final class quotebtnTouchListener implements OnTouchListener {
+        public boolean onTouch(View view, MotionEvent motionEvent) {
+            if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
+                ClipData data = ClipData.newPlainText("", "");
+                View.DragShadowBuilder shadowBuilder = new View.DragShadowBuilder(view);
+                view.startDrag(data, shadowBuilder, view, 0);
+                view.setVisibility(View.VISIBLE);
+                msg = "quotebtn";
+                return true;
+            } else {
+                return false;
+            }
+        }
+    }
+
+    private final class listbtnTouchListener implements OnTouchListener {
+        public boolean onTouch(View view, MotionEvent motionEvent) {
+            if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
+                ClipData data = ClipData.newPlainText("", "");
+                View.DragShadowBuilder shadowBuilder = new View.DragShadowBuilder(view);
+                view.startDrag(data, shadowBuilder, view, 0);
+                view.setVisibility(View.VISIBLE);
+                msg = "listbtn";
+                return true;
+            } else {
+                return false;
+            }
+        }
+    }
+
     class MyDragListener implements OnDragListener {
 
         @Override
@@ -158,6 +194,12 @@ public class MainActivity extends AppCompatActivity {
                             break;
                         case "boldbtn":
                             handleBoldbtn();
+                            break;
+                        case "quotebtn":
+                            handleQuotebtn();
+                            break;
+                        case "listbtn":
+                            handleListbtn();
                             break;
                     }
                     
@@ -183,8 +225,17 @@ public class MainActivity extends AppCompatActivity {
     public void handleBoldbtn(){
         MarkdownView markdownView = (MarkdownView) findViewById(R.id.markdownView);
         int lineNum = getCurrentCursorLine(editor);
-        doc.setBold(lineNum,editor,markdownView);
-
+        doc.setBold(lineNum, editor, markdownView);
+    }
+    public void handleQuotebtn(){
+        MarkdownView markdownView = (MarkdownView) findViewById(R.id.markdownView);
+        int lineNum = getCurrentCursorLine(editor);
+        doc.setQuote(lineNum,editor,markdownView);
+    }
+    public void handleListbtn(){
+        MarkdownView markdownView = (MarkdownView) findViewById(R.id.markdownView);
+        int lineNum = getCurrentCursorLine(editor);
+        doc.setList(lineNum,editor,markdownView);
     }
 
 

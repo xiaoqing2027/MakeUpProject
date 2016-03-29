@@ -53,6 +53,10 @@ public class Document {
         String frontText = notSelectedFrontTextHandler(editor,lineStart);
         String behindText = notSelectedBehindTextHandler(editor,end);
 
+        if(lineText.charAt(0) == '>' || lineText.charAt(0) == '*' ){
+            return;
+            //Toast.makeText(context.this, "drag drop", Toast.LENGTH_SHORT).show();
+        }
         //handle different heading
         if(lineText.charAt(0) != '#'){
             editor.setText(frontText + "# " + lineText + behindText);
@@ -82,7 +86,7 @@ public class Document {
             String behindText = notSelectedBehindTextHandler(editor, end_selected);
             String selectedText = text.substring(start_selected, end_selected);
             //handle different heading
-            if(lineText.charAt(0) == '#'){
+            if(lineText.charAt(0) == '#' || lineText.charAt(0) == '>' || lineText.charAt(0) == '*' ){
                 return;
                 //Toast.makeText(context.this, "drag drop", Toast.LENGTH_SHORT).show();
             }
@@ -103,6 +107,59 @@ public class Document {
 
 
 
+
+    public void setQuote(int line, EditText editor, MarkdownView markdownView) {
+        //get current line text
+        String text = editor.getText().toString();
+        int lineStart = editor.getLayout().getLineStart(line);
+        int end = editor.getLayout().getLineEnd(line);
+        String lineText = text.substring(lineStart, end);
+        String frontText = notSelectedFrontTextHandler(editor, lineStart);
+        String behindText = notSelectedBehindTextHandler(editor,end);
+
+        if(lineText.charAt(0) == '#' || lineText.charAt(0) == '*' ){
+            return;
+            //Toast.makeText(context.this, "drag drop", Toast.LENGTH_SHORT).show();
+        }
+
+        if(lineText.charAt(0) == '*' ){
+            return;
+            //Toast.makeText(context.this, "drag drop", Toast.LENGTH_SHORT).show();
+        }
+        //handle different heading
+        if(lineText.charAt(0) != '>'){
+            editor.setText(frontText + "> " + lineText + behindText);
+        }else{
+            editor.setText(frontText + lineText.substring(2, lineText.length()) + behindText);
+        }
+    }
+
+    public void setList(int line, EditText editor, MarkdownView markdownView) {
+        //get current line text
+        String text = editor.getText().toString();
+        int lineStart = editor.getLayout().getLineStart(line);
+        int end = editor.getLayout().getLineEnd(line);
+        String lineText = text.substring(lineStart, end);
+        String frontText = notSelectedFrontTextHandler(editor, lineStart);
+        String behindText = notSelectedBehindTextHandler(editor, end);
+        if(lineText.charAt(0) == '#' || lineText.charAt(0) == '>'){
+            return;
+            //Toast.makeText(context.this, "drag drop", Toast.LENGTH_SHORT).show();
+        }
+
+        if( lineText.charAt(0) == '>'){
+            return;
+            //Toast.makeText(context.this, "drag drop", Toast.LENGTH_SHORT).show();
+        }
+        //handle different heading
+        if(lineText.charAt(0) != '*'){
+            editor.setText(frontText + "* " + lineText + behindText);
+        }else{
+            editor.setText(frontText + lineText.substring(2, lineText.length()) + behindText);
+        }
+    }
+
+
     public String notSelectedFrontTextHandler(EditText editor,int start){
         String text = editor.getText().toString();
         String frontText;
@@ -111,7 +168,7 @@ public class Document {
         } else {
             frontText = "";
         }
-       return frontText;
+        return frontText;
     }
 
     public String notSelectedBehindTextHandler(EditText editor, int end){
@@ -127,12 +184,6 @@ public class Document {
     }
 
 
-//    public String getLineText(int line,EditText editor){
-//        String text = editor.getText().toString();
-//        int start = editor.getLayout().getLineStart(line);
-//        int end = editor.getLayout().getLineEnd(line);
-//        String lineText = text.substring(start, end);
-//        return lineText;
-//    }
+
 
 }

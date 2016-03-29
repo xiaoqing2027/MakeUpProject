@@ -15,26 +15,26 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Header"
+            android:text="H"
             android:id="@+id/HeaderBtn" />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Bold"
+            android:text="B"
             android:id="@+id/BoldBtn" />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Quote"
-            android:id="@+id/button3" />
+            android:text="Q"
+            android:id="@+id/quotebtn" />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="List"
-            android:id="@+id/button4" />
+            android:text="L"
+            android:id="@+id/listbtn" />
 
     </LinearLayout>
 
