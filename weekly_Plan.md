@@ -50,6 +50,29 @@
  * Implement post_a_new_version() method in android studio 
  * Implement update_old_version() method in android studio
  * Divided preview part and MarkDown Text into two screens/pages
+ * try to finish one more feature, list.
+* week 13 plan
+ * Implement quote feature.
+ * Add and implement user mode, create a new relation
+  * user and doc, many:many
+  * NOTE: multi-user write doc at the same time
+ * Modify backend including model/router/controller
+ * choose one way to let user log in
+* week 14 plan
+ * Implement all controller part after add controller
+ * Implement all functionality in frontend 
+  * add necessay layout for user authentication
+  * add java class for handling necessary functionality
+ * Try to add IIT Library (a jar file)
+
+* week 15 plan
+ * Main work is UI
+  * add search bar or overflow menu 
+  * add more cool stuff
+* week 16 plan
+ * Main work is to write research paper
+ 
+ 
  
  
 
