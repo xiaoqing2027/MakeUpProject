@@ -53,6 +53,7 @@
  * try to finish one more feature, list.
 * week 13 plan
  * Implement quote feature.
+ * Learn CAS(iit sso authentication)
  * Add and implement user mode, create a new relation
   * user and doc, many:many
   * NOTE: multi-user write doc at the same time
