@@ -1,9 +1,9 @@
-package http_requests;
+package com.example.miaodonghan.markupproject_01;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Log;
-import android.widget.EditText;
 
 import org.json.JSONObject;
 
@@ -14,22 +14,22 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Scanner;
 
-
-public class PostRequestTask extends AsyncTask<String, Integer, String> {
-
+/**
+ * Created by miaodonghan on 4/10/16.
+ */
+public class LoginRequestTask extends AsyncTask<String, Integer, String> {
 
     Context context;
-    int doc_id;
-    EditText editor;
+    String email;
+    String pwd;
     String ip;
 
 
-    public PostRequestTask(Context context, EditText editor, String ip, int doc_id) {
+    public LoginRequestTask(Context context, String email, String pwd) {
 
         this.context = context;
-        this.editor = editor;
-        this.ip = ip;
-        this.doc_id = doc_id;
+        this.email = email;
+        this.pwd = pwd;
     }
 
     @Override
@@ -45,7 +45,7 @@ public class PostRequestTask extends AsyncTask<String, Integer, String> {
         //String url = " http://192.168.155.6:1337/api/doc/" + data[0];
         try {
 
-            URL url = new URL(ip + "/api/doc/" + doc_id + "/version");
+            URL url = new URL(ip + "/api/auth/login");
             urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setRequestMethod("POST");
             //header
@@ -55,8 +55,8 @@ public class PostRequestTask extends AsyncTask<String, Integer, String> {
 
             JSONObject jsonParam = new JSONObject();
             //body
-            jsonParam.put("name", data[0]);
-            jsonParam.put("content", data[1]);
+            jsonParam.put("email", data[0]);
+            jsonParam.put("password", data[1]);
 
             String requestData = jsonParam.toString();
             urlConnection.setRequestProperty("Content-Length", "" +  requestData.getBytes().length);
@@ -88,7 +88,11 @@ public class PostRequestTask extends AsyncTask<String, Integer, String> {
     protected void onPostExecute(String result) {
 
         //editor.setText(result);
+        Intent intent= new Intent(context,DocumentListActivity.class);
+
+        context.startActivity(intent);
+
+
 
     }
-
 }
