@@ -74,10 +74,7 @@ public class RegisterRequestTask extends AsyncTask<String, Integer, String> {
 //            pwd =jsonParam.getJSONObject("password").toString();
 
             InputStream in = new BufferedInputStream(urlConnection.getInputStream());
-
-            Log.e("------:", "22222");
             Scanner s = new Scanner(in).useDelimiter("\\A");
-            Log.e("------:", "11111");
             String res = s.hasNext() ? s.next() : "";
             Log.e("rrrrrr:",res);
             return res;

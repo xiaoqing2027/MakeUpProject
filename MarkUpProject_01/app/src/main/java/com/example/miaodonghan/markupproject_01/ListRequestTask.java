@@ -8,7 +8,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -20,6 +19,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
+import javax.net.ssl.HttpsURLConnection;
+
 
 class ListRequestTask extends AsyncTask<String, Integer, List<ListRequestTask.DocumentItem>> {
 
@@ -27,11 +28,13 @@ class ListRequestTask extends AsyncTask<String, Integer, List<ListRequestTask.Do
     Context context;
     int  selected_id;
     List<Map<String, String>> data = new ArrayList<Map<String, String>>();
+    String token;
 
-    public ListRequestTask(Context context, ListView listview,int  selected_id) {
+    public ListRequestTask(Context context, ListView listview,int  selected_id,String token) {
         this.listview = listview;
         this.context = context;
         this.selected_id = selected_id;
+        this.token = token;
     }
 
     static class DocumentItem {
@@ -39,6 +42,7 @@ class ListRequestTask extends AsyncTask<String, Integer, List<ListRequestTask.Do
             this.id = id;
             this.name = name;
             this.updatedAt = updatedAt;
+
         }
         String id;
         String name;
@@ -54,9 +58,16 @@ class ListRequestTask extends AsyncTask<String, Integer, List<ListRequestTask.Do
     protected List<ListRequestTask.DocumentItem> doInBackground(String... uri) {
         List<DocumentItem> docList = new ArrayList<>();
         try {
+            HttpsURLConnection connection =null;
+            URL object = new URL(uri[0]);
+            Log.i("xxxxxxxxxx","xxx");
+            connection =(HttpsURLConnection) object.openConnection();
+            connection.setRequestProperty("access_token",token);
+            Log.i("xccccccc", "xxx");
             InputStream response = new URL(uri[0]).openStream();
             Scanner s = new Scanner(response).useDelimiter("\\A");
             String res = s.hasNext() ? s.next() : "";
+
 
             JSONArray array = new JSONArray(res);
 

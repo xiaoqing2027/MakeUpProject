@@ -19,6 +19,8 @@ public class Login extends AppCompatActivity {
     public static final String Markup ="markup";
     public static final String Email_s = "email";
     public static final String Password_s = "password";
+    public static final String Token_s = "token";
+    public static final String Expires_s = "expeires";
     EditText email_login;
     EditText pwd_login;
     SharedPreferences sharedPreferences;
@@ -50,6 +52,7 @@ public class Login extends AppCompatActivity {
 
         //get and display data
         email_login.setText(sharedPreferences.getString(Email_s,null));
+        Log.i("dddddd", "aaaaaa");
         pwd_login.setText(sharedPreferences.getString(Password_s,null));
 
 
@@ -66,9 +69,9 @@ public class Login extends AppCompatActivity {
                 }
 
                 String ip = getString(R.string.ip_address);
-
+                LoginRequestTask loginRequestTask = new LoginRequestTask(Login.this,ip);
                 Log.e("IPPPPPPPPL::", ip + "/api/auth/login");
-                (new LoginRequestTask(Login.this, email, pwd)).execute(ip + "/api/auth/login");
+                loginRequestTask.execute(email,pwd);
 
             }
         });

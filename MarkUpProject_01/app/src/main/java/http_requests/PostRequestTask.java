@@ -68,8 +68,6 @@ public class PostRequestTask extends AsyncTask<String, Integer, String> {
             out.close();
             Log.e("====:", requestData);
             InputStream in = new BufferedInputStream(urlConnection.getInputStream());
-
-
             Scanner s = new Scanner(in).useDelimiter("\\A");
             String res = s.hasNext() ? s.next() : "";
             Log.e("rrrrrr:",res);

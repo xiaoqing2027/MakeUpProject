@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedInputStream;
@@ -20,16 +21,18 @@ import java.util.Scanner;
 public class LoginRequestTask extends AsyncTask<String, Integer, String> {
 
     Context context;
-    String email;
+    String res;
     String pwd;
     String ip;
+    String token;
+    String expires;
 
 
-    public LoginRequestTask(Context context, String email, String pwd) {
+
+    public LoginRequestTask(Context context, String ip) {
 
         this.context = context;
-        this.email = email;
-        this.pwd = pwd;
+        this.ip = ip;
     }
 
     @Override
@@ -52,6 +55,7 @@ public class LoginRequestTask extends AsyncTask<String, Integer, String> {
             urlConnection.setRequestProperty("Accept", "application/json");
             urlConnection.setRequestProperty("Content-type", "application/json");
             urlConnection.setRequestProperty("charset", "utf-8");
+            //urlConnection.setRequestProperty("access_token", "utf-8");
 
             JSONObject jsonParam = new JSONObject();
             //body
@@ -59,8 +63,8 @@ public class LoginRequestTask extends AsyncTask<String, Integer, String> {
             jsonParam.put("password", data[1]);
 
             String requestData = jsonParam.toString();
-            urlConnection.setRequestProperty("Content-Length", "" +  requestData.getBytes().length);
-            Log.e("------login:", requestData.getBytes().length + "");
+            urlConnection.setRequestProperty("Content-Length", "" + requestData.getBytes().length);
+
             DataOutputStream out = new DataOutputStream(urlConnection.getOutputStream());
 
             out.writeBytes(requestData);
@@ -71,7 +75,8 @@ public class LoginRequestTask extends AsyncTask<String, Integer, String> {
 
 
             Scanner s = new Scanner(in).useDelimiter("\\A");
-            String res = s.hasNext() ? s.next() : "";
+            res = s.hasNext() ? s.next() : "";
+            result = res;
             Log.e("rrrrrr_login:",res);
             return res;
         } catch (Exception ex) {
@@ -80,16 +85,30 @@ public class LoginRequestTask extends AsyncTask<String, Integer, String> {
             urlConnection.disconnect();
         }
 
-        return "";
+        return result;
     }
 
 
     //@Override
     protected void onPostExecute(String result) {
 
+
+
         //editor.setText(result);
         Intent intent= new Intent(context,DocumentListActivity.class);
 
+        try {
+            JSONObject r= new JSONObject(result);
+            Log.i(":111111:",r.toString());
+            token = r.getString("token");
+            Log.i(":22222:",token);
+            expires = r.getString("expires");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        intent.putExtra("token", token);
+        intent.putExtra("expires",expires);
         context.startActivity(intent);
 
 
