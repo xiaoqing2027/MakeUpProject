@@ -20,18 +20,18 @@ import java.util.Scanner;
 public class RegisterRequestTask extends AsyncTask<String, Integer, String> {
 
     Context context;
+    public static final String Markup ="markup";
     String email;
     String pwd;
     String ip;
 
 
-    public RegisterRequestTask(Context context, String email, String pwd) {
+    public RegisterRequestTask(Context context, String ip) {
 
         this.context = context;
-        this.email = email;
-        this.pwd = pwd;
-    }
+        this.ip = ip;
 
+    }
     @Override
     protected void onPreExecute() {
         // start a spinning sign
@@ -39,25 +39,28 @@ public class RegisterRequestTask extends AsyncTask<String, Integer, String> {
 
     @Override
     protected String doInBackground(String... data) {
-        String status = "";
+        String result = "";
 
         HttpURLConnection urlConnection = null;
         //String url = " http://192.168.155.6:1337/api/doc/" + data[0];
         try {
 
-            URL url = new URL(ip + "/api/auth/register");
+            URL url = new URL( ip+ "/api/auth/register");
             urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setRequestMethod("POST");
             //header
             urlConnection.setRequestProperty("Accept", "application/json");
             urlConnection.setRequestProperty("Content-type", "application/json");
             urlConnection.setRequestProperty("charset", "utf-8");
-
             JSONObject jsonParam = new JSONObject();
+
             //body
             jsonParam.put("email", data[0]);
-            jsonParam.put("password", data[1]);
 
+            jsonParam.put("password", data[1]);
+            email =data[0];
+            pwd =data[1];
+            Log.e("------:", email);
             String requestData = jsonParam.toString();
             urlConnection.setRequestProperty("Content-Length", "" +  requestData.getBytes().length);
             Log.e("------:", requestData.getBytes().length + "");
@@ -67,28 +70,35 @@ public class RegisterRequestTask extends AsyncTask<String, Integer, String> {
             out.flush();
             out.close();
             Log.e("====:", requestData);
+//            email = jsonParam.getJSONObject("email").toString();
+//            pwd =jsonParam.getJSONObject("password").toString();
+
             InputStream in = new BufferedInputStream(urlConnection.getInputStream());
 
-
+            Log.e("------:", "22222");
             Scanner s = new Scanner(in).useDelimiter("\\A");
+            Log.e("------:", "11111");
             String res = s.hasNext() ? s.next() : "";
             Log.e("rrrrrr:",res);
             return res;
+
         } catch (Exception ex) {
             Log.e("er55r", ex.toString());
         } finally {
             urlConnection.disconnect();
         }
 
-        return "";
+        return result;
     }
 
 
     //@Override
     protected void onPostExecute(String result) {
 
-        //editor.setText(result);
+
         Intent intent= new Intent(context,Login.class);
+        intent.putExtra("e", email);
+        intent.putExtra("p",pwd);
         context.startActivity(intent);
 
 

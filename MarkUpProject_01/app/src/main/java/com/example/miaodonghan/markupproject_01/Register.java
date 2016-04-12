@@ -1,8 +1,13 @@
 package com.example.miaodonghan.markupproject_01;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -13,6 +18,11 @@ public class Register extends AppCompatActivity {
     EditText email;
     EditText pwd1;
     EditText pwd2;
+    Button register_btn;
+    String p1_r ="";
+    String p2_r ="";
+    String email_r ="";
+    SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,19 +32,102 @@ public class Register extends AppCompatActivity {
         email = (EditText)findViewById(R.id.email_ET);
         pwd1 =(EditText)findViewById(R.id.pwd1);
         pwd2 =(EditText)findViewById(R.id.pwd2);
-        String p1 = pwd1.getText().toString();
-        String p2 = pwd2.getText().toString();
-        String e_mail =email.getText().toString();
-        if(!p1.equals(p2)){
-            Toast.makeText(Register.this, "please input password agin", Toast.LENGTH_SHORT).show();
-            return;
-        }
+        register_btn = (Button)findViewById(R.id.register_btn);
+        email.addTextChangedListener(new TextWatcher() {
 
-        String ip = getString(R.string.ip_address);
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
 
-        Log.e("IPPPPPPPPL::", ip + "/api/auth/register");
-        (new RegisterRequestTask(this,e_mail, p1)).execute(ip + "/api/auth/register");
-        //(new ListRequestTask(this,listview, selected_id)).execute("http://104.194.108.91:1337/api/doc");
+                //Your query to fetch Data
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                //email_r = email.getText().toString();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+                Log.i("11111", email.getText().toString());
+                email_r = email.getText().toString();
+            }
+        });
+        pwd1.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                //Your query to fetch Data
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+               // p1_r = pwd1.getText().toString();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+                Log.i("11111", p1_r);
+                p1_r = pwd1.getText().toString();
+            }
+        });
+
+        pwd2.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                //Your query to fetch Data
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                //p2_r = pwd2.getText().toString();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+                p2_r = pwd2.getText().toString();
+                Log.i("11111", p2_r);
+            }
+        });
+
+
+        register_btn.setOnClickListener(new View.OnClickListener() {
+//            String p1 = p1_r;
+//            String p2 = pwd2.getText().toString();
+//            String e_mail = email_r;
+
+
+            @Override
+            public void onClick(View v) {
+                Log.i("p1:::::", p1_r + "p1p1p1rrrr");
+                if (p1_r.length() == 0 || p2_r.length() == 0 || email_r.length() == 0) {
+                    Log.i("p2:::::", p2_r + "p2p1p1");
+                    Log.i("emmm:::::", email_r + "p1p1email");
+                    Log.i("email:::::", "adfhjasdhflajk");
+                    Toast.makeText(Register.this, "please input email and password", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (!p1_r.equals(p2_r)) {
+                    Toast.makeText(Register.this, "please input password agin", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                String ip = getString(R.string.ip_address);
+                RegisterRequestTask registerRequestTask = new RegisterRequestTask(Register.this,ip);
+                Log.e("IPPPPPPPPL::", ip + "/api/auth/register");
+               // (new RegisterRequestTask(Register.this, email_r, p1_r, ip)).execute(ip + "/api/auth/register");
+                registerRequestTask.execute(email_r, p1_r);
+
+            }
+        });
+
+
+
 
 
 

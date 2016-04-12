@@ -39,7 +39,7 @@ public class LoginRequestTask extends AsyncTask<String, Integer, String> {
 
     @Override
     protected String doInBackground(String... data) {
-        String status = "";
+        String result= "";
 
         HttpURLConnection urlConnection = null;
         //String url = " http://192.168.155.6:1337/api/doc/" + data[0];
@@ -60,19 +60,19 @@ public class LoginRequestTask extends AsyncTask<String, Integer, String> {
 
             String requestData = jsonParam.toString();
             urlConnection.setRequestProperty("Content-Length", "" +  requestData.getBytes().length);
-            Log.e("------:", requestData.getBytes().length + "");
+            Log.e("------login:", requestData.getBytes().length + "");
             DataOutputStream out = new DataOutputStream(urlConnection.getOutputStream());
 
             out.writeBytes(requestData);
             out.flush();
             out.close();
-            Log.e("====:", requestData);
+            Log.e("====login:", requestData);
             InputStream in = new BufferedInputStream(urlConnection.getInputStream());
 
 
             Scanner s = new Scanner(in).useDelimiter("\\A");
             String res = s.hasNext() ? s.next() : "";
-            Log.e("rrrrrr:",res);
+            Log.e("rrrrrr_login:",res);
             return res;
         } catch (Exception ex) {
             Log.e("er55r", ex.toString());
