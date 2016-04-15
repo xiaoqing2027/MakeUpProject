@@ -8,18 +8,18 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.InputStream;
+import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
-
-import javax.net.ssl.HttpsURLConnection;
 
 
 class ListRequestTask extends AsyncTask<String, Integer, List<ListRequestTask.DocumentItem>> {
@@ -58,16 +58,20 @@ class ListRequestTask extends AsyncTask<String, Integer, List<ListRequestTask.Do
     protected List<ListRequestTask.DocumentItem> doInBackground(String... uri) {
         List<DocumentItem> docList = new ArrayList<>();
         try {
-            HttpsURLConnection connection =null;
-            URL object = new URL(uri[0]);
-            Log.i("xxxxxxxxxx","xxx");
-            connection =(HttpsURLConnection) object.openConnection();
-            connection.setRequestProperty("access_token",token);
-            Log.i("xccccccc", "xxx");
-            InputStream response = new URL(uri[0]).openStream();
-            Scanner s = new Scanner(response).useDelimiter("\\A");
-            String res = s.hasNext() ? s.next() : "";
 
+            URL object = new URL(uri[0]);
+            HttpURLConnection connection =(HttpURLConnection) object.openConnection();
+            connection.setDoOutput(true);
+            connection.setRequestMethod("GET");
+            connection.setRequestProperty("access_token", token);
+            Log.i("xccccccc", token);
+            InputStream response = object.openStream();
+            //InputStream response = connection.getInputStream();
+            Log.i("11111111","11111");
+            Scanner s = new Scanner(response).useDelimiter("\\A");
+            Log.i("22222","11111");
+            String res = s.hasNext() ? s.next() : "";
+            Log.i("11111111","22222");
 
             JSONArray array = new JSONArray(res);
 
