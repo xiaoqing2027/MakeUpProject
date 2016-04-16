@@ -30,7 +30,7 @@ class ListRequestTask extends AsyncTask<String, Integer, List<ListRequestTask.Do
     List<Map<String, String>> data = new ArrayList<Map<String, String>>();
     String token;
 
-    public ListRequestTask(Context context, ListView listview,int  selected_id,String token) {
+    public ListRequestTask(Context context, ListView listview, int selected_id, String token) {
         this.listview = listview;
         this.context = context;
         this.selected_id = selected_id;
@@ -60,18 +60,22 @@ class ListRequestTask extends AsyncTask<String, Integer, List<ListRequestTask.Do
         try {
 
             URL object = new URL(uri[0]);
+
             HttpURLConnection connection =(HttpURLConnection) object.openConnection();
-            connection.setDoOutput(true);
+
+            connection.setRequestProperty("access-control-allow-headers", "true");
             connection.setRequestMethod("GET");
-            connection.setRequestProperty("access_token", token);
-            Log.i("xccccccc", token);
-            InputStream response = object.openStream();
-            //InputStream response = connection.getInputStream();
-            Log.i("11111111","11111");
+
+            //connection.setRequestProperty("access_token", token);
+            connection.setRequestProperty("Authorization", "Bearer " + token);
+            connection.setDoInput(true);
+
+            InputStream response = connection.getInputStream();
+
+
             Scanner s = new Scanner(response).useDelimiter("\\A");
-            Log.i("22222","11111");
             String res = s.hasNext() ? s.next() : "";
-            Log.i("11111111","22222");
+
 
             JSONArray array = new JSONArray(res);
 
@@ -87,7 +91,8 @@ class ListRequestTask extends AsyncTask<String, Integer, List<ListRequestTask.Do
             }
 
         } catch (Exception ex) {
-            Log.e("backgroud task", ex.getMessage());
+            ex.printStackTrace();
+            Log.e("backgroud task", ex.toString());
         }
 
         return docList;

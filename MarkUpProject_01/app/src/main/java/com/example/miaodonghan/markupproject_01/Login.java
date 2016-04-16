@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -28,6 +30,8 @@ public class Login extends AppCompatActivity {
     TextView regist_link;
     String email_register;
     String pwd_register;
+    String email;
+    String pwd;
 
 
 
@@ -44,34 +48,88 @@ public class Login extends AppCompatActivity {
         email_register =getIntent().getStringExtra("e");
         pwd_register =getIntent().getStringExtra("p");
         //write into sharedpreference
+
         sharedPreferences = getSharedPreferences(Markup, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(Email_s, email_register);
         editor.putString(Password_s, pwd_register);
         editor.commit();
 
+
+        email_login.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                //Your query to fetch Data
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                //email_r = email.getText().toString();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+                Log.i("11111", email_login.getText().toString());
+                email = email_login.getText().toString();
+
+            }
+        });
+        pwd_login.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                //Your query to fetch Data
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                // p1_r = pwd1.getText().toString();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+                pwd = pwd_login.getText().toString();
+                Log.i("11111", pwd);
+            }
+        });
+
+        if(email_register == ""){
+            email_register =email;
+        }
+        if(pwd_register == ""){
+            pwd_register = pwd;
+            Log.d("pwe", pwd_register);
+        }
+
         //get and display data
-        email_login.setText(sharedPreferences.getString(Email_s,null));
-        Log.i("dddddd", "aaaaaa");
-        pwd_login.setText(sharedPreferences.getString(Password_s,null));
+
+
+        email_login.setText(sharedPreferences.getString(Email_s, null));
+        pwd_login.setText(sharedPreferences.getString(Password_s, null));
 
 
         login_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                String email = email_login.getText().toString();
-                String pwd = pwd_login.getText().toString();
 
-                if (email.length() == 0 || pwd.length() == 0) {
+                String email_internal = email_login.getText().toString();
+                String pwd_internal = pwd_login.getText().toString();
+
+                if (email_internal.length() == 0 || pwd_internal.length() == 0) {
                     Toast.makeText(Login.this, "please input email and password!", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
                 String ip = getString(R.string.ip_address);
-                LoginRequestTask loginRequestTask = new LoginRequestTask(Login.this,ip);
+                LoginRequestTask loginRequestTask = new LoginRequestTask(Login.this, ip);
                 Log.e("IPPPPPPPPL::", ip + "/api/auth/login");
-                loginRequestTask.execute(email,pwd);
+                loginRequestTask.execute(email, pwd);
 
             }
         });
@@ -79,7 +137,7 @@ public class Login extends AppCompatActivity {
         regist_link.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent= new Intent(Login.this,Register.class);
+                Intent intent = new Intent(Login.this, Register.class);
                 Login.this.startActivity(intent);
             }
         });
