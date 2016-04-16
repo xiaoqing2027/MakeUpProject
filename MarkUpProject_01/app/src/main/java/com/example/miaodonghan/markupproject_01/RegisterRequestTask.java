@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.Toast;
 
 import org.json.JSONObject;
 
@@ -25,6 +26,7 @@ public class RegisterRequestTask extends AsyncTask<String, Integer, String> {
     String pwd;
     String ip;
     SharedPreferences sharedPreferences;
+    int response_code;
 
 
 
@@ -72,19 +74,30 @@ public class RegisterRequestTask extends AsyncTask<String, Integer, String> {
             out.flush();
             out.close();
             Log.e("====:", requestData);
-//            email = jsonParam.getJSONObject("email").toString();
-//            pwd =jsonParam.getJSONObject("password").toString();
-            urlConnection.getErrorStream();
-            urlConnection.getResponseCode();
 
-            InputStream in = new BufferedInputStream(urlConnection.getInputStream());
+           // Log.i("err222",urlConnection.getResponseCode()+"");
+            // if user has register, response code is 400(bad request)
 
-            Scanner s = new Scanner(in).useDelimiter("\\A");
-            String res = s.hasNext() ? s.next() : "";
-            Log.e("rrrrrr:",res);
-            s.close();
 
-            return res;
+
+            //print error ifo
+//            InputStream e1 = new BufferedInputStream(urlConnection.getErrorStream());
+//            Scanner s1 = new Scanner(e1).useDelimiter("\\A");
+//            String r_e1 = s1.hasNext() ? s1.next() : "";
+//            Log.e("err1:", r_e1);
+//            s1.close();
+
+            response_code = urlConnection.getResponseCode();
+            if(urlConnection.getResponseCode() == 400){
+                return "";
+            }else{
+                InputStream in = new BufferedInputStream(urlConnection.getInputStream());
+                Scanner s = new Scanner(in).useDelimiter("\\A");
+                String res = s.hasNext() ? s.next() : "";
+                Log.e("rrrrrr:", res);
+                s.close();
+                return res;
+            }
 
         } catch (Exception ex) {
 
@@ -100,15 +113,19 @@ public class RegisterRequestTask extends AsyncTask<String, Integer, String> {
     //@Override
     protected void onPostExecute(String result) {
 
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString(Login.Email_s,email);
-        editor.putString(Login.Password_s,pwd);
-        editor.commit();
-        Intent intent= new Intent(context,Login.class);
-
-        context.startActivity(intent);
-
-
+        if(response_code == 400){
+            //do nothing
+            //Intent intent= new Intent(context,Register.class);
+            Toast.makeText(context, "User already exists!!! please change email.", Toast.LENGTH_SHORT).show();
+            //context.startActivity(intent);
+        }else{
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString(Login.Email_s,email);
+            editor.putString(Login.Password_s,pwd);
+            editor.commit();
+            Intent intent= new Intent(context,Login.class);
+            context.startActivity(intent);
+        }
 
     }
 }
