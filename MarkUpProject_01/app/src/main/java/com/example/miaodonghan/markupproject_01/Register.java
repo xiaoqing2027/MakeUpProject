@@ -1,5 +1,6 @@
 package com.example.miaodonghan.markupproject_01;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -33,6 +34,9 @@ public class Register extends AppCompatActivity {
         pwd1 =(EditText)findViewById(R.id.pwd1);
         pwd2 =(EditText)findViewById(R.id.pwd2);
         register_btn = (Button)findViewById(R.id.register_btn);
+        sharedPreferences = getSharedPreferences(Login.Markup, Context.MODE_PRIVATE);
+
+
         email.addTextChangedListener(new TextWatcher() {
 
             @Override
@@ -118,7 +122,8 @@ public class Register extends AppCompatActivity {
                 }
 
                 String ip = getString(R.string.ip_address);
-                RegisterRequestTask registerRequestTask = new RegisterRequestTask(Register.this,ip);
+
+                RegisterRequestTask registerRequestTask = new RegisterRequestTask(Register.this,ip,sharedPreferences);
                 Log.e("IPPPPPPPPL::", ip + "/api/auth/register");
                // (new RegisterRequestTask(Register.this, email_r, p1_r, ip)).execute(ip + "/api/auth/register");
                 registerRequestTask.execute(email_r, p1_r);

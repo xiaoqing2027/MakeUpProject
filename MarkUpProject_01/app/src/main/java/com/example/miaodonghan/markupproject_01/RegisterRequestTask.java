@@ -2,6 +2,7 @@ package com.example.miaodonghan.markupproject_01;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -20,16 +21,18 @@ import java.util.Scanner;
 public class RegisterRequestTask extends AsyncTask<String, Integer, String> {
 
     Context context;
-    public static final String Markup ="markup";
     String email;
     String pwd;
     String ip;
+    SharedPreferences sharedPreferences;
 
 
-    public RegisterRequestTask(Context context, String ip) {
+
+    public RegisterRequestTask(Context context, String ip, SharedPreferences sharedPreferences) {
 
         this.context = context;
         this.ip = ip;
+        this.sharedPreferences =sharedPreferences;
 
     }
     @Override
@@ -60,10 +63,9 @@ public class RegisterRequestTask extends AsyncTask<String, Integer, String> {
             jsonParam.put("password", data[1]);
             email =data[0];
             pwd =data[1];
-            Log.e("------:", email);
+
             String requestData = jsonParam.toString();
-            urlConnection.setRequestProperty("Content-Length", "" +  requestData.getBytes().length);
-            Log.e("------:", requestData.getBytes().length + "");
+            urlConnection.setRequestProperty("Content-Length", "" + requestData.getBytes().length);
             DataOutputStream out = new DataOutputStream(urlConnection.getOutputStream());
 
             out.writeBytes(requestData);
@@ -72,14 +74,20 @@ public class RegisterRequestTask extends AsyncTask<String, Integer, String> {
             Log.e("====:", requestData);
 //            email = jsonParam.getJSONObject("email").toString();
 //            pwd =jsonParam.getJSONObject("password").toString();
+            urlConnection.getErrorStream();
+            urlConnection.getResponseCode();
 
             InputStream in = new BufferedInputStream(urlConnection.getInputStream());
+
             Scanner s = new Scanner(in).useDelimiter("\\A");
             String res = s.hasNext() ? s.next() : "";
             Log.e("rrrrrr:",res);
+            s.close();
+
             return res;
 
         } catch (Exception ex) {
+
             Log.e("er55r", ex.toString());
         } finally {
             urlConnection.disconnect();
@@ -92,10 +100,12 @@ public class RegisterRequestTask extends AsyncTask<String, Integer, String> {
     //@Override
     protected void onPostExecute(String result) {
 
-
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(Login.Email_s,email);
+        editor.putString(Login.Password_s,pwd);
+        editor.commit();
         Intent intent= new Intent(context,Login.class);
-        intent.putExtra("e", email);
-        intent.putExtra("p",pwd);
+
         context.startActivity(intent);
 
 

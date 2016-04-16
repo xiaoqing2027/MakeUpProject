@@ -44,16 +44,8 @@ public class Login extends AppCompatActivity {
         pwd_login =(EditText)findViewById(R.id.pwd_login);
         login_btn =(Button)findViewById(R.id.login_btn);
         regist_link = (TextView) findViewById(R.id.register_link);
-        //get register information from register page
-        email_register =getIntent().getStringExtra("e");
-        pwd_register =getIntent().getStringExtra("p");
-        //write into sharedpreference
 
         sharedPreferences = getSharedPreferences(Markup, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString(Email_s, email_register);
-        editor.putString(Password_s, pwd_register);
-        editor.commit();
 
 
         email_login.addTextChangedListener(new TextWatcher() {
@@ -98,13 +90,13 @@ public class Login extends AppCompatActivity {
             }
         });
 
-        if(email_register == ""){
-            email_register =email;
-        }
-        if(pwd_register == ""){
-            pwd_register = pwd;
-            Log.d("pwe", pwd_register);
-        }
+//        if(email_register == ""){
+//            email_register =email;
+//        }
+//        if(pwd_register == ""){
+//            pwd_register = pwd;
+//            Log.d("pwe", pwd_register);
+//        }
 
         //get and display data
 
@@ -127,7 +119,8 @@ public class Login extends AppCompatActivity {
                 }
 
                 String ip = getString(R.string.ip_address);
-                LoginRequestTask loginRequestTask = new LoginRequestTask(Login.this, ip);
+//                SharedPreferences.Editor editor= sharedPreferences.edit();
+                LoginRequestTask loginRequestTask = new LoginRequestTask(Login.this, ip,sharedPreferences);
                 Log.e("IPPPPPPPPL::", ip + "/api/auth/login");
                 loginRequestTask.execute(email, pwd);
 

@@ -63,7 +63,6 @@ class ListRequestTask extends AsyncTask<String, Integer, List<ListRequestTask.Do
 
             HttpURLConnection connection =(HttpURLConnection) object.openConnection();
 
-            connection.setRequestProperty("access-control-allow-headers", "true");
             connection.setRequestMethod("GET");
 
             //connection.setRequestProperty("access_token", token);

@@ -2,6 +2,7 @@ package com.example.miaodonghan.markupproject_01;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -26,13 +27,15 @@ public class LoginRequestTask extends AsyncTask<String, Integer, String> {
     String ip;
     String token;
     String expires;
+    SharedPreferences sharedPreferences;
 
 
 
-    public LoginRequestTask(Context context, String ip) {
+    public LoginRequestTask(Context context, String ip,SharedPreferences sharedPreferences) {
 
         this.context = context;
         this.ip = ip;
+        this.sharedPreferences = sharedPreferences;
     }
 
     @Override
@@ -106,9 +109,11 @@ public class LoginRequestTask extends AsyncTask<String, Integer, String> {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(Login.Token_s,token);
+        editor.putString(Login.Expires_s,expires);
+        editor.commit();
 
-        intent.putExtra("token", token);
-        intent.putExtra("expires",expires);
         context.startActivity(intent);
 
 
