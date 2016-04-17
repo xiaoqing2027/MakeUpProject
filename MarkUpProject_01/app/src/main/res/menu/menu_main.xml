@@ -1,36 +1,10 @@
-<?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".home">
-
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.example.miaodonghan.myapplication.MainActivity">
     <item
-        android:id="@+id/action_search"
-        android:title="search"
-        android:orderInCategory="200"
-        android:icon="@drawable/ic_menu_search"
-        app:showAsAction="ifRoom"
-        android:layout_gravity="center_horizontal|left"
-        />
-    <item
-        android:id="@+id/action_search_bar"
-        android:title="search"
-        android:orderInCategory="200"
-        android:icon="@drawable/ic_menu_search"
-        app:showAsAction="ifRoom"
-        android:layout_gravity="center_horizontal|left"
-        />
-    <group android:checkableBehavior = "single">
-    <item
-        android:id="@+id/menu_register"
-        android:title ="@string/app_register"/>
-    <item
-        android:id="@+id/menu_login"
-        android:title ="@string/app_login"/>
-    <item
-        android:id="@+id/menu_logout"
-        android:title ="@string/app_login"/>
-    </group>
-
-
+        android:id="@+id/action_settings"
+        android:orderInCategory="100"
+        android:title="Login"
+        app:showAsAction="always" />
 </menu>
