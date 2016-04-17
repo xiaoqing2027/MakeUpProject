@@ -94,7 +94,6 @@ public class RegisterRequestTask extends AsyncTask<String, Integer, String> {
                 InputStream in = new BufferedInputStream(urlConnection.getInputStream());
                 Scanner s = new Scanner(in).useDelimiter("\\A");
                 String res = s.hasNext() ? s.next() : "";
-                Log.e("rrrrrr:", res);
                 s.close();
                 return res;
             }
