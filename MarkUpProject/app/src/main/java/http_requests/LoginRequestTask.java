@@ -1,4 +1,4 @@
-package com.example.miaodonghan.markupproject_01;
+package http_requests;
 
 import android.content.Context;
 import android.content.Intent;
@@ -6,6 +6,9 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
+
+import com.example.miaodonghan.markupproject.DocumentListActivity;
+import com.example.miaodonghan.markupproject.LoginActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -126,8 +129,8 @@ public class LoginRequestTask extends AsyncTask<String, Integer, String> {
                 e.printStackTrace();
             }
             SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putString(Login.Token_s,token);
-            editor.putString(Login.Expires_s,expires);
+            editor.putString(LoginActivity.Token_s,token);
+            editor.putString(LoginActivity.Expires_s,expires);
             editor.commit();
 
             context.startActivity(intent);

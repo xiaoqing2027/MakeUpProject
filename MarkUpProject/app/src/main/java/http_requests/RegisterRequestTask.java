@@ -1,4 +1,4 @@
-package com.example.miaodonghan.markupproject_01;
+package http_requests;
 
 import android.content.Context;
 import android.content.Intent;
@@ -6,6 +6,8 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
+
+import com.example.miaodonghan.markupproject.LoginActivity;
 
 import org.json.JSONObject;
 
@@ -114,15 +116,15 @@ public class RegisterRequestTask extends AsyncTask<String, Integer, String> {
 
         if(response_code == 400){
             //do nothing
-            //Intent intent= new Intent(context,Register.class);
+            //Intent intent= new Intent(context,RegisterActivity.class);
             Toast.makeText(context, "User already exists!!! please change email.", Toast.LENGTH_SHORT).show();
             //context.startActivity(intent);
         }else{
             SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putString(Login.Email_s,email);
-            editor.putString(Login.Password_s,pwd);
+            editor.putString(LoginActivity.Email_s,email);
+            editor.putString(LoginActivity.Password_s,pwd);
             editor.commit();
-            Intent intent= new Intent(context,Login.class);
+            Intent intent= new Intent(context,LoginActivity.class);
             context.startActivity(intent);
         }
 

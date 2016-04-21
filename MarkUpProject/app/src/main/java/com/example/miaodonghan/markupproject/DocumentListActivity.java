@@ -1,4 +1,4 @@
-package com.example.miaodonghan.markupproject_01;
+package com.example.miaodonghan.markupproject;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,27 +12,27 @@ import android.view.MenuItem;
 import android.widget.ListView;
 import android.widget.Toast;
 
-/**
- * Created by miaodonghan on 2/21/16.
- */
+import http_requests.ListRequestTask;
+
+
 public class DocumentListActivity extends AppCompatActivity {
     public final static int selected_id = 0;
     ListView listview;
     String token;
-    String expires;
     SharedPreferences sharedPreferences;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.document_list);
 
         listview = (ListView) findViewById(R.id.doc_list);
-        sharedPreferences = getSharedPreferences(Login.Markup, Context.MODE_PRIVATE);
+        sharedPreferences = getSharedPreferences(LoginActivity.Markup, Context.MODE_PRIVATE);
 
         String ip = getString(R.string.ip_address);
         Log.e("IPPPPPPPPL::", ip);
-        token = sharedPreferences.getString(Login.Token_s,null);
-        (new ListRequestTask(this,listview, selected_id,token)).execute( ip + "/api/doc");
+        token = sharedPreferences.getString(LoginActivity.Token_s, null);
+        (new ListRequestTask(this, listview, selected_id, token)).execute(ip + "/api/doc");
 
     }
 
@@ -48,8 +48,8 @@ public class DocumentListActivity extends AppCompatActivity {
         switch (item.getItemId()) {
 
             case R.id.action_settings:
-                Toast.makeText(this, "Goto Login page", Toast.LENGTH_SHORT).show();
-                Intent intent= new Intent(this,Login.class);
+                Toast.makeText(this, "Goto LoginActivity page", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(this, LoginActivity.class);
                 startActivity(intent);
                 break;
             default:

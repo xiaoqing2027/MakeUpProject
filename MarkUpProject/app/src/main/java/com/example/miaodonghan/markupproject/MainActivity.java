@@ -1,4 +1,4 @@
-package com.example.miaodonghan.markupproject_01;
+package com.example.miaodonghan.markupproject;
 
 import android.content.ClipData;
 import android.content.Intent;
@@ -20,9 +20,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import http_requests.GetRequestTask;
 import http_requests.PostRequestTask;
 import http_requests.PutRequestTask;
 import us.feras.mdv.MarkdownView;
+import utils.Document;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -48,16 +50,16 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.markdowntext_edit);
 
-        editor = (EditText)findViewById(R.id.editText);
-        doc_id =getIntent().getIntExtra("doc_position",VersionListActivity.doc_id);
-        Log.i("doc_iddddd:", doc_id+"");
-        version_id = getIntent().getIntExtra("version_position",VersionListActivity.version_selected_id);
+        editor = (EditText) findViewById(R.id.editText);
+        doc_id = getIntent().getIntExtra("doc_position", VersionListActivity.doc_id);
+        Log.i("doc_iddddd:", doc_id + "");
+        version_id = getIntent().getIntExtra("version_position", VersionListActivity.version_selected_id);
 
 
-        GetRequestTask getRequestTask = new GetRequestTask(this,version_id,editor);
+        GetRequestTask getRequestTask = new GetRequestTask(this, version_id, editor);
         //get selectedPosition from listview
         ip = getString(R.string.ip_address);
-        getRequestTask.execute(ip+"/api/doc/"+ doc_id+"/version/"+ version_id);
+        getRequestTask.execute(ip + "/api/doc/" + doc_id + "/version/" + version_id);
         //getRequestTask.execute( "http://104.194.108.91:1337/api/doc/" + id);
         Log.i("_________________id :", "/api/doc/" + doc_id + "/version/" + version_id);
         Log.i("00000", editor_content);
@@ -66,20 +68,20 @@ public class MainActivity extends AppCompatActivity {
 //        MarkdownView markdownView = (MarkdownView) findViewById(R.id.markdownView);
 //        markdownView.loadMarkdown(editor.getText().toString());
 
-        savebtn =(Button)findViewById(R.id.save_old);
+        savebtn = (Button) findViewById(R.id.save_old);
         savebtn.setOnClickListener(mySaveTtn);
-        savebtn_newversion=(Button)findViewById(R.id.save_new);
+        savebtn_newversion = (Button) findViewById(R.id.save_new);
         savebtn_newversion.setOnClickListener(mySaveTtn_newversion);
-        previewbtn = (Button)findViewById(R.id.preview);
+        previewbtn = (Button) findViewById(R.id.preview);
         previewbtn.setOnClickListener(previewbtn_handler);
 
-        headerbtn = (Button)findViewById(R.id.HeaderBtn);
+        headerbtn = (Button) findViewById(R.id.HeaderBtn);
         headerbtn.setOnTouchListener(new headerbtnTouchListener());
-        boldbtn = (Button)findViewById(R.id.BoldBtn);
+        boldbtn = (Button) findViewById(R.id.BoldBtn);
         boldbtn.setOnTouchListener(new boldbtnTouchListener());
-        quotebtn = (Button)findViewById(R.id.quotebtn);
+        quotebtn = (Button) findViewById(R.id.quotebtn);
         quotebtn.setOnTouchListener(new quotebtnTouchListener());
-        listbtn = (Button)findViewById(R.id.listbtn);
+        listbtn = (Button) findViewById(R.id.listbtn);
         listbtn.setOnTouchListener(new listbtnTouchListener());
 
 
@@ -110,7 +112,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
-
 
 
     private final class headerbtnTouchListener implements OnTouchListener {
@@ -190,7 +191,7 @@ public class MainActivity extends AppCompatActivity {
 
                     break;
                 case DragEvent.ACTION_DROP:
-                    switch(msg){
+                    switch (msg) {
                         case "headerbtn":
                             handleHeaderbtn();
                             break;
@@ -204,9 +205,9 @@ public class MainActivity extends AppCompatActivity {
                             handleListbtn();
                             break;
                     }
-                    
+
                     // Dropped, reassign View to ViewGroup
-                    Toast.makeText(MainActivity.this,"drag drop", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "drag drop", Toast.LENGTH_SHORT).show();
                     break;
                 case DragEvent.ACTION_DRAG_ENDED:
 
@@ -218,26 +219,28 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void handleHeaderbtn(){
+    public void handleHeaderbtn() {
         MarkdownView markdownView = (MarkdownView) findViewById(R.id.markdownView);
         int lineNum = getCurrentCursorLine(editor);
-        doc.setHeader(lineNum,markdownView, editor);
+        doc.setHeader(lineNum, markdownView, editor);
     }
 
-    public void handleBoldbtn(){
+    public void handleBoldbtn() {
         MarkdownView markdownView = (MarkdownView) findViewById(R.id.markdownView);
         int lineNum = getCurrentCursorLine(editor);
         doc.setBold(lineNum, editor, markdownView);
     }
-    public void handleQuotebtn(){
+
+    public void handleQuotebtn() {
         MarkdownView markdownView = (MarkdownView) findViewById(R.id.markdownView);
         int lineNum = getCurrentCursorLine(editor);
-        doc.setQuote(lineNum,editor,markdownView);
+        doc.setQuote(lineNum, editor, markdownView);
     }
-    public void handleListbtn(){
+
+    public void handleListbtn() {
         MarkdownView markdownView = (MarkdownView) findViewById(R.id.markdownView);
         int lineNum = getCurrentCursorLine(editor);
-        doc.setList(lineNum,editor,markdownView);
+        doc.setList(lineNum, editor, markdownView);
     }
 
 
@@ -257,14 +260,14 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void onClick(View v) {
-            PutRequestTask putRequestTask = new PutRequestTask(MainActivity.this,version_id,editor,ip,doc_id);
+            PutRequestTask putRequestTask = new PutRequestTask(MainActivity.this, version_id, editor, ip, doc_id);
             String text = editor.getText().toString();
             int start = editor.getLayout().getLineStart(0);
             int end = editor.getLayout().getLineStart(1);
-            int cstart =editor.getLayout().getLineStart(2);
+            int cstart = editor.getLayout().getLineStart(2);
             String name = text.substring(start, end);
-            String content = text.substring(cstart,text.length());
-            putRequestTask.execute(""+version_id,name,content);
+            String content = text.substring(cstart, text.length());
+            putRequestTask.execute("" + version_id, name, content);
             //String content = text;
             //putRequestTask.execute(""+version_id,content);
             Toast.makeText(MainActivity.this, "save successfully", Toast.LENGTH_LONG).show();
@@ -275,14 +278,14 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
 
-            PostRequestTask postRequestTask = new PostRequestTask(MainActivity.this,editor,ip,doc_id);
+            PostRequestTask postRequestTask = new PostRequestTask(MainActivity.this, editor, ip, doc_id);
 
             String text = editor.getText().toString();
             int start = editor.getLayout().getLineStart(0);
             int end = editor.getLayout().getLineStart(1);
-            int cstart =editor.getLayout().getLineStart(2);
+            int cstart = editor.getLayout().getLineStart(2);
             String name = text.substring(start, end);
-            String content = text.substring(cstart,text.length());
+            String content = text.substring(cstart, text.length());
             //putRequestTask.execute(""+version_id,name,content);
             //String content = text;
             postRequestTask.execute(name, content);
@@ -295,7 +298,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             editor_content = editor.getText().toString();
-            startActivity(new Intent(MainActivity.this, ShowPreview.class));
+            startActivity(new Intent(MainActivity.this, ShowPreviewActivity.class));
 
         }
     };

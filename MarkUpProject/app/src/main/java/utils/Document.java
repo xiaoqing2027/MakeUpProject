@@ -1,12 +1,8 @@
-package com.example.miaodonghan.markupproject_01;
+package utils;
 
 import android.widget.EditText;
 
 import us.feras.mdv.MarkdownView;
-
-/**
- * Created by maggie on 2/7/16.
- */
 
 
 public class Document {
