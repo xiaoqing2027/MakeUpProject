@@ -23,29 +23,23 @@ import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
-/**
- * Created by miaodonghan on 3/20/16.
- */
+
 public class VersionListRequestTask extends AsyncTask<String, Integer, List<VersionListRequestTask.VersionItem>> {
 
     ListView listview;
     Context context;
-
-    int version_selected_id;
     int doc_id;
     List<Map<String, String>> data_version = new ArrayList<Map<String, String>>();
 
-    public VersionListRequestTask(Context context, ListView listview, int version_selected_id, int doc_id) {
+    public VersionListRequestTask(Context context, ListView listview, int doc_id) {
         this.listview = listview;
         this.context = context;
-        this.version_selected_id = version_selected_id;
-        this.doc_id=doc_id;
+        this.doc_id = doc_id;
     }
 
 
-
     static class VersionItem {
-        public VersionItem(String id, String name,String content, String updatedAt) {
+        public VersionItem(String id, String name, String content, String updatedAt) {
             this.id = id;
             this.name = name;
             this.content = content;
@@ -103,14 +97,14 @@ public class VersionListRequestTask extends AsyncTask<String, Integer, List<Vers
             Map<String, String> map = new HashMap<>();
             map.put("id", docList.get(i).id);
             map.put("name", docList.get(i).name);
-            map.put("content",docList.get(i).content);
+            map.put("content", docList.get(i).content);
             map.put("updatedAt", docList.get(i).updatedAt);
             data_version.add(map);
         }
 
         SimpleAdapter adapter = new SimpleAdapter(context, data_version,
-                R.layout.version_item, new String[]{"id","name","content", "updatedAt"},
-                new int[]{R.id.version_id, R.id.version_name,R.id.version_content, R.id.version_updatedAt}
+                R.layout.version_item, new String[]{"id", "name", "content", "updatedAt"},
+                new int[]{R.id.version_id, R.id.version_name, R.id.version_content, R.id.version_updatedAt}
         );
 
         listview.setAdapter(adapter);
@@ -119,12 +113,8 @@ public class VersionListRequestTask extends AsyncTask<String, Integer, List<Vers
 
             @Override
             public void onItemClick(AdapterView<?> arg0, View view, int position, long id) {
-//                Intent intent = new Intent(context, MainActivity.class);
-//                selected_id = Integer.parseInt(data.get(position).get("id"));
-//                intent.putExtra("position", selected_id);
-//                context.startActivity(intent);
                 Intent intent = new Intent(context, MainActivity.class);
-                version_selected_id = Integer.parseInt(data_version.get(position).get("id"));
+                int version_selected_id = Integer.parseInt(data_version.get(position).get("id"));
                 intent.putExtra("version_position", version_selected_id);
                 intent.putExtra("doc_position", doc_id);
                 context.startActivity(intent);

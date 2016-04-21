@@ -17,7 +17,6 @@ import java.util.Scanner;
 
 public class PutRequestTask extends AsyncTask<String, Integer, String> {
 
-
     Context context;
     int doc_id;
     int version_id;
@@ -41,10 +40,8 @@ public class PutRequestTask extends AsyncTask<String, Integer, String> {
 
     @Override
     protected String doInBackground(String... data) {
-        String status = "";
 
         HttpURLConnection urlConnection = null;
-        //String url = " http://192.168.155.6:1337/api/doc/" + data[0];
         try {
 
             URL url = new URL(ip + "/api/doc/" + doc_id + "/version/" + version_id);
@@ -86,10 +83,9 @@ public class PutRequestTask extends AsyncTask<String, Integer, String> {
     }
 
 
-    //@Override
+    @Override
     protected void onPostExecute(String result) {
 
-        //editor.setText(result);
 
     }
 

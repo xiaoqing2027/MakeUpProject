@@ -29,14 +29,12 @@ public class ListRequestTask extends AsyncTask<String, Integer, List<ListRequest
 
     ListView listview;
     Context context;
-    int  selected_id;
     List<Map<String, String>> data = new ArrayList<Map<String, String>>();
     String token;
 
-    public ListRequestTask(Context context, ListView listview, int selected_id, String token) {
+    public ListRequestTask(Context context, ListView listview, String token) {
         this.listview = listview;
         this.context = context;
-        this.selected_id = selected_id;
         this.token = token;
     }
 
@@ -131,7 +129,7 @@ public class ListRequestTask extends AsyncTask<String, Integer, List<ListRequest
 //                intent.putExtra("position", selected_id);
 //                context.startActivity(intent);
                 Intent intent= new Intent(context, VersionListActivity.class);
-                selected_id = Integer.parseInt(data.get(position).get("id"));
+                int selected_id = Integer.parseInt(data.get(position).get("id"));
                 intent.putExtra("position", selected_id);
                 context.startActivity(intent);
             }

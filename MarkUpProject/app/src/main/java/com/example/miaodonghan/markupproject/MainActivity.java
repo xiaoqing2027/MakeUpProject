@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
         version_id = getIntent().getIntExtra("version_position", VersionListActivity.version_selected_id);
 
 
-        GetRequestTask getRequestTask = new GetRequestTask(this, version_id, editor);
+        GetRequestTask getRequestTask = new GetRequestTask(this, editor);
         //get selectedPosition from listview
         ip = getString(R.string.ip_address);
         getRequestTask.execute(ip + "/api/doc/" + doc_id + "/version/" + version_id);

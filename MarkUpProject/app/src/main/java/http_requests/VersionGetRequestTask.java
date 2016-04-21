@@ -11,19 +11,13 @@ import java.io.InputStream;
 import java.net.URL;
 import java.util.Scanner;
 
-/**
- * Created by miaodonghan on 3/20/16.
- */
+
 public class VersionGetRequestTask extends AsyncTask<String, Integer, String> {
     Context context;
-
-    int selected_id;
     EditText editor;
 
-    public VersionGetRequestTask(Context context, int selected_id, EditText editor) {
-
+    public VersionGetRequestTask(Context context, EditText editor) {
         this.context = context;
-        this.selected_id = selected_id;
         this.editor =editor;
     }
 
@@ -50,15 +44,14 @@ public class VersionGetRequestTask extends AsyncTask<String, Integer, String> {
 
 
         } catch (Exception ex) {
-            // Log.e("backgroud task", ex.getMessage());
+             Log.e("backgroud task", ex.getMessage());
         }
 
         return result;
     }
 
-    //@Override
+    @Override
     protected void onPostExecute(String result) {
-
         editor.setText(result);
 
     }

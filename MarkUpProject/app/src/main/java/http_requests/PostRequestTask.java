@@ -16,8 +16,6 @@ import java.util.Scanner;
 
 
 public class PostRequestTask extends AsyncTask<String, Integer, String> {
-
-
     Context context;
     int doc_id;
     EditText editor;

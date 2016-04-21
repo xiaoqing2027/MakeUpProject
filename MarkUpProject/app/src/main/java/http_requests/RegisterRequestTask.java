@@ -18,9 +18,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Scanner;
 
-/**
- * Created by miaodonghan on 4/10/16.
- */
+
 public class RegisterRequestTask extends AsyncTask<String, Integer, String> {
 
     Context context;

@@ -16,14 +16,11 @@ public class GetRequestTask extends AsyncTask<String, Integer, String> {
 
 
     Context context;
-
-    int version_selected_id;
     EditText editor;
 
-    public GetRequestTask(Context context, int version_selected_id, EditText editor) {
+    public GetRequestTask(Context context, EditText editor) {
 
         this.context = context;
-        this.version_selected_id = version_selected_id;
         this.editor =editor;
     }
 
@@ -35,7 +32,6 @@ public class GetRequestTask extends AsyncTask<String, Integer, String> {
     @Override
     protected String doInBackground(String... uri) {
         String result ="";
-        //String name = "";
         try {
 
             InputStream response = new URL(uri[0]).openStream();
@@ -52,7 +48,7 @@ public class GetRequestTask extends AsyncTask<String, Integer, String> {
 
 
         } catch (Exception ex) {
-           // Log.e("backgroud task", ex.getMessage());
+            Log.e("backgroud task", ex.getMessage());
         }
 
         return result;
@@ -60,9 +56,6 @@ public class GetRequestTask extends AsyncTask<String, Integer, String> {
 
     //@Override
     protected void onPostExecute(String result) {
-
          editor.setText(result);
-
-
     }
 }

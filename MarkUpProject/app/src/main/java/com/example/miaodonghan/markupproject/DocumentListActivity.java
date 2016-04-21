@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -30,9 +29,9 @@ public class DocumentListActivity extends AppCompatActivity {
         sharedPreferences = getSharedPreferences(LoginActivity.Markup, Context.MODE_PRIVATE);
 
         String ip = getString(R.string.ip_address);
-        Log.e("IPPPPPPPPL::", ip);
+
         token = sharedPreferences.getString(LoginActivity.Token_s, null);
-        (new ListRequestTask(this, listview, selected_id, token)).execute(ip + "/api/doc");
+        (new ListRequestTask(this, listview, token)).execute(ip + "/api/doc");
 
     }
 
