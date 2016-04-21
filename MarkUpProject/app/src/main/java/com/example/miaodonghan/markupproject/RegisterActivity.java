@@ -41,13 +41,11 @@ public class RegisterActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-
                 //Your query to fetch Data
             }
 
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                //email_r = email.getText().toString();
             }
 
             @Override
@@ -88,7 +86,7 @@ public class RegisterActivity extends AppCompatActivity {
 
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                //p2_r = pwd2.getText().toString();
+
             }
 
             @Override
@@ -108,11 +106,7 @@ public class RegisterActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                Log.i("p1:::::", p1_r + "p1p1p1rrrr");
                 if (p1_r.length() == 0 || p2_r.length() == 0 || email_r.length() == 0) {
-                    Log.i("p2:::::", p2_r + "p2p1p1");
-                    Log.i("emmm:::::", email_r + "p1p1email");
-                    Log.i("email:::::", "adfhjasdhflajk");
                     Toast.makeText(RegisterActivity.this, "please input email and password", Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -122,10 +116,8 @@ public class RegisterActivity extends AppCompatActivity {
                 }
 
                 String ip = getString(R.string.ip_address);
-
-                RegisterRequestTask registerRequestTask = new RegisterRequestTask(RegisterActivity.this, ip, sharedPreferences);
+                RegisterRequestTask registerRequestTask = new RegisterRequestTask(RegisterActivity.this, ip);
                 Log.e("IPPPPPPPPL::", ip + "/api/auth/register");
-                // (new RegisterRequestTask(RegisterActivity.this, email_r, p1_r, ip)).execute(ip + "/api/auth/register");
                 registerRequestTask.execute(email_r, p1_r);
 
             }

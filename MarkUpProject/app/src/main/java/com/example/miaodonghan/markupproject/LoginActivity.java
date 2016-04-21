@@ -116,8 +116,7 @@ public class LoginActivity extends AppCompatActivity {
                 }
 
                 String ip = getString(R.string.ip_address);
-//                SharedPreferences.Editor editor= sharedPreferences.edit();
-                LoginRequestTask loginRequestTask = new LoginRequestTask(LoginActivity.this, ip, sharedPreferences);
+                LoginRequestTask loginRequestTask = new LoginRequestTask(LoginActivity.this,ip);
                 Log.e("IPPPPPPPPL::", ip + "/api/auth/login");
                 loginRequestTask.execute(email, pwd);
 

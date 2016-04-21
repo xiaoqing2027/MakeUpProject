@@ -30,11 +30,11 @@ public class RegisterRequestTask extends AsyncTask<String, Integer, String> {
 
 
 
-    public RegisterRequestTask(Context context, String ip, SharedPreferences sharedPreferences) {
+    public RegisterRequestTask(Context context, String ip) {
 
         this.context = context;
         this.ip = ip;
-        this.sharedPreferences =sharedPreferences;
+        this.sharedPreferences =context.getSharedPreferences(LoginActivity.Markup, Context.MODE_PRIVATE);
 
     }
     @Override
@@ -73,14 +73,7 @@ public class RegisterRequestTask extends AsyncTask<String, Integer, String> {
             out.writeBytes(requestData);
             out.flush();
             out.close();
-            Log.e("====:", requestData);
 
-           // Log.i("err222",urlConnection.getResponseCode()+"");
-            // if user has register, response code is 400(bad request)
-
-
-
-            //print error ifo
 //            InputStream e1 = new BufferedInputStream(urlConnection.getErrorStream());
 //            Scanner s1 = new Scanner(e1).useDelimiter("\\A");
 //            String r_e1 = s1.hasNext() ? s1.next() : "";
@@ -109,14 +102,11 @@ public class RegisterRequestTask extends AsyncTask<String, Integer, String> {
     }
 
 
-    //@Override
+    @Override
     protected void onPostExecute(String result) {
 
         if(response_code == 400){
-            //do nothing
-            //Intent intent= new Intent(context,RegisterActivity.class);
             Toast.makeText(context, "User already exists!!! please change email.", Toast.LENGTH_SHORT).show();
-            //context.startActivity(intent);
         }else{
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putString(LoginActivity.Email_s,email);

@@ -38,7 +38,7 @@ public class GetRequestTask extends AsyncTask<String, Integer, String> {
 
             Scanner s = new Scanner(response).useDelimiter("\\A");
             String res = s.hasNext() ? s.next() : "";
-            Log.e("++++++++++++++++", res);
+            Log.e("GetRequestTask:", res);
 
 
             JSONObject obj = new JSONObject(res);

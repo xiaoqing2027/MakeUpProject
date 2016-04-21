@@ -24,7 +24,7 @@ public class VersionListActivity  extends AppCompatActivity {
         editor = (EditText)findViewById(R.id.editText);
         doc_id = getIntent().getIntExtra("position",DocumentListActivity.selected_id);
 
-        
+
         listview = (ListView) findViewById(R.id.version_list);
         String ip = getString(R.string.ip_address);
 

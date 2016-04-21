@@ -37,10 +37,8 @@ public class PostRequestTask extends AsyncTask<String, Integer, String> {
 
     @Override
     protected String doInBackground(String... data) {
-        String status = "";
 
         HttpURLConnection urlConnection = null;
-        //String url = " http://192.168.155.6:1337/api/doc/" + data[0];
         try {
 
             URL url = new URL(ip + "/api/doc/" + doc_id + "/version");
@@ -58,20 +56,17 @@ public class PostRequestTask extends AsyncTask<String, Integer, String> {
 
             String requestData = jsonParam.toString();
             urlConnection.setRequestProperty("Content-Length", "" +  requestData.getBytes().length);
-            Log.e("------:", requestData.getBytes().length + "");
             DataOutputStream out = new DataOutputStream(urlConnection.getOutputStream());
 
             out.writeBytes(requestData);
             out.flush();
             out.close();
-            Log.e("====:", requestData);
             InputStream in = new BufferedInputStream(urlConnection.getInputStream());
             Scanner s = new Scanner(in).useDelimiter("\\A");
             String res = s.hasNext() ? s.next() : "";
-            Log.e("rrrrrr:",res);
             return res;
         } catch (Exception ex) {
-            Log.e("er55r", ex.toString());
+            Log.e("PostRequestTask:er55r", ex.toString());
         } finally {
             urlConnection.disconnect();
         }
@@ -80,10 +75,9 @@ public class PostRequestTask extends AsyncTask<String, Integer, String> {
     }
 
 
-    //@Override
+    @Override
     protected void onPostExecute(String result) {
 
-        //editor.setText(result);
 
     }
 

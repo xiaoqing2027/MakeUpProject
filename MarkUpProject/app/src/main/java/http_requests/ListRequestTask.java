@@ -103,8 +103,6 @@ public class ListRequestTask extends AsyncTask<String, Integer, List<ListRequest
 
         // close a spinning sign
 
-
-
         for(int i = 0; i < docList.size(); i++) {
             Map<String, String> map = new HashMap<>();
             map.put("id", docList.get(i).id);
@@ -124,10 +122,6 @@ public class ListRequestTask extends AsyncTask<String, Integer, List<ListRequest
 
             @Override
             public void onItemClick(AdapterView<?> arg0, View view, int position, long id) {
-//                Intent intent = new Intent(context, MainActivity.class);
-//                selected_id = Integer.parseInt(data.get(position).get("id"));
-//                intent.putExtra("position", selected_id);
-//                context.startActivity(intent);
                 Intent intent= new Intent(context, VersionListActivity.class);
                 int selected_id = Integer.parseInt(data.get(position).get("id"));
                 intent.putExtra("position", selected_id);

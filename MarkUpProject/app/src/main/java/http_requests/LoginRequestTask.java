@@ -33,11 +33,11 @@ public class LoginRequestTask extends AsyncTask<String, Integer, String> {
 
 
 
-    public LoginRequestTask(Context context, String ip,SharedPreferences sharedPreferences) {
+    public LoginRequestTask(Context context, String ip) {
 
         this.context = context;
         this.ip = ip;
-        this.sharedPreferences = sharedPreferences;
+        this.sharedPreferences =context.getSharedPreferences(LoginActivity.Markup, Context.MODE_PRIVATE);
     }
 
     @Override
@@ -48,9 +48,7 @@ public class LoginRequestTask extends AsyncTask<String, Integer, String> {
     @Override
     protected String doInBackground(String... data) {
         String result= "";
-        String error="";
         HttpURLConnection urlConnection = null;
-        //String url = " http://192.168.155.6:1337/api/doc/" + data[0];
         try {
 
             URL url = new URL(ip + "/api/auth/login");
@@ -60,7 +58,6 @@ public class LoginRequestTask extends AsyncTask<String, Integer, String> {
             urlConnection.setRequestProperty("Accept", "application/json");
             urlConnection.setRequestProperty("Content-type", "application/json");
             urlConnection.setRequestProperty("charset", "utf-8");
-            //urlConnection.setRequestProperty("access_token", "utf-8");
 
             JSONObject jsonParam = new JSONObject();
             //body
@@ -75,8 +72,6 @@ public class LoginRequestTask extends AsyncTask<String, Integer, String> {
             out.writeBytes(requestData);
             out.flush();
             out.close();
-            Log.e("====login:", requestData);
-
 
 //            InputStream e1 = new BufferedInputStream(urlConnection.getErrorStream());
 //            Scanner s1 = new Scanner(e1).useDelimiter("\\A");
@@ -93,7 +88,6 @@ public class LoginRequestTask extends AsyncTask<String, Integer, String> {
                 Scanner s = new Scanner(in).useDelimiter("\\A");
                 res = s.hasNext() ? s.next() : "";
                 result = res;
-                Log.e("rrrrrr_login:",res);
                 return res;
             }
 
@@ -107,16 +101,13 @@ public class LoginRequestTask extends AsyncTask<String, Integer, String> {
     }
 
 
-    //@Override
+    @Override
     protected void onPostExecute(String result) {
 
 
         if(error_code == 403){
-
             Toast.makeText(context, "Invalid email or password!!!.", Toast.LENGTH_SHORT).show();
-            // do nothing
         }else{
-            //editor.setText(result);
             Intent intent= new Intent(context,DocumentListActivity.class);
 
             try {
@@ -126,6 +117,7 @@ public class LoginRequestTask extends AsyncTask<String, Integer, String> {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
+
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putString(LoginActivity.Token_s,token);
             editor.putString(LoginActivity.Expires_s,expires);
