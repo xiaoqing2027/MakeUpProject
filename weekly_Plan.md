@@ -1,4 +1,4 @@
-# MarkUpAndroidProject---started
+# MarkUpAndroid
 *  week1-week2 plan
   * gathering information/requirements of this project
 *  week3 plan
