@@ -1,7 +1,9 @@
 package com.example.miaodonghan.markupproject;
 
 import android.content.ClipData;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
@@ -21,8 +23,6 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import http_requests.GetRequestTask;
-import http_requests.PostRequestTask;
-import http_requests.PutRequestTask;
 import us.feras.mdv.MarkdownView;
 import utils.Document;
 
@@ -41,7 +41,9 @@ public class MainActivity extends AppCompatActivity {
     int doc_id;
     int version_id;
     String ip;
+    SharedPreferences sharedPreferences;
     public static String editor_content = "";
+
 
     private android.widget.RelativeLayout.LayoutParams layoutParams;
 
@@ -68,10 +70,10 @@ public class MainActivity extends AppCompatActivity {
 //        MarkdownView markdownView = (MarkdownView) findViewById(R.id.markdownView);
 //        markdownView.loadMarkdown(editor.getText().toString());
 
-        savebtn = (Button) findViewById(R.id.save_old);
-        savebtn.setOnClickListener(mySaveTtn);
-        savebtn_newversion = (Button) findViewById(R.id.save_new);
-        savebtn_newversion.setOnClickListener(mySaveTtn_newversion);
+        //savebtn = (Button) findViewById(R.id.save_old);
+        //savebtn.setOnClickListener(mySaveTtn);
+        //savebtn_newversion = (Button) findViewById(R.id.save_new);
+        //savebtn_newversion.setOnClickListener(mySaveTtn_newversion);
         previewbtn = (Button) findViewById(R.id.preview);
         previewbtn.setOnClickListener(previewbtn_handler);
 
@@ -256,47 +258,58 @@ public class MainActivity extends AppCompatActivity {
         return -1;
     }
 
-    View.OnClickListener mySaveTtn = new View.OnClickListener() {
-
-        @Override
-        public void onClick(View v) {
-            PutRequestTask putRequestTask = new PutRequestTask(MainActivity.this, version_id, editor, ip, doc_id);
-            String text = editor.getText().toString();
-            int start = editor.getLayout().getLineStart(0);
-            int end = editor.getLayout().getLineStart(1);
-            int cstart = editor.getLayout().getLineStart(2);
-            String name = text.substring(start, end);
-            String content = text.substring(cstart, text.length());
-            putRequestTask.execute("" + version_id, name, content);
-            //String content = text;
-            //putRequestTask.execute(""+version_id,content);
-            Toast.makeText(MainActivity.this, "save successfully", Toast.LENGTH_LONG).show();
-        }
-    };
-    View.OnClickListener mySaveTtn_newversion = new View.OnClickListener() {
-
-        @Override
-        public void onClick(View v) {
-
-            PostRequestTask postRequestTask = new PostRequestTask(MainActivity.this, editor, ip, doc_id);
-
-            String text = editor.getText().toString();
-            int start = editor.getLayout().getLineStart(0);
-            int end = editor.getLayout().getLineStart(1);
-            int cstart = editor.getLayout().getLineStart(2);
-            String name = text.substring(start, end);
-            String content = text.substring(cstart, text.length());
-            //putRequestTask.execute(""+version_id,name,content);
-            //String content = text;
-            postRequestTask.execute(name, content);
-            Toast.makeText(MainActivity.this, "you created a new version successfully", Toast.LENGTH_LONG).show();
-        }
-    };
+//    View.OnClickListener mySaveTtn = new View.OnClickListener() {
+//
+//        @Override
+//        public void onClick(View v) {
+//            PutRequestTask putRequestTask = new PutRequestTask(MainActivity.this, version_id, editor, ip, doc_id);
+//            String text = editor.getText().toString();
+//            int start = editor.getLayout().getLineStart(0);
+//            int end = editor.getLayout().getLineStart(1);
+//            int cstart = editor.getLayout().getLineStart(2);
+//            String name = text.substring(start, end);
+//            String content = text.substring(cstart, text.length());
+//            putRequestTask.execute("" + version_id, name, content);
+//            //String content = text;
+//            //putRequestTask.execute(""+version_id,content);
+//            Toast.makeText(MainActivity.this, "save successfully", Toast.LENGTH_LONG).show();
+//        }
+//    };
+//    View.OnClickListener mySaveTtn_newversion = new View.OnClickListener() {
+//
+//        @Override
+//        public void onClick(View v) {
+//
+//            PostRequestTask postRequestTask = new PostRequestTask(MainActivity.this, editor, ip, doc_id);
+//
+//            String text = editor.getText().toString();
+//            int start = editor.getLayout().getLineStart(0);
+//            int end = editor.getLayout().getLineStart(1);
+//            int cstart = editor.getLayout().getLineStart(2);
+//            String name = text.substring(start, end);
+//            String content = text.substring(cstart, text.length());
+//            //putRequestTask.execute(""+version_id,name,content);
+//            //String content = text;
+//            postRequestTask.execute(name, content);
+//            Toast.makeText(MainActivity.this, "you created a new version successfully", Toast.LENGTH_LONG).show();
+//        }
+//    };
 
     View.OnClickListener previewbtn_handler = new View.OnClickListener() {
 
         @Override
         public void onClick(View v) {
+            String text = editor.getText().toString();
+            int start = editor.getLayout().getLineStart(0);
+            int end = editor.getLayout().getLineStart(1);
+            int cstart = editor.getLayout().getLineStart(2);
+            String name = text.substring(start, end);
+            String content = text.substring(cstart, text.length());
+            sharedPreferences = getSharedPreferences(LoginActivity.Markup, Context.MODE_PRIVATE);
+            SharedPreferences.Editor e= sharedPreferences.edit();
+            e.putString(LoginActivity.doc_name_s,name);
+            e.putString(LoginActivity.doc_content_s,content);
+            e.commit();
             editor_content = editor.getText().toString();
             startActivity(new Intent(MainActivity.this, ShowPreviewActivity.class));
 

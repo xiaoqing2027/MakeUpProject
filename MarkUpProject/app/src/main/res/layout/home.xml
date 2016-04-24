@@ -5,9 +5,14 @@
     android:weightSum="1">
 
 
-    <SearchView
-        android:layout_width="match_parent"
+    <TextView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/searchView3"
-        android:layout_weight="0.03" />
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Welcome to MarkUp"
+        android:id="@+id/textView3"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="200dp"
+        android:textColor="#e01ac9"
+        android:textStyle="bold" />
 </LinearLayout>

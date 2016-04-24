@@ -29,5 +29,34 @@
         android:scrollIndicators="bottom|top"
         android:background="#73ce8b" />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Save(new version)"
+        android:id="@+id/save_new_p"
+        android:textSize="@dimen/abc_action_bar_overflow_padding_end_material"
+        android:layout_below="@+id/markdownView"
+        android:layout_toLeftOf="@+id/save_old_p"
+        android:layout_toStartOf="@+id/save_old_p" />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Save"
+        android:id="@+id/save_old_p"
+        android:layout_below="@+id/markdownView"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Text"
+        android:id="@+id/textView7"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="181dp"
+        android:layout_marginStart="181dp" />
+
 
 </RelativeLayout>

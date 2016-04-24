@@ -12,17 +12,20 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme" >
+        <activity android:name="com.example.miaodonghan.markupproject.HomePageHandler" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name="com.example.miaodonghan.markupproject.MainActivity" >
 
         </activity>
 
         <activity
             android:name="com.example.miaodonghan.markupproject.DocumentListActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
 
         </activity>
         <activity android:name="com.example.miaodonghan.markupproject.VersionListActivity" >

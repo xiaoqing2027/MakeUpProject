@@ -23,6 +23,9 @@ public class LoginActivity extends AppCompatActivity {
     public static final String Password_s = "password";
     public static final String Token_s = "token";
     public static final String Expires_s = "expeires";
+    public static final String userid_s = "user_id";
+    public static final String doc_name_s = "doc_name";
+    public static final String doc_content_s = "doc_content";
     EditText email_login;
     EditText pwd_login;
     SharedPreferences sharedPreferences;

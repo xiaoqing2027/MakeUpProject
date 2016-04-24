@@ -25,9 +25,7 @@ public class DocumentListActivity extends AppCompatActivity {
 
         listview = (ListView) findViewById(R.id.doc_list);
         sharedPreferences = getSharedPreferences(LoginActivity.Markup, Context.MODE_PRIVATE);
-
         String ip = getString(R.string.ip_address);
-
         token = sharedPreferences.getString(LoginActivity.Token_s, null);
         (new ListRequestTask(this, listview, token)).execute(ip + "/api/doc");
 
@@ -69,14 +67,6 @@ public class DocumentListActivity extends AppCompatActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            Toast.makeText(this, "I am action sitting",
-                    Toast.LENGTH_LONG).show();
-
-            return true;
-        }
 
         if (id == R.id.login) {
             Toast.makeText(this, "I am login",

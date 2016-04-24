@@ -1,9 +1,12 @@
 package http_requests;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.util.Log;
-import android.widget.EditText;
+import android.widget.Toast;
+
+import com.example.miaodonghan.markupproject.LoginActivity;
 
 import org.json.JSONObject;
 
@@ -18,21 +21,23 @@ import java.util.Scanner;
 public class PostRequestTask extends AsyncTask<String, Integer, String> {
     Context context;
     int doc_id;
-    EditText editor;
+    int user_id;
     String ip;
+    SharedPreferences sharedPreferences;
 
 
-    public PostRequestTask(Context context, EditText editor, String ip, int doc_id) {
+    public PostRequestTask(Context context,String ip, int doc_id) {
 
         this.context = context;
-        this.editor = editor;
         this.ip = ip;
         this.doc_id = doc_id;
+        sharedPreferences = context.getSharedPreferences(LoginActivity.Markup, Context.MODE_PRIVATE);
     }
 
     @Override
     protected void onPreExecute() {
         // start a spinning sign
+        user_id = sharedPreferences.getInt(LoginActivity.userid_s,-1);
     }
 
     @Override
@@ -41,7 +46,7 @@ public class PostRequestTask extends AsyncTask<String, Integer, String> {
         HttpURLConnection urlConnection = null;
         try {
 
-            URL url = new URL(ip + "/api/doc/" + doc_id + "/version");
+            URL url = new URL(ip + "/api/"+user_id+"/doc/" + doc_id + "/version");
             urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setRequestMethod("POST");
             //header
@@ -78,7 +83,7 @@ public class PostRequestTask extends AsyncTask<String, Integer, String> {
     @Override
     protected void onPostExecute(String result) {
 
-
+        Toast.makeText(context, "you created a new version successfully", Toast.LENGTH_LONG).show();
     }
 
 }

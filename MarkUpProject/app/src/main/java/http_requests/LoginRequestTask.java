@@ -30,6 +30,7 @@ public class LoginRequestTask extends AsyncTask<String, Integer, String> {
     String token;
     String expires;
     SharedPreferences sharedPreferences;
+    int user_id;
 
 
 
@@ -111,9 +112,13 @@ public class LoginRequestTask extends AsyncTask<String, Integer, String> {
             Intent intent= new Intent(context,DocumentListActivity.class);
 
             try {
+
                 JSONObject r= new JSONObject(result);
+                JSONObject user= new JSONObject(result);
                 token = r.getString("token");
                 expires = r.getString("expires");
+                user= r.getJSONObject("user");
+                user_id = user.getInt("id");
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -121,6 +126,7 @@ public class LoginRequestTask extends AsyncTask<String, Integer, String> {
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putString(LoginActivity.Token_s,token);
             editor.putString(LoginActivity.Expires_s,expires);
+            editor.putInt(LoginActivity.userid_s,user_id);
             editor.commit();
 
             context.startActivity(intent);
