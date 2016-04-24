@@ -1,10 +1,27 @@
+
+
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.example.miaodonghan.myapplication.MainActivity">
-    <item
-        android:id="@+id/action_settings"
-        android:orderInCategory="100"
-        android:title="Login"
-        app:showAsAction="always" />
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+tools:context="com.example.miaodonghan.MarkUpProject.DocumentListActivity">
+<item
+    android:id="@+id/action_settings"
+    android:orderInCategory="100"
+    android:title="@string/action_settings"
+    app:showAsAction="never" />
+<item
+    android:id="@+id/login"
+    android:orderInCategory="100"
+    android:title="@string/login"
+    app:showAsAction="never" />
+<item
+    android:id="@+id/logout"
+    android:orderInCategory="100"
+    android:title="@string/logout"
+    app:showAsAction="never" />
+<item
+    android:id="@+id/myprofile"
+    android:orderInCategory="100"
+    android:title="@string/myprofile"
+    app:showAsAction="never" />
 </menu>

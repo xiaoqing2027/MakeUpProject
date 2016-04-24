@@ -61,7 +61,6 @@ public class RegisterRequestTask extends AsyncTask<String, Integer, String> {
 
             //body
             jsonParam.put("email", data[0]);
-
             jsonParam.put("password", data[1]);
             email =data[0];
             pwd =data[1];
