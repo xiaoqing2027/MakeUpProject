@@ -40,6 +40,12 @@
         <activity android:name="com.example.miaodonghan.markupproject.RegisterActivity" >
 
         </activity>
+        <activity android:name="com.example.miaodonghan.markupproject.User_DocListActivity" >
+
+        </activity>
+        <activity android:name="com.example.miaodonghan.markupproject.User_VersionListActivity" >
+
+        </activity>
     </application>
 
 </manifest>

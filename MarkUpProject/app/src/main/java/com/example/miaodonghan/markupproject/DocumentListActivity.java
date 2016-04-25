@@ -1,15 +1,18 @@
 package com.example.miaodonghan.markupproject;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import http_requests.ListRequestTask;
+import http_requests.LogoutRequestTask;
 
 
 public class DocumentListActivity extends AppCompatActivity {
@@ -27,7 +30,7 @@ public class DocumentListActivity extends AppCompatActivity {
         sharedPreferences = getSharedPreferences(LoginActivity.Markup, Context.MODE_PRIVATE);
         String ip = getString(R.string.ip_address);
         token = sharedPreferences.getString(LoginActivity.Token_s, null);
-        (new ListRequestTask(this, listview, token)).execute(ip + "/api/doc");
+        (new ListRequestTask(this, listview)).execute(ip + "/api/doc");
 
     }
 //
@@ -70,22 +73,27 @@ public class DocumentListActivity extends AppCompatActivity {
 
         if (id == R.id.login) {
             Toast.makeText(this, "I am login",
-                    Toast.LENGTH_LONG).show();
-
+                    Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(this, LoginActivity.class);
+            startActivity(intent);
             return true;
         }
 
         if (id == R.id.logout) {
             Toast.makeText(this, "I am logout",
-                    Toast.LENGTH_LONG).show();
-
+                    Toast.LENGTH_SHORT).show();
+            String ip = getString(R.string.ip_address);
+            LogoutRequestTask logoutRequestTask = new LogoutRequestTask(this,ip);
+            Log.e("Loooggoutttt::", ip + "/api/auth/out");
+            logoutRequestTask.execute();
             return true;
         }
 
         if (id == R.id.myprofile) {
             Toast.makeText(this, "I am myprofile",
-                    Toast.LENGTH_LONG).show();
-
+                    Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(this, User_DocListActivity.class);
+            startActivity(intent);
             return true;
         }
 

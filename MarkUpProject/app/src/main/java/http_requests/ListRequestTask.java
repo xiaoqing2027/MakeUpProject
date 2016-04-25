@@ -30,12 +30,12 @@ public class ListRequestTask extends AsyncTask<String, Integer, List<ListRequest
     ListView listview;
     Context context;
     List<Map<String, String>> data = new ArrayList<Map<String, String>>();
-    String token;
 
-    public ListRequestTask(Context context, ListView listview, String token) {
+
+    public ListRequestTask(Context context, ListView listview) {
         this.listview = listview;
         this.context = context;
-        this.token = token;
+
     }
 
     static class DocumentItem {
@@ -67,8 +67,8 @@ public class ListRequestTask extends AsyncTask<String, Integer, List<ListRequest
             connection.setRequestMethod("GET");
 
             //connection.setRequestProperty("access_token", token);
-            connection.setRequestProperty("Authorization", "Bearer " + token);
-            connection.setDoInput(true);
+            //connection.setRequestProperty("Authorization", "Bearer " + token);
+            //connection.setDoInput(true);
 
             InputStream response = connection.getInputStream();
 

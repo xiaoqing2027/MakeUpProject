@@ -18,7 +18,6 @@ public class ShowPreviewActivity extends AppCompatActivity {
     Button savebtn_newversion;
     SharedPreferences sharedPreferences;
     String ip;
-    int user_id;
     int doc_id;
     int version_id;
 

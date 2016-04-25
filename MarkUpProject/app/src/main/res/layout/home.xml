@@ -12,7 +12,37 @@
         android:text="Welcome to MarkUp"
         android:id="@+id/textView3"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="200dp"
+        android:layout_marginTop="150dp"
         android:textColor="#e01ac9"
         android:textStyle="bold" />
+
+    <Button
+        android:layout_width="280dp"
+        android:layout_height="wrap_content"
+        android:text="Login"
+        android:id="@+id/login_home"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="120dp"
+        android:textColor="@color/abc_background_cache_hint_selector_material_light"
+        android:background="@color/colorPrimary"
+        android:layout_marginBottom="5dp"
+        android:textColorHighlight="@color/abc_background_cache_hint_selector_material_light" />
+
+    <Button
+        android:layout_width="280dp"
+        android:layout_height="wrap_content"
+        android:text="Register"
+        android:id="@+id/register_home"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="5dp"
+        android:textColor="@color/abc_background_cache_hint_selector_material_light" />
+
+    <Button
+        android:layout_width="280dp"
+        android:layout_height="wrap_content"
+        android:text="skip"
+        android:id="@+id/skip"
+        android:layout_gravity="center_horizontal"
+        android:background="@color/colorPrimary"
+        android:textColor="@color/abc_background_cache_hint_selector_material_light" />
 </LinearLayout>
