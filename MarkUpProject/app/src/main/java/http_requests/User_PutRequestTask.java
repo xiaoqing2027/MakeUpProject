@@ -31,11 +31,13 @@ public class User_PutRequestTask extends AsyncTask<String, Integer, String> {
     String ip;
     SharedPreferences sharedPreferences;
     int position;
+    String token;
+    String share;
     List<Map<String, Object>> data_version = new ArrayList<Map<String, Object>>();
 
 
     public User_PutRequestTask(Context context, int version_id, String ip,
-                               int doc_id,List<Map<String, Object>> data_version, int position) {
+                               int doc_id, List<Map<String, Object>> data_version, int position) {
 
         this.context = context;
         this.version_id = version_id;
@@ -50,6 +52,7 @@ public class User_PutRequestTask extends AsyncTask<String, Integer, String> {
     protected void onPreExecute() {
         // start a spinning sign
         user_id = sharedPreferences.getInt(LoginActivity.userid_s,-1);
+        token = sharedPreferences.getString(LoginActivity.Token_s,null);
     }
 
     @Override
@@ -62,21 +65,28 @@ public class User_PutRequestTask extends AsyncTask<String, Integer, String> {
             URL url = new URL(ip);
             urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setRequestMethod("PUT");
-            urlConnection.setRequestProperty("Accept", "application/json");
-            urlConnection.setRequestProperty("Content-type", "application/json");
             urlConnection.setRequestProperty("charset", "utf-8");
+            urlConnection.setRequestProperty("Content-Type", "application/json");
+            urlConnection.setRequestProperty("Accept", "application/json");
+            urlConnection.setRequestProperty("Authorization", "Bearer " + token);
+            urlConnection.setDoOutput(true);
 
             JSONObject jsonParam = new JSONObject();
 
-            jsonParam.put("share", data[1]);
+            jsonParam.put("name", data[1]);
+            jsonParam.put("content", data[2]);
+            jsonParam.put("share", data[3]);
+            share = data[3];
 
             String requestData = jsonParam.toString();
+            Log.e("user_list_put   url", url.toString());
             urlConnection.setRequestProperty("Content-Length", "" +  requestData.getBytes().length);
             DataOutputStream out = new DataOutputStream(urlConnection.getOutputStream());
-
+            Log.e("user_list_put", data[1].toString());
             out.writeBytes(requestData);
             out.flush();
             out.close();
+
             InputStream in = new BufferedInputStream(urlConnection.getInputStream());
 
             Scanner s = new Scanner(in).useDelimiter("\\A");
@@ -94,8 +104,14 @@ public class User_PutRequestTask extends AsyncTask<String, Integer, String> {
 
     @Override
     protected void onPostExecute(String result) {
-        data_version.get(position).put("img", R.mipmap.shared);
-        Toast.makeText(context, "Share successfully", Toast.LENGTH_SHORT).show();
+        if(share.equals("0")){
+            data_version.get(position).put("img", R.mipmap.share);
+            Toast.makeText(context, "No share", Toast.LENGTH_SHORT).show();
+        }else{
+            data_version.get(position).put("img", R.mipmap.shared);
+            Toast.makeText(context, "Share successfully", Toast.LENGTH_SHORT).show();
+        }
+
     }
 
 }

@@ -97,14 +97,14 @@ public class User_ListRequestTask extends AsyncTask<String, Integer, List<User_L
 
                 for (int i = 0; i < array.length(); i++) {
                     JSONObject obj = (JSONObject) array.get(i);
-                    if(obj.getJSONObject("version").length() != 0){
+                    //if(obj.getJSONObject("version").length() != 0){
                         DocumentItem item = new DocumentItem(
                                 obj.getString("id"),
                                 obj.getString("name"),
                                 obj.getString("updatedAt")
                         );
                         docList.add(item);
-                    }
+                    //}
 
                 }
 
@@ -147,8 +147,11 @@ public class User_ListRequestTask extends AsyncTask<String, Integer, List<User_L
                 @Override
                 public void onItemClick(AdapterView<?> arg0, View view, int position, long id) {
                     Intent intent= new Intent(context, User_VersionListActivity.class);
-                    int selected_id = Integer.parseInt(data.get(position).get("id"));
-                    intent.putExtra("user_position", selected_id);
+                    int selected_doc_id = Integer.parseInt(data.get(position).get("id"));
+                    SharedPreferences.Editor e =sharedPreferences.edit();
+                    e.putInt(LoginActivity.doc_id_s,selected_doc_id);
+                    e.commit();
+                    //intent.putExtra("user_position", selected_id);
                     context.startActivity(intent);
                 }
 

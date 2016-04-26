@@ -1,7 +1,6 @@
 package com.example.miaodonghan.markupproject;
 
 import android.content.ClipData;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -305,13 +304,16 @@ public class MainActivity extends AppCompatActivity {
             int cstart = editor.getLayout().getLineStart(2);
             String name = text.substring(start, end);
             String content = text.substring(cstart, text.length());
-            sharedPreferences = getSharedPreferences(LoginActivity.Markup, Context.MODE_PRIVATE);
+            sharedPreferences = getSharedPreferences(LoginActivity.Markup, MODE_PRIVATE);
             SharedPreferences.Editor e= sharedPreferences.edit();
             e.putString(LoginActivity.doc_name_s,name);
+            Log.i("name/content","arerrrrrrr");
             e.putString(LoginActivity.doc_content_s,content);
             e.commit();
             editor_content = editor.getText().toString();
-            startActivity(new Intent(MainActivity.this, ShowPreviewActivity.class));
+            Intent intent =new Intent(MainActivity.this, ShowPreviewActivity.class);
+            intent.putExtra("doc_id_for_preview",doc_id);
+            startActivity(intent);
 
         }
     };

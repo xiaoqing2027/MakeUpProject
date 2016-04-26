@@ -25,11 +25,13 @@ public class ShowPreviewActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.preview);
-
+        doc_id = getIntent().getIntExtra("doc_id_for_preview",-1);
+        Log.e("preview________", doc_id+"");
         savebtn = (Button) findViewById(R.id.save_old_p);
         savebtn.setOnClickListener(mySaveTtn);
         savebtn_newversion = (Button) findViewById(R.id.save_new_p);
         savebtn_newversion.setOnClickListener(mySaveTtn_newversion);
+        sharedPreferences = getSharedPreferences(LoginActivity.Markup,MODE_PRIVATE);
         ip = getString(R.string.ip_address);
 
         Log.i("+++++++", MainActivity.editor_content);
@@ -48,8 +50,11 @@ public class ShowPreviewActivity extends AppCompatActivity {
 //            int cstart =editor.getLayout().getLineStart(2);
 //            String name = text.substring(start, end);
 //            String content = text.substring(cstart,text.length());
+
             String name = sharedPreferences.getString(LoginActivity.doc_name_s, null);
+            Log.i("name:::::::put", name);
             String content = sharedPreferences.getString(LoginActivity.doc_content_s, null);
+            Log.i("content:::::::put", content);
             String token = sharedPreferences.getString(LoginActivity.Token_s, null);
             if(token !=null){
                 putRequestTask.execute(""+version_id,name,content);
@@ -72,8 +77,10 @@ public class ShowPreviewActivity extends AppCompatActivity {
 //            int cstart =editor.getLayout().getLineStart(2);
 //            String name = text.substring(start, end);
 //            String content = text.substring(cstart,text.length());
-            String name = sharedPreferences.getString(LoginActivity.doc_name_s, null);
-            String content = sharedPreferences.getString(LoginActivity.doc_content_s, null);
+            String name = sharedPreferences.getString(LoginActivity.doc_name_s,"");
+            Log.i("name:::::::post", name);
+            String content = sharedPreferences.getString(LoginActivity.doc_content_s, "");
+            Log.i("content:::::::post", content);
             String token = sharedPreferences.getString(LoginActivity.Token_s,null);
             if(token !=null){
                 postRequestTask.execute(name, content);

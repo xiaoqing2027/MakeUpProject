@@ -25,6 +25,7 @@ public class PutRequestTask extends AsyncTask<String, Integer, String> {
     int doc_id;
     int version_id;
     String ip;
+    String token;
     SharedPreferences sharedPreferences;
 
 
@@ -41,6 +42,7 @@ public class PutRequestTask extends AsyncTask<String, Integer, String> {
     protected void onPreExecute() {
         // start a spinning sign
         user_id = sharedPreferences.getInt(LoginActivity.userid_s,-1);
+        token = sharedPreferences.getString(LoginActivity.Token_s,null);
     }
 
     @Override
@@ -49,12 +51,12 @@ public class PutRequestTask extends AsyncTask<String, Integer, String> {
         HttpURLConnection urlConnection = null;
         try {
 
-            URL url = new URL(ip + "/api/"+user_id+"docs/" + doc_id + "/version/" + version_id);
+            URL url = new URL(ip + "/api/"+user_id+"/docs/" + doc_id + "/version/" + version_id);
             urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setRequestMethod("PUT");
-            urlConnection.setRequestProperty("Accept", "application/json");
-            urlConnection.setRequestProperty("Content-type", "application/json");
             urlConnection.setRequestProperty("charset", "utf-8");
+            urlConnection.setRequestProperty("Authorization", "Bearer " + token);
+            urlConnection.setDoOutput(true);
 
             JSONObject jsonParam = new JSONObject();
 

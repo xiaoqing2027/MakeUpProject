@@ -50,6 +50,11 @@ public class LoginRequestTask extends AsyncTask<String, Integer, String> {
     protected String doInBackground(String... data) {
         String result= "";
         HttpURLConnection urlConnection = null;
+
+        SharedPreferences.Editor e =sharedPreferences.edit();
+        e.putString(LoginActivity.Email_s,data[0]);
+        e.putString(LoginActivity.Password_s,data[1]);
+        e.commit();
         try {
 
             URL url = new URL(ip + "/api/auth/login");
@@ -109,6 +114,8 @@ public class LoginRequestTask extends AsyncTask<String, Integer, String> {
         if(error_code == 403){
             Toast.makeText(context, "Invalid email or password!!!.", Toast.LENGTH_SHORT).show();
         }else{
+
+
             Intent intent= new Intent(context,DocumentListActivity.class);
 
             try {

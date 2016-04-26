@@ -33,14 +33,7 @@ public class DocumentListActivity extends AppCompatActivity {
         (new ListRequestTask(this, listview)).execute(ip + "/api/doc");
 
     }
-//
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        MenuInflater inflater = getMenuInflater();
-//        inflater.inflate(R.menu.menu_main, menu);
-//        return true;
-//    }
-//
+
 //    @Override
 //    public boolean onOptionsItemSelected(MenuItem item) {
 //        switch (item.getItemId()) {

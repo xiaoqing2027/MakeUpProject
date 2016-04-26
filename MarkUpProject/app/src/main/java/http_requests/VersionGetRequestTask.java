@@ -35,10 +35,7 @@ public class VersionGetRequestTask extends AsyncTask<String, Integer, String> {
 
             Scanner s = new Scanner(response).useDelimiter("\\A");
             String res = s.hasNext() ? s.next() : "";
-            Log.e("++++++++++++++++", res.toString());
             JSONObject obj = new  JSONObject(res);
-
-
             result = "#"+obj.getString("name") + "\n\nupdate Time :  " + obj.getString("updatedAt")+"\n\n"+
                     obj.getString("content");
 
