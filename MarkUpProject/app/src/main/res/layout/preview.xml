@@ -15,7 +15,8 @@
         android:id="@+id/user_textView1"
         android:text="Preview :"
         android:layout_below="@+id/editText"
-        android:paddingTop="10dp" />
+        android:paddingTop="10dp"
+        android:textStyle="bold" />
 
 
 
@@ -33,13 +34,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/user_save_new_p"
-        android:textSize="@dimen/abc_action_bar_overflow_padding_end_material"
         android:layout_below="@+id/user_markdownView"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:background="@color/colorPrimary"
-        android:textColor="@color/abc_background_cache_hint_selector_material_light"
-        android:text="save"/>
+        android:textColor="@color/abc_primary_text_material_dark"
+        android:text="save"
+        android:layout_marginTop="10dp" />
     <!--
         <Button
             android:layout_width="wrap_content"

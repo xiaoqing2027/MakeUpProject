@@ -13,7 +13,7 @@
         android:layout_marginTop="30dp"
         android:textSize="@dimen/abc_action_button_min_width_overflow_material"
         android:layout_gravity="center_horizontal"
-        android:textColor="#e01ac9" />
+        android:textColor="@color/colorPrimary" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -23,7 +23,8 @@
         android:layout_gravity="center_horizontal|left"
         android:layout_marginLeft="50dp"
         android:textSize="@dimen/abc_text_size_large_material"
-        android:layout_marginTop="70dp" />
+        android:layout_marginTop="70dp"
+        android:textColor="@color/colorPrimary" />
 
     <EditText
         android:layout_width="307dp"
@@ -41,7 +42,8 @@
         android:layout_gravity="center_horizontal|left"
         android:layout_marginLeft="50dp"
         android:textSize="@dimen/abc_text_size_large_material"
-        android:layout_marginTop="30dp" />
+        android:layout_marginTop="30dp"
+        android:textColor="@color/colorPrimary" />
 
     <EditText
         android:layout_width="312dp"
@@ -52,12 +54,14 @@
         android:layout_gravity="center_horizontal" />
 
     <Button
-        android:layout_width="318dp"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:text="Login"
         android:id="@+id/login_btn"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="36dp" />
+        android:layout_marginTop="36dp"
+        android:background="@color/colorPrimary"
+        android:textColor="@color/abc_primary_text_material_dark"
+        android:text="Login"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -68,6 +72,7 @@
         android:layout_marginLeft="50dp"
         android:textSize="@dimen/abc_text_size_large_material"
         android:layout_marginTop="30dp"
-        android:clickable="true" />
+        android:clickable="true"
+        android:textColor="@color/colorAccent" />
 
 </LinearLayout>

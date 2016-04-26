@@ -25,8 +25,11 @@
         android:layout_marginTop="140dp"
         android:layout_marginBottom="5dp"
         android:background="@color/colorPrimary"
-        android:text="Login"
-        android:textColor="@color/abc_background_cache_hint_selector_material_light" />
+
+        android:visibility="visible"
+
+        android:textColor="@color/abc_primary_text_material_dark"
+        android:text="Login"/>
 
     <Button
         android:layout_width="280dp"
@@ -35,8 +38,9 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="5dp"
         android:background="@color/colorPrimary"
+        android:textColor="@color/abc_primary_text_material_dark"
         android:text="Register"
-        android:textColor="@color/abc_background_cache_hint_selector_material_light" />
+        />
 
     <Button
         android:layout_width="280dp"
@@ -44,6 +48,6 @@
         android:id="@+id/skip"
         android:layout_gravity="center_horizontal"
         android:background="@color/colorPrimary"
-        android:text="skip"
-        android:textColor="@color/abc_background_cache_hint_selector_material_light" />
+        android:textColor="@color/abc_primary_text_material_dark"
+        android:text="skip"/>
 </LinearLayout>

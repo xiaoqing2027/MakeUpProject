@@ -35,7 +35,8 @@
             android:layout_height="wrap_content"
             android:text="updated_time"
             android:id="@+id/update_time"
-            android:textSize="16sp"/>
+            android:textSize="16sp"
+            android:layout_marginBottom="5dp" />
     </LinearLayout>
 
     <ImageView
