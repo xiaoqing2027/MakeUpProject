@@ -6,6 +6,7 @@
     <string name="Markup">Markup</string>
     <string name="ip_address">http://104.194.126.198:1337</string>
     <string name="action_settings">Settings</string>
+    <string name="home">home</string>
     <string name="login">login</string>
     <string name="logout">logout</string>
     <string name="myprofile">My profile</string>

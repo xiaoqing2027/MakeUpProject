@@ -99,6 +99,7 @@ public class ShowPreviewActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
+        Log.e("what's going---------", "aaaaaaa");
         return true;
     }
 
@@ -108,7 +109,13 @@ public class ShowPreviewActivity extends AppCompatActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
+        if (id == R.id.home) {
+            Toast.makeText(this, "GO to home page",
+                    Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(this, HomePageHandler.class);
+            startActivity(intent);
+            return true;
+        }
         if (id == R.id.login) {
             Toast.makeText(this, "I am login",
                     Toast.LENGTH_SHORT).show();

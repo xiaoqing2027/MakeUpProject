@@ -34,21 +34,6 @@ public class DocumentListActivity extends AppCompatActivity {
 
     }
 
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        switch (item.getItemId()) {
-//
-//            case R.id.action_settings:
-//                Toast.makeText(this, "Goto LoginActivity page", Toast.LENGTH_SHORT).show();
-//                Intent intent = new Intent(this, LoginActivity.class);
-//                startActivity(intent);
-//                break;
-//            default:
-//                break;
-//        }
-//
-//        return true;
-//    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -63,7 +48,13 @@ public class DocumentListActivity extends AppCompatActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
+        if (id == R.id.home) {
+            Toast.makeText(this, "GO to home page",
+                    Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(this, HomePageHandler.class);
+            startActivity(intent);
+            return true;
+        }
         if (id == R.id.login) {
             Toast.makeText(this, "I am login",
                     Toast.LENGTH_SHORT).show();
@@ -93,5 +84,22 @@ public class DocumentListActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    //    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        switch (item.getItemId()) {
+//
+//            case R.id.action_settings:
+//                Toast.makeText(this, "Goto LoginActivity page", Toast.LENGTH_SHORT).show();
+//                Intent intent = new Intent(this, LoginActivity.class);
+//                startActivity(intent);
+//                break;
+//            default:
+//                break;
+//        }
+//
+//        return true;
+//    }
+
 
 }
