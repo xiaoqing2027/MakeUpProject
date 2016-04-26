@@ -12,7 +12,7 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.DragEvent;
 import android.view.Menu;
-import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnDragListener;
@@ -22,6 +22,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import http_requests.GetRequestTask;
+import http_requests.LogoutRequestTask;
 import us.feras.mdv.MarkdownView;
 import utils.Document;
 
@@ -221,25 +222,25 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void handleHeaderbtn() {
-        MarkdownView markdownView = (MarkdownView) findViewById(R.id.markdownView);
+        MarkdownView markdownView = (MarkdownView) findViewById(R.id.user_markdownView);
         int lineNum = getCurrentCursorLine(editor);
         doc.setHeader(lineNum, markdownView, editor);
     }
 
     public void handleBoldbtn() {
-        MarkdownView markdownView = (MarkdownView) findViewById(R.id.markdownView);
+        MarkdownView markdownView = (MarkdownView) findViewById(R.id.user_markdownView);
         int lineNum = getCurrentCursorLine(editor);
         doc.setBold(lineNum, editor, markdownView);
     }
 
     public void handleQuotebtn() {
-        MarkdownView markdownView = (MarkdownView) findViewById(R.id.markdownView);
+        MarkdownView markdownView = (MarkdownView) findViewById(R.id.user_markdownView);
         int lineNum = getCurrentCursorLine(editor);
         doc.setQuote(lineNum, editor, markdownView);
     }
 
     public void handleListbtn() {
-        MarkdownView markdownView = (MarkdownView) findViewById(R.id.markdownView);
+        MarkdownView markdownView = (MarkdownView) findViewById(R.id.user_markdownView);
         int lineNum = getCurrentCursorLine(editor);
         doc.setList(lineNum, editor, markdownView);
     }
@@ -320,9 +321,46 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_main, menu);
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        if (id == R.id.login) {
+            Toast.makeText(this, "I am login",
+                    Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(this, LoginActivity.class);
+            startActivity(intent);
+            return true;
+        }
+
+        if (id == R.id.logout) {
+            Toast.makeText(this, "I am logout",
+                    Toast.LENGTH_SHORT).show();
+            String ip = getString(R.string.ip_address);
+            LogoutRequestTask logoutRequestTask = new LogoutRequestTask(this,ip);
+            Log.e("Loooggoutttt::", ip + "/api/auth/out");
+            logoutRequestTask.execute();
+            return true;
+        }
+
+        if (id == R.id.myprofile) {
+            Toast.makeText(this, "I am myprofile",
+                    Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(this, User_DocListActivity.class);
+            startActivity(intent);
+            return true;
+        }
+
+
+        return super.onOptionsItemSelected(item);
     }
 
 }

@@ -36,27 +36,16 @@
         android:id="@+id/user_save_new_p"
         android:textSize="@dimen/abc_action_bar_overflow_padding_end_material"
         android:layout_below="@+id/user_markdownView"
+        android:layout_toLeftOf="@+id/user_save_old_p"
+        android:layout_toStartOf="@+id/user_save_old_p" />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Save"
+        android:id="@+id/user_save_old_p"
+        android:layout_below="@+id/user_markdownView"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
-    <!--
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Save(new version)"
-            android:id="@+id/user_save_new_p"
-            android:textSize="@dimen/abc_action_bar_overflow_padding_end_material"
-            android:layout_below="@+id/user_markdownView"
-            android:layout_toLeftOf="@+id/user_save_old_p"
-            android:layout_toStartOf="@+id/user_save_old_p" />
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Save"
-            android:id="@+id/user_save_old_p"
-            android:layout_below="@+id/user_markdownView"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true" />
 
-        -->
 </RelativeLayout>

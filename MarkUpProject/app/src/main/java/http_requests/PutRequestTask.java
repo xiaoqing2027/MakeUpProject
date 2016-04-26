@@ -70,8 +70,8 @@ public class PutRequestTask extends AsyncTask<String, Integer, String> {
             out.writeBytes(requestData);
             out.flush();
             out.close();
-            InputStream in = new BufferedInputStream(urlConnection.getInputStream());
 
+            InputStream in = new BufferedInputStream(urlConnection.getInputStream());
             Scanner s = new Scanner(in).useDelimiter("\\A");
             String res = s.hasNext() ? s.next() : "";
             return res;

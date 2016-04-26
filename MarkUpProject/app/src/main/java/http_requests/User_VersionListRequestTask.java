@@ -12,7 +12,6 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
-import android.widget.Toast;
 
 import com.example.miaodonghan.markupproject.DocumentListActivity;
 import com.example.miaodonghan.markupproject.LoginActivity;
@@ -40,6 +39,7 @@ public class User_VersionListRequestTask extends AsyncTask<String, Integer, List
     Context context;
     ImageView img;
     int doc_id;
+    int user_id;
     String u_r_l;
     String token;
     List<Map<String, Object>> data_version = new ArrayList<Map<String, Object>>();
@@ -78,6 +78,7 @@ public class User_VersionListRequestTask extends AsyncTask<String, Integer, List
     protected void onPreExecute() {
         // start a spinning sign
         token = sharedPreferences.getString(LoginActivity.Token_s,null);
+        user_id =sharedPreferences.getInt(LoginActivity.userid_s,-1);
     }
 
     @Override
@@ -197,8 +198,7 @@ public class User_VersionListRequestTask extends AsyncTask<String, Integer, List
                                                             int which) {
 
                                             clickedItemIndex = which;
-                                            Toast.makeText(context, item_list[which],
-                                                    Toast.LENGTH_SHORT).show();
+                                            //Toast.makeText(context, item_list[which],Toast.LENGTH_SHORT).show();
                                         }
                                     })
                             .setPositiveButton(R.string.ok_btn, new DialogInterface.OnClickListener() {
@@ -229,8 +229,15 @@ public class User_VersionListRequestTask extends AsyncTask<String, Integer, List
                                         context.startActivity(intent);
                                     }
                                     if(selectedItemIndex == 2){
-
-
+                                        String ip = context.getString(R.string.ip_address);
+                                        int version_selected_id = Integer.parseInt(data_version.get(position).get("id").toString());
+                                        (new User_VersionDeleteRequestTask(context,version_selected_id)).execute(ip + "/api/"+user_id+"/docs/"+doc_id+"/version/"+version_selected_id);
+                                        //Toast.makeText(context, "Remove this version successfully!", Toast.LENGTH_LONG).show();
+                                        Intent intent = new Intent(context, User_VersionListActivity.class);
+                                        SharedPreferences.Editor e =sharedPreferences.edit();
+                                        e.putInt(LoginActivity.doc_id_s,doc_id);
+                                        e.commit();
+                                        context.startActivity(intent);
                                     }
                                 }
                             })
