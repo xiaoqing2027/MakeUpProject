@@ -12,12 +12,13 @@
         android:id="@+id/login"
         android:layout_marginTop="30dp"
         android:textSize="@dimen/abc_action_button_min_width_overflow_material"
-        android:layout_gravity="center_horizontal" />
+        android:layout_gravity="center_horizontal"
+        android:textColor="#e01ac9" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="email:"
+        android:text="E-mail:"
         android:id="@+id/email_l"
         android:layout_gravity="center_horizontal|left"
         android:layout_marginLeft="50dp"

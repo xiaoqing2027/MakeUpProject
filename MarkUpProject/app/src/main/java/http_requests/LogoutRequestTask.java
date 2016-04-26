@@ -10,12 +10,8 @@ import android.widget.Toast;
 import com.example.miaodonghan.markupproject.HomePageHandler;
 import com.example.miaodonghan.markupproject.LoginActivity;
 
-import java.io.BufferedInputStream;
-import java.io.DataOutputStream;
-import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.Scanner;
 
 
 public class LogoutRequestTask extends AsyncTask<String, Integer, String> {
@@ -47,18 +43,18 @@ public class LogoutRequestTask extends AsyncTask<String, Integer, String> {
             URL url = new URL(ip + "/api/auth/logout");
             urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setRequestMethod("POST");
-            String requestData ="";
+            //String requestData ="";
 
-            DataOutputStream out = new DataOutputStream(urlConnection.getOutputStream());
-
-            out.writeBytes(requestData);
-            out.flush();
-            out.close();
-
-            InputStream in = new BufferedInputStream(urlConnection.getInputStream());
-            Scanner s = new Scanner(in).useDelimiter("\\A");
-            res = s.hasNext() ? s.next() : "";
-            return res;
+//            DataOutputStream out = new DataOutputStream(urlConnection.getOutputStream());
+//
+//            out.writeBytes(requestData);
+//            out.flush();
+//            out.close();
+//
+//            InputStream in = new BufferedInputStream(urlConnection.getInputStream());
+//            Scanner s = new Scanner(in).useDelimiter("\\A");
+//            res = s.hasNext() ? s.next() : "";
+//            return res;
 
 
         } catch (Exception ex) {

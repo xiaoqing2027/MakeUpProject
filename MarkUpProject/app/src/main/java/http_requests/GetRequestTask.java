@@ -40,12 +40,9 @@ public class GetRequestTask extends AsyncTask<String, Integer, String> {
             String res = s.hasNext() ? s.next() : "";
             Log.e("GetRequestTask:", res);
 
-
             JSONObject obj = new JSONObject(res);
 
-
             result = obj.getString("name")+"\n\n"+obj.getString("content");
-
 
         } catch (Exception ex) {
             Log.e("backgroud task", ex.getMessage());

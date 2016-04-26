@@ -13,28 +13,39 @@
         android:id="@+id/linearLayout">
 
         <Button
-            android:layout_width="wrap_content"
+            android:layout_width="84dp"
             android:layout_height="wrap_content"
-            android:text="H"
-            android:id="@+id/HeaderBtn" />
+            android:id="@+id/HeaderBtn"
+            android:textColor="@color/abc_background_cache_hint_selector_material_light"
+            android:background="@color/colorPrimary"
+            android:text="H" />
 
         <Button
-            android:layout_width="wrap_content"
+            android:layout_width="84dp"
             android:layout_height="wrap_content"
+            android:id="@+id/BoldBtn"
+            android:background="@color/colorPrimary"
             android:text="B"
-            android:id="@+id/BoldBtn" />
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:textColor="@color/abc_background_cache_hint_selector_material_light" />
 
         <Button
-            android:layout_width="wrap_content"
+            android:layout_width="84dp"
             android:layout_height="wrap_content"
             android:text="Q"
-            android:id="@+id/quotebtn" />
+            android:id="@+id/quotebtn"
+            android:background="@color/colorPrimary"
+            android:layout_marginRight="5dp"
+            android:textColor="@color/abc_background_cache_hint_selector_material_light" />
 
         <Button
-            android:layout_width="wrap_content"
+            android:layout_width="84dp"
             android:layout_height="wrap_content"
+            android:id="@+id/listbtn"
+            android:background="@color/colorPrimary"
             android:text="L"
-            android:id="@+id/listbtn" />
+            android:textColor="@color/abc_background_cache_hint_selector_material_light" />
 
     </LinearLayout>
 
@@ -44,7 +55,6 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/textView"
         android:text="MarkDown Text:"
-
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/linearLayout"
@@ -68,10 +78,13 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="preview"
+
         android:id="@+id/preview"
         android:layout_below="@+id/editText"
-        android:paddingTop="10dp" />
+        android:paddingTop="10dp"
+        android:textColor="@color/abc_background_cache_hint_selector_material_light"
+        android:background="@color/colorPrimary"
+        android:text="preview"/>
 
     <!--
     <Button

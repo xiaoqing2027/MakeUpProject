@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.example.miaodonghan.markupproject.LoginActivity;
 
@@ -39,6 +38,7 @@ public class PostRequestTask extends AsyncTask<String, Integer, String> {
     protected void onPreExecute() {
         // start a spinning sign
         user_id = sharedPreferences.getInt(LoginActivity.userid_s,-1);
+        Log.e("post_userID", user_id+"");
         token = sharedPreferences.getString(LoginActivity.Token_s,null);
     }
 

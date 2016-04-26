@@ -13,17 +13,15 @@ import android.widget.Toast;
 
 import http_requests.LogoutRequestTask;
 import http_requests.PostRequestTask;
-import http_requests.PutRequestTask;
 import us.feras.mdv.MarkdownView;
 
 
 public class ShowPreviewActivity extends AppCompatActivity {
-    Button savebtn;
+
     Button savebtn_newversion;
     SharedPreferences sharedPreferences;
     String ip;
     int doc_id;
-    int version_id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,8 +29,8 @@ public class ShowPreviewActivity extends AppCompatActivity {
         setContentView(R.layout.preview);
         doc_id = getIntent().getIntExtra("doc_id_for_preview",-1);
         Log.e("preview________", doc_id+"");
-        savebtn = (Button) findViewById(R.id.user_save_old_p);
-        savebtn.setOnClickListener(mySaveTtn);
+        //savebtn = (Button) findViewById(R.id.user_save_old_p);
+        //savebtn.setOnClickListener(mySaveTtn);
         savebtn_newversion = (Button) findViewById(R.id.user_save_new_p);
         savebtn_newversion.setOnClickListener(mySaveTtn_newversion);
         sharedPreferences = getSharedPreferences(LoginActivity.Markup,MODE_PRIVATE);
@@ -43,44 +41,13 @@ public class ShowPreviewActivity extends AppCompatActivity {
         markdownView.loadMarkdown(MainActivity.editor_content);
     }
 
-        View.OnClickListener mySaveTtn = new View.OnClickListener() {
 
-        @Override
-        public void onClick(View v) {
-            PutRequestTask putRequestTask = new PutRequestTask(ShowPreviewActivity.this,version_id,ip,doc_id);
-//            String text = editor.getText().toString();
-//            int start = editor.getLayout().getLineStart(0);
-//            int end = editor.getLayout().getLineStart(1);
-//            int cstart =editor.getLayout().getLineStart(2);
-//            String name = text.substring(start, end);
-//            String content = text.substring(cstart,text.length());
-
-            String name = sharedPreferences.getString(LoginActivity.doc_name_s, null);
-            Log.i("name:::::::put", name);
-            String content = sharedPreferences.getString(LoginActivity.doc_content_s, null);
-            Log.i("content:::::::put", content);
-            String token = sharedPreferences.getString(LoginActivity.Token_s, null);
-            if(token !=null){
-                putRequestTask.execute(""+version_id,name,content);
-            }else{
-                Toast.makeText(ShowPreviewActivity.this, "Please LoginActivity first!", Toast.LENGTH_LONG).show();
-            }
-
-        }
-    };
     View.OnClickListener mySaveTtn_newversion = new View.OnClickListener() {
 
         @Override
         public void onClick(View v) {
 
             PostRequestTask postRequestTask = new PostRequestTask(ShowPreviewActivity.this,ip,doc_id);
-
-//            String text = editor.getText().toString();
-//            int start = editor.getLayout().getLineStart(0);
-//            int end = editor.getLayout().getLineStart(1);
-//            int cstart =editor.getLayout().getLineStart(2);
-//            String name = text.substring(start, end);
-//            String content = text.substring(cstart,text.length());
             String name = sharedPreferences.getString(LoginActivity.doc_name_s,"");
             Log.i("name:::::::post", name);
             String content = sharedPreferences.getString(LoginActivity.doc_content_s, "");
@@ -145,5 +112,32 @@ public class ShowPreviewActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+
+//    View.OnClickListener mySaveTtn = new View.OnClickListener() {
+//
+//        @Override
+//        public void onClick(View v) {
+//            PutRequestTask putRequestTask = new PutRequestTask(ShowPreviewActivity.this,version_id,ip,doc_id);
+////            String text = editor.getText().toString();
+////            int start = editor.getLayout().getLineStart(0);
+////            int end = editor.getLayout().getLineStart(1);
+////            int cstart =editor.getLayout().getLineStart(2);
+////            String name = text.substring(start, end);
+////            String content = text.substring(cstart,text.length());
+//
+//            String name = sharedPreferences.getString(LoginActivity.doc_name_s, null);
+//            Log.i("name:::::::put", name);
+//            String content = sharedPreferences.getString(LoginActivity.doc_content_s, null);
+//            Log.i("content:::::::put", content);
+//            String token = sharedPreferences.getString(LoginActivity.Token_s, null);
+//            if(token !=null){
+//                putRequestTask.execute(""+version_id,name,content);
+//            }else{
+//                Toast.makeText(ShowPreviewActivity.this, "Please LoginActivity first!", Toast.LENGTH_LONG).show();
+//            }
+//
+//        }
+//    };
 
 }
