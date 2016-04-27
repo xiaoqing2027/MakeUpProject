@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:weightSum="1">
+    android:weightSum="1"
+    android:gravity="center_vertical">
 
 
     <TextView
@@ -12,27 +13,29 @@
         android:text="Welcome to MarkUp"
         android:id="@+id/textView3"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="130dp"
+        android:layout_marginTop="100dp"
         android:textColor="#e01ac9"
         android:textStyle="bold"
         android:textSize="@dimen/abc_dropdownitem_icon_width" />
 
     <Button
-        android:layout_width="280dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/login_home"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="140dp"
+        android:layout_marginTop="135dp"
         android:layout_marginBottom="5dp"
         android:background="@color/colorPrimary"
 
         android:visibility="visible"
 
         android:textColor="@color/abc_primary_text_material_dark"
-        android:text="Login"/>
+        android:text="Login"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp" />
 
     <Button
-        android:layout_width="280dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/register_home"
         android:layout_gravity="center_horizontal"
@@ -40,14 +43,17 @@
         android:background="@color/colorPrimary"
         android:textColor="@color/abc_primary_text_material_dark"
         android:text="Register"
-        />
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp" />
 
     <Button
-        android:layout_width="280dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/skip"
         android:layout_gravity="center_horizontal"
         android:background="@color/colorPrimary"
         android:textColor="@color/abc_primary_text_material_dark"
-        android:text="skip"/>
+        android:text="skip"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp" />
 </LinearLayout>

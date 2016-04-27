@@ -52,8 +52,9 @@ public class ShowPreviewActivity extends AppCompatActivity {
             Log.i("name:::::::post", name);
             String content = sharedPreferences.getString(LoginActivity.doc_content_s, "");
             Log.i("content:::::::post", content);
-            String token = sharedPreferences.getString(LoginActivity.Token_s,null);
-            if(token !=null){
+            String token = sharedPreferences.getString(LoginActivity.Token_s,"");
+            Log.e("tokennnnnnnn", token);
+            if(!token.equals("")){
                 postRequestTask.execute(name, content);
             }else{
                 Toast.makeText(ShowPreviewActivity.this, "Please Login first!", Toast.LENGTH_LONG).show();
@@ -66,7 +67,6 @@ public class ShowPreviewActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
-        Log.e("what's going---------", "aaaaaaa");
         return true;
     }
 

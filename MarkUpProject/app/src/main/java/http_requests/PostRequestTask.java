@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.example.miaodonghan.markupproject.LoginActivity;
 
@@ -24,6 +25,7 @@ public class PostRequestTask extends AsyncTask<String, Integer, String> {
     String ip;
     String token;
     SharedPreferences sharedPreferences;
+    int error_code;
 
 
     public PostRequestTask(Context context,String ip, int doc_id) {
@@ -70,6 +72,7 @@ public class PostRequestTask extends AsyncTask<String, Integer, String> {
             out.writeBytes(requestData);
             out.flush();
             out.close();
+            error_code =urlConnection.getResponseCode();
             InputStream in = new BufferedInputStream(urlConnection.getInputStream());
             Scanner s = new Scanner(in).useDelimiter("\\A");
             String res = s.hasNext() ? s.next() : "";
@@ -86,7 +89,11 @@ public class PostRequestTask extends AsyncTask<String, Integer, String> {
 
     @Override
     protected void onPostExecute(String result) {
-
+        if(error_code == 200){
+            Toast.makeText(context, "You create a new version successfully.", Toast.LENGTH_SHORT).show();
+        }else{
+            Toast.makeText(context, "Bad.", Toast.LENGTH_SHORT).show();
+        }
 
     }
 

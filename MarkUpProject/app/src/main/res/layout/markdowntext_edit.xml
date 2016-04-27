@@ -1,94 +1,121 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".MainActivity">
+    android:layout_height="match_parent" >
 
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:id="@+id/linearLayout">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".MainActivity"
+        android:scrollIndicators="bottom|left|right|top">
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="36dp"
+            android:id="@+id/linearLayout"
+            android:orientation="horizontal"
+            android:layout_alignRight="@+id/preview"
+            android:layout_alignEnd="@+id/preview"
+            android:weightSum="10">
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/HeaderBtn"
+                android:background="@color/colorPrimary"
+                android:textColor="@color/abc_primary_text_material_dark"
+                android:text="H"
+                android:layout_gravity="center"
+                android:weightSum="1"/>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/BoldBtn"
+                android:background="@color/colorPrimary"
+                android:textColor="@color/abc_primary_text_material_dark"
+                android:text="B"
+                android:layout_gravity="center"
+                android:weightSum="2"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="2dp" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/quotebtn"
+                android:background="@color/colorPrimary"
+                android:textColor="@color/abc_primary_text_material_dark"
+                android:text="Q"
+                android:layout_gravity="center"
+                android:weightSum="3"
+                 />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/listbtn"
+                android:background="@color/colorPrimary"
+                android:text="L"
+                android:textColor="@color/abc_primary_text_material_dark"
+                android:layout_gravity="center"
+                android:weightSum="4"
+                android:layout_marginLeft="2dp" />
+
+        </LinearLayout>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:id="@+id/textView"
+            android:text="MarkDown Text:"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/linearLayout"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:textStyle="bold" />
+
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textMultiLine"
+            android:ems="10"
+            android:id="@+id/editText"
+            android:background="@color/ripple_material_light"
+            android:layout_below="@+id/textView"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:scrollIndicators="bottom|top"
+            android:layout_alignRight="@+id/linearLayout"
+            android:layout_alignEnd="@+id/linearLayout" />
+
 
         <Button
-            android:layout_width="84dp"
-            android:layout_height="wrap_content"
-            android:id="@+id/HeaderBtn"
-            android:background="@color/colorPrimary"
+            android:layout_width="wrap_content"
+            android:layout_height="36dp"
+
+            android:id="@+id/preview"
+            android:layout_below="@+id/editText"
             android:textColor="@color/abc_primary_text_material_dark"
-            android:text="H" />
-
-        <Button
-            android:layout_width="84dp"
-            android:layout_height="wrap_content"
-            android:id="@+id/BoldBtn"
             android:background="@color/colorPrimary"
-            android:textColor="@color/abc_primary_text_material_dark"
-            android:text="B"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"/>
-
-        <Button
-            android:layout_width="84dp"
-            android:layout_height="wrap_content"
-            android:id="@+id/quotebtn"
-            android:background="@color/colorPrimary"
-            android:textColor="@color/abc_primary_text_material_dark"
-            android:text="Q"
-            android:layout_marginRight="8dp"
-             />
-
-        <Button
-            android:layout_width="84dp"
-            android:layout_height="wrap_content"
-            android:id="@+id/listbtn"
-            android:background="@color/colorPrimary"
-            android:text="L"
-            android:textColor="@color/abc_primary_text_material_dark" />
-
-    </LinearLayout>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:id="@+id/textView"
-        android:text="MarkDown Text:"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/linearLayout"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
-        android:textStyle="bold" />
+            android:text="preview"
+            android:layout_marginTop="10dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:scrollIndicators="bottom|left|right|top" />
 
 
-    <EditText
-        android:layout_width="500dp"
-        android:layout_height="330dp"
-        android:inputType="textMultiLine"
-        android:ems="10"
-        android:id="@+id/editText"
-        android:background="@color/ripple_material_light"
-        android:layout_below="@+id/textView"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:scrollIndicators="bottom|top" />
-
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-
-        android:id="@+id/preview"
-        android:layout_below="@+id/editText"
-        android:textColor="@color/abc_primary_text_material_dark"
-        android:background="@color/colorPrimary"
-        android:text="preview"
-        android:layout_marginTop="10dp"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+    </RelativeLayout>
+</ScrollView>
 
     <!--
     <Button
@@ -114,4 +141,4 @@
 
 
 
-</RelativeLayout>
+

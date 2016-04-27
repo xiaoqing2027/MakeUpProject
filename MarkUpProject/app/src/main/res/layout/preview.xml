@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+<RelativeLayout
+    android:layout_width="match_parent"
     android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
@@ -31,8 +35,18 @@
         android:background="#73ce8b" />
 
     <Button
+        android:layout_width="54dp"
+        android:layout_height="36dp"
+        android:id="@+id/preview_pdf"
+        android:layout_below="@+id/user_markdownView"
+
+        android:background="@color/colorPrimary"
+        android:textColor="@color/abc_primary_text_material_dark"
+        android:text="PDF"
+        android:layout_marginTop="10dp" />
+    <Button
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="36dp"
         android:id="@+id/user_save_new_p"
         android:layout_below="@+id/user_markdownView"
         android:layout_alignParentRight="true"
@@ -63,3 +77,4 @@
 
         -->
 </RelativeLayout>
+</ScrollView>
