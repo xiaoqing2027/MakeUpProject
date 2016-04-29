@@ -12,7 +12,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import http_requests.LogoutRequestTask;
-import http_requests.PostRequestTask;
+import http_requests.User_PostRequestTask;
 import us.feras.mdv.MarkdownView;
 
 
@@ -47,7 +47,7 @@ public class ShowPreviewActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
 
-            PostRequestTask postRequestTask = new PostRequestTask(ShowPreviewActivity.this,ip,doc_id);
+            User_PostRequestTask user_postRequestTask = new User_PostRequestTask(ShowPreviewActivity.this,ip,doc_id);
             String name = sharedPreferences.getString(LoginActivity.doc_name_s,"");
             Log.i("name:::::::post", name);
             String content = sharedPreferences.getString(LoginActivity.doc_content_s, "");
@@ -55,7 +55,7 @@ public class ShowPreviewActivity extends AppCompatActivity {
             String token = sharedPreferences.getString(LoginActivity.Token_s,"");
             Log.e("tokennnnnnnn", token);
             if(!token.equals("")){
-                postRequestTask.execute(name, content);
+                user_postRequestTask.execute(name, content);
             }else{
                 Toast.makeText(ShowPreviewActivity.this, "Please Login first!", Toast.LENGTH_LONG).show();
             }

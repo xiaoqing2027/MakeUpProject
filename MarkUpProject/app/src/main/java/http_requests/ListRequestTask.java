@@ -30,24 +30,29 @@ public class ListRequestTask extends AsyncTask<String, Integer, List<ListRequest
     ListView listview;
     Context context;
     List<Map<String, String>> data = new ArrayList<Map<String, String>>();
+   // SharedPreferences sharedPreferences;
 
 
     public ListRequestTask(Context context, ListView listview) {
         this.listview = listview;
         this.context = context;
-
+        //this.sharedPreferences = context.getSharedPreferences(LoginActivity.Markup,context.MODE_PRIVATE);
     }
 
     static class DocumentItem {
-        public DocumentItem(String id, String name, String updatedAt) {
+        public DocumentItem(String id, String name,  String content,String updatedAt) {
             this.id = id;
             this.name = name;
+            this.content = content;
             this.updatedAt = updatedAt;
+
 
         }
         String id;
         String name;
+        String content;
         String updatedAt;
+
     }
 
     @Override
@@ -84,6 +89,7 @@ public class ListRequestTask extends AsyncTask<String, Integer, List<ListRequest
                 DocumentItem item = new DocumentItem(
                     obj.getString("id"),
                     obj.getString("name"),
+                    obj.getString("content"),
                     obj.getString("updatedAt")
                 );
                 docList.add(item);
@@ -107,13 +113,16 @@ public class ListRequestTask extends AsyncTask<String, Integer, List<ListRequest
             Map<String, String> map = new HashMap<>();
             map.put("id", docList.get(i).id);
             map.put("name", docList.get(i).name);
-            map.put("updatedAt", docList.get(i).updatedAt);
+            map.put("content", docList.get(i).content.substring(0,70)+"...");
+            map.put("updatedAt", timeConvert(docList.get(i).updatedAt));
+            String p =timeConvert(docList.get(i).updatedAt);
             data.add(map);
         }
 
+
         SimpleAdapter adapter = new SimpleAdapter(context, data,
-                R.layout.doc_item, new String[]{"name", "updatedAt"},
-                new int[]{R.id.doc_name, R.id.doc_updatedAt}
+                R.layout.doc_item, new String[]{"name", "content", "updatedAt"},
+                new int[]{R.id.doc_name, R.id.doc_content,  R.id.doc_updatedAt}
         );
 
         listview.setAdapter(adapter);
@@ -124,12 +133,21 @@ public class ListRequestTask extends AsyncTask<String, Integer, List<ListRequest
             public void onItemClick(AdapterView<?> arg0, View view, int position, long id) {
                 Intent intent= new Intent(context, VersionListActivity.class);
                 int selected_id = Integer.parseInt(data.get(position).get("id"));
+//                SharedPreferences.Editor e =sharedPreferences.edit();
+//                e.putString(LoginActivity.origin_name_s,data.get(position).get("name"));
+//                e.putString(LoginActivity.origin_name_s,data.get(position).get("content"));
+
                 intent.putExtra("position", selected_id);
                 context.startActivity(intent);
             }
 
         });
 
+
+    }
+
+    private String timeConvert(String s){
+        return s.substring(0,19).replace('T', ' ');
 
     }
 }

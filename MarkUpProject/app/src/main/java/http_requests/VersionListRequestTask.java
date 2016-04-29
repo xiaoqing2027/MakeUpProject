@@ -29,12 +29,14 @@ public class VersionListRequestTask extends AsyncTask<String, Integer, List<Vers
     ListView listview;
     Context context;
     int doc_id;
+    String url;
     List<Map<String, String>> data_version = new ArrayList<Map<String, String>>();
 
     public VersionListRequestTask(Context context, ListView listview, int doc_id) {
         this.listview = listview;
         this.context = context;
         this.doc_id = doc_id;
+
     }
 
 
@@ -63,6 +65,7 @@ public class VersionListRequestTask extends AsyncTask<String, Integer, List<Vers
         List<VersionItem> docList = new ArrayList<>();
 
         try {
+            url = uri[0];
             InputStream response = new URL(uri[0]).openStream();
             Scanner s = new Scanner(response).useDelimiter("\\A");
             String res = s.hasNext() ? s.next() : "";
@@ -92,19 +95,24 @@ public class VersionListRequestTask extends AsyncTask<String, Integer, List<Vers
     protected void onPostExecute(List<VersionListRequestTask.VersionItem> docList) {
 
         // close a spinning sign
+//        if(docList.isEmpty()){
+//            PostRequestTask postRequestTask = new PostRequestTask(context,url,doc_id);
+//            user_postRequestTask.execute(name, content);
+//
+//        }
 
         for (int i = 0; i < docList.size(); i++) {
             Map<String, String> map = new HashMap<>();
             map.put("id", docList.get(i).id);
             map.put("name", docList.get(i).name);
-            map.put("content", docList.get(i).content);
-            map.put("updatedAt", docList.get(i).updatedAt);
+            map.put("content", docList.get(i).content.substring(0,70)+"...");
+            map.put("updatedAt", timeConvert(docList.get(i).updatedAt));
             data_version.add(map);
         }
 
         SimpleAdapter adapter = new SimpleAdapter(context, data_version,
-                R.layout.version_item, new String[]{"id", "name", "content", "updatedAt"},
-                new int[]{R.id.version_id, R.id.version_name, R.id.version_content, R.id.version_updatedAt}
+                R.layout.version_item, new String[]{"name", "content", "updatedAt"},
+                new int[]{ R.id.version_name, R.id.version_content, R.id.version_updatedAt}
         );
 
         listview.setAdapter(adapter);
@@ -122,6 +130,10 @@ public class VersionListRequestTask extends AsyncTask<String, Integer, List<Vers
 
         });
 
+
+    }
+    private String timeConvert(String s){
+        return s.substring(0,19).replace('T', ' ');
 
     }
 }

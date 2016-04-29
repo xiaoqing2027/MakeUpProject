@@ -21,18 +21,20 @@
         android:text="E-mail:"
         android:id="@+id/email_l"
         android:layout_gravity="center_horizontal|left"
-        android:layout_marginLeft="50dp"
+        android:layout_marginLeft="45dp"
         android:textSize="@dimen/abc_text_size_large_material"
         android:layout_marginTop="70dp"
         android:textColor="@color/colorPrimary" />
 
     <EditText
-        android:layout_width="307dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
         android:ems="10"
         android:id="@+id/email_login"
-        android:layout_gravity="center_horizontal" />
+        android:layout_gravity="center_horizontal"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -40,28 +42,32 @@
         android:text="Password:"
         android:id="@+id/textView4"
         android:layout_gravity="center_horizontal|left"
-        android:layout_marginLeft="50dp"
+        android:layout_marginLeft="45dp"
         android:textSize="@dimen/abc_text_size_large_material"
         android:layout_marginTop="30dp"
         android:textColor="@color/colorPrimary" />
 
     <EditText
-        android:layout_width="312dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textPassword"
         android:ems="10"
         android:id="@+id/pwd_login"
-        android:layout_gravity="center_horizontal" />
+        android:layout_gravity="center_horizontal"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp" />
 
     <Button
-        android:layout_width="300dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/login_btn"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="36dp"
         android:background="@color/colorPrimary"
         android:textColor="@color/abc_primary_text_material_dark"
-        android:text="Login"/>
+        android:text="Login"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp" />
 
     <TextView
         android:layout_width="wrap_content"

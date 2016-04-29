@@ -280,7 +280,7 @@ public class MainActivity extends AppCompatActivity {
 //        @Override
 //        public void onClick(View v) {
 //
-//            PostRequestTask postRequestTask = new PostRequestTask(MainActivity.this, editor, ip, doc_id);
+//            User_PostRequestTask postRequestTask = new User_PostRequestTask(MainActivity.this, editor, ip, doc_id);
 //
 //            String text = editor.getText().toString();
 //            int start = editor.getLayout().getLineStart(0);

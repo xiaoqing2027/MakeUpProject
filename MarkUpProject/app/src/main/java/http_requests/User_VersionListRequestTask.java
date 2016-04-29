@@ -161,8 +161,10 @@ public class User_VersionListRequestTask extends AsyncTask<String, Integer, List
                 Map<String, Object> map = new HashMap<>();
                 map.put("id", docList.get(i).id);
                 map.put("name", docList.get(i).name);
-                map.put("content", docList.get(i).content);
-                map.put("updatedAt", docList.get(i).updatedAt);
+//                map.put("content", docList.get(i).content);
+//                map.put("updatedAt", docList.get(i).updatedAt);
+                map.put("content", docList.get(i).content.substring(0,30)+" ...");
+                map.put("updatedAt", timeConvert(docList.get(i).updatedAt));
                 Log.i("share value:", docList.get(i).share);
                 if(docList.get(i).share.equals("0")){
                     map.put("img", R.mipmap.share);
@@ -275,6 +277,10 @@ public class User_VersionListRequestTask extends AsyncTask<String, Integer, List
 //            });
         }
 
+
+    }
+    private String timeConvert(String s){
+        return s.substring(0,19).replace('T', ' ');
 
     }
 }

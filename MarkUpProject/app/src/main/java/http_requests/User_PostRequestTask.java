@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.example.miaodonghan.markupproject.LoginActivity;
 
@@ -17,15 +18,17 @@ import java.net.URL;
 import java.util.Scanner;
 
 
-public class PostRequestTask extends AsyncTask<String, Integer, String> {
+public class User_PostRequestTask extends AsyncTask<String, Integer, String> {
     Context context;
     int doc_id;
+    int user_id;
     String ip;
+    String token;
     SharedPreferences sharedPreferences;
     int error_code;
 
 
-    public PostRequestTask(Context context, String ip, int doc_id) {
+    public User_PostRequestTask(Context context, String ip, int doc_id) {
 
         this.context = context;
         this.ip = ip;
@@ -36,6 +39,9 @@ public class PostRequestTask extends AsyncTask<String, Integer, String> {
     @Override
     protected void onPreExecute() {
         // start a spinning sign
+        user_id = sharedPreferences.getInt(LoginActivity.userid_s,-1);
+        Log.e("post_userID", user_id+"");
+        token = sharedPreferences.getString(LoginActivity.Token_s,null);
     }
 
     @Override
@@ -44,15 +50,15 @@ public class PostRequestTask extends AsyncTask<String, Integer, String> {
         HttpURLConnection urlConnection = null;
         try {
 
-            URL url = new URL(ip);
+            URL url = new URL(ip + "/api/"+user_id+"/docs/" + doc_id + "/version");
             urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setRequestMethod("POST");
             //header
             urlConnection.setRequestProperty("Accept", "application/json");
             urlConnection.setRequestProperty("Content-type", "application/json");
             urlConnection.setRequestProperty("charset", "utf-8");
-//            urlConnection.setRequestProperty("Authorization", "Bearer " + token);
-//            urlConnection.setDoOutput(true);
+            urlConnection.setRequestProperty("Authorization", "Bearer " + token);
+            urlConnection.setDoOutput(true);
 
             JSONObject jsonParam = new JSONObject();
             //body
@@ -83,11 +89,11 @@ public class PostRequestTask extends AsyncTask<String, Integer, String> {
 
     @Override
     protected void onPostExecute(String result) {
-//        if(error_code == 200){
-//            Toast.makeText(context, "You create a new version successfully.", Toast.LENGTH_SHORT).show();
-//        }else{
-//            Toast.makeText(context, "Bad.", Toast.LENGTH_SHORT).show();
-//        }
+        if(error_code == 200){
+            Toast.makeText(context, "You create a new version successfully.", Toast.LENGTH_SHORT).show();
+        }else{
+            Toast.makeText(context, "Bad.", Toast.LENGTH_SHORT).show();
+        }
 
     }
 

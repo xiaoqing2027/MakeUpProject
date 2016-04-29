@@ -26,6 +26,9 @@ public class LoginActivity extends AppCompatActivity {
     public static final String userid_s = "user_id";
     public static final String doc_name_s = "doc_name";
     public static final String doc_content_s = "doc_content";
+    public static final String origin_name_s = "origin_name";
+    public static final String origin_content_s = "origin_content";
+    public static final String origin_updated_s = "origin_updated";
     //this is for url
     public static final String doc_id_s = "doc_id_s";
     EditText email_login;
