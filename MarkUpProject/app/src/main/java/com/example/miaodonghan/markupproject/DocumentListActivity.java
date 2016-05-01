@@ -32,7 +32,6 @@ public class DocumentListActivity extends AppCompatActivity {
         token = sharedPreferences.getString(LoginActivity.Token_s, null);
         (new ListRequestTask(this, listview)).execute(ip + "/api/doc");
         Log.e("docList","docList");
-
     }
 
 

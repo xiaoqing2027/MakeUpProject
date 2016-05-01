@@ -26,12 +26,10 @@ import java.util.Scanner;
 
 
 public class ListRequestTask extends AsyncTask<String, Integer, List<ListRequestTask.DocumentItem>> {
-
     ListView listview;
     Context context;
     List<Map<String, String>> data = new ArrayList<Map<String, String>>();
-   // SharedPreferences sharedPreferences;
-
+    // SharedPreferences sharedPreferences;
 
     public ListRequestTask(Context context, ListView listview) {
         this.listview = listview;
@@ -40,19 +38,17 @@ public class ListRequestTask extends AsyncTask<String, Integer, List<ListRequest
     }
 
     static class DocumentItem {
-        public DocumentItem(String id, String name,  String content,String updatedAt) {
+        public DocumentItem(String id, String name, String content, String updatedAt) {
             this.id = id;
             this.name = name;
             this.content = content;
             this.updatedAt = updatedAt;
-
-
         }
+
         String id;
         String name;
         String content;
         String updatedAt;
-
     }
 
     @Override
@@ -64,10 +60,9 @@ public class ListRequestTask extends AsyncTask<String, Integer, List<ListRequest
     protected List<ListRequestTask.DocumentItem> doInBackground(String... uri) {
         List<DocumentItem> docList = new ArrayList<>();
         try {
-
             URL object = new URL(uri[0]);
 
-            HttpURLConnection connection =(HttpURLConnection) object.openConnection();
+            HttpURLConnection connection = (HttpURLConnection) object.openConnection();
 
             connection.setRequestMethod("GET");
 
@@ -77,23 +72,20 @@ public class ListRequestTask extends AsyncTask<String, Integer, List<ListRequest
 
             InputStream response = connection.getInputStream();
 
-
             Scanner s = new Scanner(response).useDelimiter("\\A");
             String res = s.hasNext() ? s.next() : "";
-
 
             JSONArray array = new JSONArray(res);
 
             for (int i = 0; i < array.length(); i++) {
                 JSONObject obj = (JSONObject) array.get(i);
                 DocumentItem item = new DocumentItem(
-                    obj.getString("id"),
-                    obj.getString("name"),
-                    obj.getString("content"),
-                    obj.getString("updatedAt")
+                        obj.getString("id"),
+                        obj.getString("name"),
+                        obj.getString("content"),
+                        obj.getString("updatedAt")
                 );
                 docList.add(item);
-
             }
 
         } catch (Exception ex) {
@@ -109,20 +101,20 @@ public class ListRequestTask extends AsyncTask<String, Integer, List<ListRequest
 
         // close a spinning sign
 
-        for(int i = 0; i < docList.size(); i++) {
+        for (int i = 0; i < docList.size(); i++) {
             Map<String, String> map = new HashMap<>();
             map.put("id", docList.get(i).id);
             map.put("name", docList.get(i).name);
-            map.put("content", docList.get(i).content.substring(0,70)+"...");
+            map.put("content", docList.get(i).content.substring(0, 70) + "...");
             map.put("updatedAt", timeConvert(docList.get(i).updatedAt));
-            String p =timeConvert(docList.get(i).updatedAt);
+            String p = timeConvert(docList.get(i).updatedAt);
             data.add(map);
         }
 
 
         SimpleAdapter adapter = new SimpleAdapter(context, data,
                 R.layout.doc_item, new String[]{"name", "content", "updatedAt"},
-                new int[]{R.id.doc_name, R.id.doc_content,  R.id.doc_updatedAt}
+                new int[]{R.id.doc_name, R.id.doc_content, R.id.doc_updatedAt}
         );
 
         listview.setAdapter(adapter);
@@ -131,7 +123,7 @@ public class ListRequestTask extends AsyncTask<String, Integer, List<ListRequest
 
             @Override
             public void onItemClick(AdapterView<?> arg0, View view, int position, long id) {
-                Intent intent= new Intent(context, VersionListActivity.class);
+                Intent intent = new Intent(context, VersionListActivity.class);
                 int selected_id = Integer.parseInt(data.get(position).get("id"));
 //                SharedPreferences.Editor e =sharedPreferences.edit();
 //                e.putString(LoginActivity.origin_name_s,data.get(position).get("name"));
@@ -142,12 +134,9 @@ public class ListRequestTask extends AsyncTask<String, Integer, List<ListRequest
             }
 
         });
-
-
     }
 
-    private String timeConvert(String s){
-        return s.substring(0,19).replace('T', ' ');
-
+    private String timeConvert(String s) {
+        return s.substring(0, 19).replace('T', ' ');
     }
 }

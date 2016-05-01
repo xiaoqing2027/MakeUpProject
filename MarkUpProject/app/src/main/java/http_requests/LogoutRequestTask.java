@@ -15,7 +15,6 @@ import java.net.URL;
 
 
 public class LogoutRequestTask extends AsyncTask<String, Integer, String> {
-
     Context context;
     String res;
     String ip;
@@ -65,7 +64,6 @@ public class LogoutRequestTask extends AsyncTask<String, Integer, String> {
 
         return result;
     }
-
 
     @Override
     protected void onPostExecute(String result) {
