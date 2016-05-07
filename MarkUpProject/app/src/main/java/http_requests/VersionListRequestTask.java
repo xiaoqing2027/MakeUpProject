@@ -101,11 +101,11 @@ public class VersionListRequestTask extends AsyncTask<String, Integer, List<Vers
 //
 //        }
 
-        for (int i = 0; i < docList.size(); i++) {
+        for(int i = docList.size()-1 ; i >=0; i--) {
             Map<String, String> map = new HashMap<>();
             map.put("id", docList.get(i).id);
             map.put("name", docList.get(i).name);
-            map.put("content", docList.get(i).content.substring(0,70)+"...");
+            map.put("content", docList.get(i).content.substring(0,30)+"...");
             map.put("updatedAt", timeConvert(docList.get(i).updatedAt));
             data_version.add(map);
         }

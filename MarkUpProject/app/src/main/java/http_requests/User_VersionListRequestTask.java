@@ -157,7 +157,7 @@ public class User_VersionListRequestTask extends AsyncTask<String, Integer, List
         }else{
             // close a spinning sign
 
-            for (int i = 0; i < docList.size(); i++) {
+            for(int i = docList.size()-1 ; i >=0; i--) {
                 Map<String, Object> map = new HashMap<>();
                 map.put("id", docList.get(i).id);
                 map.put("name", docList.get(i).name);

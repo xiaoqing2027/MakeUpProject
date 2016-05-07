@@ -19,6 +19,7 @@ import us.feras.mdv.MarkdownView;
 public class ShowPreviewActivity extends AppCompatActivity {
 
     Button savebtn_newversion;
+    //Button back_edit;
     SharedPreferences sharedPreferences;
     String ip;
     int doc_id;
@@ -29,6 +30,8 @@ public class ShowPreviewActivity extends AppCompatActivity {
         setContentView(R.layout.preview);
         doc_id = getIntent().getIntExtra("doc_id_for_preview",-1);
         Log.e("preview________", doc_id+"");
+        //back_edit =(Button) findViewById(R.id.preview_pdf);
+
         //savebtn = (Button) findViewById(R.id.user_save_old_p);
         //savebtn.setOnClickListener(mySaveTtn);
         savebtn_newversion = (Button) findViewById(R.id.user_save_new_p);

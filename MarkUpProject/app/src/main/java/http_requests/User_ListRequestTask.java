@@ -49,14 +49,16 @@ public class User_ListRequestTask extends AsyncTask<String, Integer, List<User_L
     }
 
     static class DocumentItem {
-        public DocumentItem(String id, String name, String updatedAt) {
+        public DocumentItem(String id, String name, String content,String updatedAt) {
             this.id = id;
             this.name = name;
+            this.content =content;
             this.updatedAt = updatedAt;
 
         }
         String id;
         String name;
+        String content;
         String updatedAt;
     }
 
@@ -97,14 +99,16 @@ public class User_ListRequestTask extends AsyncTask<String, Integer, List<User_L
 
                 for (int i = 0; i < array.length(); i++) {
                     JSONObject obj = (JSONObject) array.get(i);
-                    //if(obj.getJSONObject("version").length() != 0){
+                    //Log.e("aaaaaaaaaaaaaa",((JSONObject) array.get(i)).get("versions")+"");
+                    if(!((JSONObject) array.get(i)).get("versions").toString().equals("[]")){
                         DocumentItem item = new DocumentItem(
                                 obj.getString("id"),
                                 obj.getString("name"),
+                                obj.getString("content"),
                                 obj.getString("updatedAt")
                         );
                         docList.add(item);
-                    //}
+                    }
 
                 }
 
@@ -127,17 +131,19 @@ public class User_ListRequestTask extends AsyncTask<String, Integer, List<User_L
         }else{
             // close a spinning sign
 
-            for(int i = 0; i < docList.size(); i++) {
+            for(int i = docList.size()-1 ; i >=0; i--) {
                 Map<String, String> map = new HashMap<>();
                 map.put("id", docList.get(i).id);
                 map.put("name", docList.get(i).name);
-                map.put("updatedAt", docList.get(i).updatedAt);
+                map.put("content", docList.get(i).content.substring(0,70)+"...");
+                map.put("updatedAt", timeConvert(docList.get(i).updatedAt));
                 data.add(map);
             }
 
+
             SimpleAdapter adapter = new SimpleAdapter(context, data,
-                    R.layout.doc_item, new String[]{"name", "updatedAt"},
-                    new int[]{R.id.doc_name, R.id.doc_updatedAt}
+                    R.layout.doc_item, new String[]{"name", "content", "updatedAt"},
+                    new int[]{R.id.doc_name, R.id.doc_content,  R.id.doc_updatedAt}
             );
 
             listview.setAdapter(adapter);
@@ -158,6 +164,10 @@ public class User_ListRequestTask extends AsyncTask<String, Integer, List<User_L
             });
 
         }
+
+    }
+    private String timeConvert(String s){
+        return s.substring(0,19).replace('T', ' ');
 
     }
 }
