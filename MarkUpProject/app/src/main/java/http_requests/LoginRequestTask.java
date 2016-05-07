@@ -33,12 +33,11 @@ public class LoginRequestTask extends AsyncTask<String, Integer, String> {
     int user_id;
 
 
-
     public LoginRequestTask(Context context, String ip) {
 
         this.context = context;
         this.ip = ip;
-        this.sharedPreferences =context.getSharedPreferences(LoginActivity.Markup, Context.MODE_PRIVATE);
+        this.sharedPreferences = context.getSharedPreferences(LoginActivity.Markup, Context.MODE_PRIVATE);
     }
 
     @Override
@@ -48,12 +47,12 @@ public class LoginRequestTask extends AsyncTask<String, Integer, String> {
 
     @Override
     protected String doInBackground(String... data) {
-        String result= "";
+        String result = "";
         HttpURLConnection urlConnection = null;
 
-        SharedPreferences.Editor e =sharedPreferences.edit();
-        e.putString(LoginActivity.Email_s,data[0]);
-        e.putString(LoginActivity.Password_s,data[1]);
+        SharedPreferences.Editor e = sharedPreferences.edit();
+        e.putString(LoginActivity.Email_s, data[0]);
+        e.putString(LoginActivity.Password_s, data[1]);
         e.commit();
         try {
 
@@ -83,13 +82,13 @@ public class LoginRequestTask extends AsyncTask<String, Integer, String> {
 //            Scanner s1 = new Scanner(e1).useDelimiter("\\A");
 //            error = s1.hasNext() ? s1.next() : "";
             error_code = urlConnection.getResponseCode();
-            if(error_code == 403){
-                Log.e("error code :::",urlConnection.getResponseCode()+"");
+            if (error_code == 403) {
+                Log.e("error code :::", urlConnection.getResponseCode() + "");
 
                 Toast.makeText(context, "Invalid email or password!!!.", Toast.LENGTH_SHORT).show();
 
                 return result;
-            }else{
+            } else {
                 InputStream in = new BufferedInputStream(urlConnection.getInputStream());
                 Scanner s = new Scanner(in).useDelimiter("\\A");
                 res = s.hasNext() ? s.next() : "";
@@ -111,29 +110,27 @@ public class LoginRequestTask extends AsyncTask<String, Integer, String> {
     protected void onPostExecute(String result) {
 
 
-        if(error_code == 403){
+        if (error_code == 403) {
             Toast.makeText(context, "Invalid email or password!!!.", Toast.LENGTH_SHORT).show();
-        }else{
-
-
-            Intent intent= new Intent(context,DocumentListActivity.class);
+        } else {
+            Intent intent = new Intent(context, DocumentListActivity.class);
 
             try {
 
-                JSONObject r= new JSONObject(result);
-                JSONObject user= new JSONObject(result);
+                JSONObject r = new JSONObject(result);
+                JSONObject user = new JSONObject(result);
                 token = r.getString("token");
                 expires = r.getString("expires");
-                user= r.getJSONObject("user");
+                user = r.getJSONObject("user");
                 user_id = user.getInt("id");
             } catch (JSONException e) {
                 e.printStackTrace();
             }
 
             SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putString(LoginActivity.Token_s,token);
-            editor.putString(LoginActivity.Expires_s,expires);
-            editor.putInt(LoginActivity.userid_s,user_id);
+            editor.putString(LoginActivity.Token_s, token);
+            editor.putString(LoginActivity.Expires_s, expires);
+            editor.putInt(LoginActivity.userid_s, user_id);
             editor.commit();
 
             context.startActivity(intent);

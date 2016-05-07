@@ -13,8 +13,6 @@ import java.util.Scanner;
 
 
 public class GetRequestTask extends AsyncTask<String, Integer, String> {
-
-
     Context context;
     EditText editor;
 
@@ -45,7 +43,7 @@ public class GetRequestTask extends AsyncTask<String, Integer, String> {
             result = obj.getString("name")+"\n\n"+obj.getString("content");
 
         } catch (Exception ex) {
-            Log.e("backgroud task", ex.getMessage());
+            Log.e("background task", ex.getMessage());
         }
 
         return result;

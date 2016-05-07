@@ -85,7 +85,7 @@ public class VersionListRequestTask extends AsyncTask<String, Integer, List<Vers
             }
 
         } catch (Exception ex) {
-            Log.e("backgroud task", ex.getMessage());
+            Log.e("background task", ex.getMessage());
         }
 
         return docList;
@@ -105,14 +105,18 @@ public class VersionListRequestTask extends AsyncTask<String, Integer, List<Vers
             Map<String, String> map = new HashMap<>();
             map.put("id", docList.get(i).id);
             map.put("name", docList.get(i).name);
+<<<<<<< HEAD
             map.put("content", docList.get(i).content.substring(0,30)+"...");
+=======
+            map.put("content", docList.get(i).content.substring(0, 70) + "...");
+>>>>>>> eb5c667e9a39e7dd523eaa2327f3e1fa5754e266
             map.put("updatedAt", timeConvert(docList.get(i).updatedAt));
             data_version.add(map);
         }
 
         SimpleAdapter adapter = new SimpleAdapter(context, data_version,
                 R.layout.version_item, new String[]{"name", "content", "updatedAt"},
-                new int[]{ R.id.version_name, R.id.version_content, R.id.version_updatedAt}
+                new int[]{R.id.version_name, R.id.version_content, R.id.version_updatedAt}
         );
 
         listview.setAdapter(adapter);
@@ -132,8 +136,9 @@ public class VersionListRequestTask extends AsyncTask<String, Integer, List<Vers
 
 
     }
-    private String timeConvert(String s){
-        return s.substring(0,19).replace('T', ' ');
+
+    private String timeConvert(String s) {
+        return s.substring(0, 19).replace('T', ' ');
 
     }
 }
