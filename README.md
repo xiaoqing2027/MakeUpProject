@@ -10,29 +10,23 @@
   [Documentation](https://github.com/xiaoqing2027/MarkUp_WebService/blob/master/Documentation/ITMD597_MarkUp_paper_HuixiaWang_A20324156.pdf)
   
 ### screen shots:
-  home page:
+  Home page / Register page / Login page:
   
-  <img src="https://github.com/xiaoqing2027/MarkUp_WebService/blob/master/Documentation/home.png" width="200">
+  <img src="https://github.com/xiaoqing2027/MarkUp_WebService/blob/master/Documentation/home.png" width="250">
+  <img src="https://github.com/xiaoqing2027/MarkUp_WebService/blob/master/Documentation/register.png" width = "250">
+  <img src="https://github.com/xiaoqing2027/MarkUp_WebService/blob/master/Documentation/login.png" width = "250">
   
-  Register and Login:
+  Classes List page / Notes List page for one class:
   
-  <img src="https://github.com/xiaoqing2027/MarkUp_WebService/blob/master/Documentation/register.png" width = "200">
-  <img src="https://github.com/xiaoqing2027/MarkUp_WebService/blob/master/Documentation/login.png" width = "200">
-  
-  Class List:
-  
-  <img src = "https://github.com/xiaoqing2027/MarkUp_WebService/blob/master/Documentation/myprofile.png" width = "200">
-  
-  Notes List for one class:
-  
-  <img src = "https://github.com/xiaoqing2027/MarkUp_WebService/blob/master/Documentation/versions.png" width = "200">
+  <img src = "https://github.com/xiaoqing2027/MarkUp_WebService/blob/master/Documentation/myprofile.png" width = "250">
+  <img src = "https://github.com/xiaoqing2027/MarkUp_WebService/blob/master/Documentation/versions.png" width = "250">
   
 
-  Unformatted document/formatted document:
+  Edit Class content page(Unformatted document) / formatted document page:
   
-  <img src = "https://github.com/xiaoqing2027/MarkUp_WebService/blob/master/Documentation/profile.png" width = "200">
-  <img src = "https://github.com/xiaoqing2027/MarkUp_WebService/blob/master/Documentation/preview.png" width = "200">
+  <img src = "https://github.com/xiaoqing2027/MarkUp_WebService/blob/master/Documentation/markdown.png" width = "250">
+  <img src = "https://github.com/xiaoqing2027/MarkUp_WebService/blob/master/Documentation/preview.png" width = "250">
   
-  User own notes list:(users have right to share/unshare their own notes)
+  User own notes list page:(users have right to share/unshare their own notes)
   
-  <img src = "https://github.com/xiaoqing2027/MarkUp_WebService/blob/master/Documentation/version_user.png" width = "200">
+  <img src = "https://github.com/xiaoqing2027/MarkUp_WebService/blob/master/Documentation/version_user.png" width = "250">
